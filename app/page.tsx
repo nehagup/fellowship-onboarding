@@ -1,6 +1,147 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { IconSquareRoundedX } from '@tabler/icons-react';
+
+const loadingStates = [
+  { text: "Verifying your details" },
+  { text: "Checking GitHub profile" },
+  { text: "Confirming repository star" },
+  { text: "Generating your ID card" },
+  { text: "Finalizing..." },
+];
+
+const CheckIcon = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={`w-6 h-6 ${className}`}
+    >
+      <path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+  );
+};
+
+const CheckFilled = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={`w-6 h-6 ${className}`}
+    >
+      <path
+        fillRule="evenodd"
+        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+const LoaderCore = ({
+  loadingStates,
+  value = 0,
+}: {
+  loadingStates: { text: string }[];
+  value?: number;
+}) => {
+  return (
+    <div className="flex relative justify-start max-w-xl mx-auto flex-col mt-40">
+      {loadingStates.map((loadingState, index) => {
+        const distance = Math.abs(index - value);
+        const opacity = Math.max(1 - distance * 0.2, 0);
+
+        return (
+          <motion.div
+            key={index}
+            className="text-left flex gap-2 mb-4"
+            initial={{ opacity: 0, y: -(value * 40) }}
+            animate={{ opacity: opacity, y: -(value * 40) }}
+            transition={{ duration: 0.5 }}
+          >
+            <div>
+              {index > value && <CheckIcon className="text-black dark:text-white" />}
+              {index <= value && (
+                <CheckFilled
+                  className={
+                    value === index
+                      ? "text-black dark:text-lime-500 opacity-100"
+                      : "text-black dark:text-white"
+                  }
+                />
+              )}
+            </div>
+            <span
+              className={
+                value === index
+                  ? "text-black dark:text-lime-500 opacity-100"
+                  : "text-black dark:text-white"
+              }
+            >
+              {loadingState.text}
+            </span>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
+
+const MultiStepLoader = ({
+  loadingStates,
+  loading,
+  duration = 2000,
+  loop = true,
+}: {
+  loadingStates: { text: string }[];
+  loading?: boolean;
+  duration?: number;
+  loop?: boolean;
+}) => {
+  const [currentState, setCurrentState] = useState(0);
+
+  useEffect(() => {
+    if (!loading) {
+      setCurrentState(0);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      setCurrentState((prevState) =>
+        loop
+          ? prevState === loadingStates.length - 1
+            ? 0
+            : prevState + 1
+          : Math.min(prevState + 1, loadingStates.length - 1)
+      );
+    }, duration);
+
+    return () => clearTimeout(timeout);
+  }, [currentState, loading, loop, loadingStates.length, duration]);
+
+  return (
+    <AnimatePresence mode="wait">
+      {loading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="w-full h-full fixed inset-0 z-[100] flex items-center justify-center  bg-black"
+        >
+          <div className="h-96 relative">
+            <LoaderCore value={currentState} loadingStates={loadingStates} />
+          </div>
+          <div className="bg-gradient-to-t inset-x-0 z-20 bottom-0 bg-white dark:bg-black h-full absolute [mask-image:radial-gradient(900px_at_center,transparent_30%,white)]" />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
 
 export default function Home() {
   const [name, setName] = useState('');
@@ -29,10 +170,8 @@ export default function Home() {
       setIsLoading(true);
       setError(null);
       
-      // The correct GitHub API endpoint to check if a user has starred a specific repo
       const response = await fetch(`https://api.github.com/user/starred/keploy/keploy`, {
         headers: {
-          // Using a custom header to check without requiring authentication
           'X-GitHub-Api-Version': '2022-11-28',
           'Accept': 'application/vnd.github.v3+json',
           'User-Agent': username
@@ -40,8 +179,6 @@ export default function Home() {
       });
       
       if (response.status === 401 || response.status === 403) {
-        // If we hit authentication issues, we'll use an alternative approach
-        // This is a public API that lists a user's starred repos (paginated)
         const page1Response = await fetch(`https://api.github.com/users/${username}/starred?per_page=100&page=1`);
         
         if (!page1Response.ok) {
@@ -51,13 +188,11 @@ export default function Home() {
         
         const starredRepos = await page1Response.json();
         
-        // Check if keploy/keploy is in the list of starred repos
         return starredRepos.some((repo: any) => 
           repo.full_name.toLowerCase() === 'keploy/keploy'
         );
       }
       
-      // If response is 204, the user has starred the repo
       return response.status === 204;
       
     } catch (error) {
@@ -69,33 +204,35 @@ export default function Home() {
   };
 
   const handleGenerate = async () => {
-    if (!name || !github || !email || !image) {
-      alert('Please fill all fields and upload a picture.');
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      setError(null);
-      
-      // Check if user has starred the repository
-      const hasStarred = await checkGitHubStar(github);
-      
-      if (!hasStarred) {
-        setError("You need to star the Keploy repository to generate an ID card. Please star it here: https://github.com/keploy/keploy");
-        return;
-      }
-      
-      // If we got here, the user has starred the repo
-      setGenerated(true);
-      
-    } catch (error) {
-      console.error("Error during generation:", error);
-      setError("There was an error processing your request. Please try again later or contact devrel@keploy.io");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      if (!name || !github || !email || !image) {
+        alert('Please fill all fields and upload a picture.');
+        return;
+      }
+    
+      try {
+        setIsLoading(true);
+        setError(null);
+    
+        const minDelay = new Promise(resolve => setTimeout(resolve, 7000)); // 3 sec min delay
+        const hasStarredPromise = checkGitHubStar(github);
+    
+        const [hasStarred] = await Promise.all([hasStarredPromise, minDelay]);
+    
+        if (!hasStarred) {
+          setError("You need to star the Keploy repository to generate an ID card. Please star it here: https://github.com/keploy/keploy");
+          return;
+        }
+    
+        setGenerated(true);
+    
+      } catch (error) {
+        console.error("Error during generation:", error);
+        setError("There was an error processing your request. Please try again later or contact devrel@keploy.io");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
 
   const handleDownload = async () => {
     const canvas = canvasRef.current;
@@ -104,17 +241,14 @@ export default function Home() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Background gradient
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
     gradient.addColorStop(0, '#111111');
     gradient.addColorStop(1, '#201206');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Add decorative elements
     ctx.fillStyle = 'rgba(255, 136, 0, 0.05)';
     ctx.beginPath();
     ctx.arc(50, 50, 100, 0, Math.PI * 2);
@@ -123,7 +257,6 @@ export default function Home() {
     ctx.arc(canvas.width - 50, canvas.height - 50, 120, 0, Math.PI * 2);
     ctx.fill();
 
-    // Heading
     const orangeGradient = ctx.createLinearGradient(20, 40, 280, 40);
     orangeGradient.addColorStop(0, '#ff8800');
     orangeGradient.addColorStop(1, '#ff5500');
@@ -132,20 +265,16 @@ export default function Home() {
     ctx.textAlign = 'center';
     ctx.fillText('Keploy API Fellowship', canvas.width / 2, 50);
 
-    // Image - BIGGER
     const img = new Image();
     img.src = image;
     img.onload = () => {
-      // Draw circle with border
       const x = canvas.width / 2;
       const y = 140;
-      const radius = 80; // Increased from 70
+      const radius = 80;
 
-      // Shadow
       ctx.shadowColor = 'rgba(255, 136, 0, 0.6)';
       ctx.shadowBlur = 15;
       
-      // Circle clip and image
       ctx.save();
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2, true);
@@ -154,46 +283,38 @@ export default function Home() {
       ctx.drawImage(img, x - radius, y - radius, radius * 2, radius * 2);
       ctx.restore();
       
-      // Reset shadow
       ctx.shadowBlur = 0;
       
-      // Circle border
       ctx.strokeStyle = '#ff8800';
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Name - BIGGER
       ctx.fillStyle = 'white';
-      ctx.font = 'bold 26px sans-serif'; // Increased from 22px
+      ctx.font = 'bold 26px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(name, x, 260); // Adjusted position
+      ctx.fillText(name, x, 260);
 
-      // GitHub username
       ctx.fillStyle = '#ff8800';
       ctx.font = '16px sans-serif';
-      ctx.fillText(`@${github}`, x, 290); // Adjusted position
+      ctx.fillText(`@${github}`, x, 290);
       
-      // Cohort text
       ctx.fillStyle = '#999999';
       ctx.font = 'italic 14px sans-serif';
-      ctx.fillText('Cohort 2025 API Fellow', x, 320); // Adjusted position
+      ctx.fillText('Cohort 2025 API Fellow', x, 320);
 
-      // Add decorative line
       ctx.strokeStyle = 'rgba(255, 136, 0, 0.3)';
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(50, 370); // Adjusted position
-      ctx.lineTo(canvas.width - 50, 370); // Adjusted position
+      ctx.moveTo(50, 370);
+      ctx.lineTo(canvas.width - 50, 370);
       ctx.stroke();
 
-      // Add Keploy small text
       ctx.fillStyle = '#777777';
       ctx.font = '12px sans-serif';
-      ctx.fillText('Keploy.io', x, 400); // Adjusted position
+      ctx.fillText('Keploy.io', x, 400);
 
-      // Download
       const link = document.createElement('a');
       link.download = `${name.replace(/\s/g, '_')}_keploy_id.png`;
       link.href = canvas.toDataURL();
@@ -203,6 +324,17 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white text-gray-800 flex flex-col items-center p-8 space-y-8">
+      <MultiStepLoader loadingStates={loadingStates} loading={isLoading} />
+
+      {isLoading && (
+        <button
+          className="fixed top-4 right-4 text-black dark:text-white z-[120]"
+          onClick={() => setIsLoading(false)}
+        >
+          <IconSquareRoundedX className="h-10 w-10" />
+        </button>
+      )}
+
       <div className="text-center mb-6">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
           Keploy API Fellowship
@@ -236,7 +368,6 @@ export default function Home() {
               value={github}
               onChange={(e) => {
                 setGithub(e.target.value);
-                // Clear any previous errors when the username changes
                 if (error) setError(null);
               }}
             />
@@ -295,7 +426,7 @@ export default function Home() {
             disabled={isLoading}
             className={`w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-300 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
-            {isLoading ? 'Checking Star Status...' : 'Generate ID Card'}
+            Generate ID Card
           </button>
 
           <div className="mt-4 text-sm text-gray-600 text-center">
