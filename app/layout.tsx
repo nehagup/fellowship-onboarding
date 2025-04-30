@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
-import { WavyBackground } from "@/components/ui/wavy-background";
+// import { WavyBackground } from "@/components/ui/wavy-background";
 
 const inter = Inter({ subsets: ["latin"] });
 

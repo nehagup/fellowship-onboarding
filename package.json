@@ -1,5 +1,5 @@
 {
-  "name": "interactive-3d-event-badge",
+  "name": "fellowship-badges",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -36,7 +36,7 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "author": "Daffa Haidar Nabil Zufar",
+  "author": "Amaan Bhati",
   "keywords": [
     "nextjs",
     "interactive",
