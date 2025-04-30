@@ -6,8 +6,8 @@ import "@/styles/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Fellowship onboarding platform",
-  description: "Interactive onboarding website with a 3d card",
+  title: "Keploy API Fellowship",
+  description: "Keploy API Fellowship badge collection platform. Enter your registered details and get your id cards in both 2d and and 3d format!",
 };
 
 export default function RootLayout({

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-// import { WavyBackground } from "./ui/wavy-background";
 
 import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
@@ -271,18 +270,25 @@ export default function BandBand({ userData }: BandProps) {
     const context = cardCanvas.getContext('2d');
     if (context) {
       context.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
-      
+  
+      // Draw the logo above the heading
+      // if (keployLogoTexture.image) {
+      //   const logoSize = 84; // small size
+      //   const logoX = (cardCanvas.width - logoSize) / 2; // center horizontally
+      //   const logoY = 40; // 30px from top
+      //   context.drawImage(keployLogoTexture.image, logoX, logoY, logoSize, logoSize);
+      // }
+  
       // Fellowship heading gradient (orange to red)
       const titleGradient = context.createLinearGradient(50, 0, 462, 0);
-      titleGradient.addColorStop(0, '#FF8C00');    // Dark Orange
-      titleGradient.addColorStop(0.5, '#FFA500');  // Orange
-      titleGradient.addColorStop(1, '#FF4500');    // Orange Red
-      
-      // Fellowship heading with modern font
+      titleGradient.addColorStop(0, '#FF8C00');
+      titleGradient.addColorStop(0.5, '#FFA500');
+      titleGradient.addColorStop(1, '#FF4500');
+  
       context.fillStyle = titleGradient;
-      context.font = 'bold 28px "Segoe UI", Arial, sans-serif';
+           context.font = 'bold 40px "Trebuchet MS", Helvetica, sans-serif';
       context.textAlign = 'center';
-      context.fillText('KEPLOY API FELLOWSHIP', 256, 100);
+      context.fillText('API FELLOWSHIP', 256, 90);
       
       // Name gradient (different orange palette)
       const nameGradient = context.createLinearGradient(100, 360, 400, 360);
@@ -292,15 +298,15 @@ export default function BandBand({ userData }: BandProps) {
       
       // Person name with gradient and more attractive font
       context.fillStyle = nameGradient;
-      context.font = 'bold 42px "Trebuchet MS", Helvetica, sans-serif';
-      context.fillText(userData.name, 256, 360);
+      context.font = 'bold 38px "Trebuchet MS", Helvetica, sans-serif';
+      context.fillText(userData.name, 256, 350);
       
       // Add subtle shadow effect to name text
       context.shadowColor = 'rgba(0, 0, 0, 0.3)';
       context.shadowBlur = 4;
       context.shadowOffsetX = 2;
       context.shadowOffsetY = 2;
-      context.fillText(userData.name, 256, 360);
+      context.fillText(userData.name, 256, 350);
       
       // Reset shadow for other text
       context.shadowColor = 'transparent';
@@ -311,12 +317,12 @@ export default function BandBand({ userData }: BandProps) {
       // GitHub username, font for the same can be changed here as well
       context.fillStyle = '#E0E0E0';  // Light gray
       context.font = '24px "Roboto", Arial, sans-serif';
-      context.fillText(`@${userData.github}`, 256, 400);
+      context.fillText(`@${userData.github}`, 256, 380);
       
       // Fellow title, font and style can be changed here
       context.fillStyle = 'white';
       context.font = 'bold 26px "Segoe UI", Arial, sans-serif';
-      context.fillText('API Fellow Cohort 2025', 256, 440);
+      context.fillText('Cohort 2025', 256, 490);
       
       // context.font = '22px "Segoe UI", Arial, sans-serif';
       // context.fillText('', 256, 470);

@@ -11,7 +11,8 @@ import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import Band from "@/components/band";
 import Hero from "@/components/hero";
 import { useState } from "react";
-import { WavyBackground } from "@/components/ui/wavy-background";
+// import { WavyBackground } from "@/components/ui/wavy-background";
+// import { SparklesPreview } from "@/components/spaarkles-peview";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 useGLTF.preload("/assets/3d/card.glb");
@@ -27,15 +28,17 @@ export default function Register() {
   });
 
   return (
+    
     <div className="relative w-full">
       {/* Hero section taking full width */}
       <div className="w-full">
+        {/* <SparklesPreview/> */}
       <Hero 
           onDataUpdate={(newData) => setUserData(prev => ({...prev, ...newData}))} 
           userData={userData}
         />
       </div>
-      
+
       {/* Band section taking full width */}
       <div className="w-full h-screen">
 
