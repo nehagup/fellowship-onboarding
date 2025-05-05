@@ -45,30 +45,43 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
 
   const checkGitHubStar = async (username: string): Promise<boolean> => {
     if (!username) return false;
+    
+    // Sanitize the username by trimming and removing any spaces
+    const sanitizedUsername = username.trim().replace(/\s+/g, '');
+    
+    if (!sanitizedUsername) return false;
+    
     try {
       setIsLoading(true);
       setError(null);
+      
+      // Use sanitized username in API calls
       const response = await fetch(`https://api.github.com/user/starred/keploy/keploy`, {
         headers: {
           'X-GitHub-Api-Version': '2022-11-28',
           'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': username
+          'User-Agent': sanitizedUsername
         }
       });
+      
       if (response.status === 401 || response.status === 403) {
         // If we hit authentication issues, we'll use an alternative approach
         // This is a public API that lists a user's starred repos (paginated)
-        const page1Response = await fetch(`https://api.github.com/users/${username}/starred?per_page=100&page=1`);
+        const page1Response = await fetch(`https://api.github.com/users/${sanitizedUsername}/starred?per_page=100&page=1`);
+        
         if (!page1Response.ok) {
           console.error("Error fetching user's starred repos:", page1Response.status);
           return false;
         }
+        
         const starredRepos = await page1Response.json();
+        
         // Check if keploy/keploy is in the list of starred repos
         return starredRepos.some((repo: any) =>
           repo.full_name.toLowerCase() === 'keploy/keploy'
         );
       }
+      
       // If response is 204, the user has starred the repo
       return response.status === 204;
     } catch (error) {
@@ -88,7 +101,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
     try {
       setIsLoading(true);
       setError(null);
-      // Check if user has starred the repository
+      // Check if user has starred the repository using sanitized github username
       const hasStarred = await checkGitHubStar(github);
       if (!hasStarred) {
         setError("You need to star the Keploy repository to generate an ID card. Please star it here:");
@@ -100,7 +113,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
       console.error("Error during generation:", error);
       setError("There was an error processing your request. Please try again later or contact devrel@keploy.io");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); 
     }
   };
 
@@ -169,10 +182,11 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
         ctx.font = 'bold 26px sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(name, x, 260);
-        // GitHub username
+        // GitHub username - use sanitized version
+        const sanitizedGithub = github.trim().replace(/\s+/g, '');
         ctx.fillStyle = '#ff8800';
         ctx.font = '16px sans-serif';
-        ctx.fillText(`@${github}`, x, 290);
+        ctx.fillText(`@${sanitizedGithub}`, x, 290);
         // Cohort text
         ctx.fillStyle = '#999999';
         ctx.font = 'italic 14px sans-serif';
@@ -251,7 +265,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
         placeholder="user-name"
         className="w-full p-3 rounded-lg bg-white/10 border border-orange-300/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none transition"
         value={github}
-        onChange={(e) => onDataUpdate({ github: e.target.value })}
+        onChange={(e) => onDataUpdate({ github: e.target.value.trim().replace(/\s+/g, '') })}
       />
     </div>
           {/* Email Field */}
@@ -356,7 +370,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
                 </div>
               </div>
               <div className="text-xl font-bold text-white">{name}</div>
-              <div className="text-orange-500 font-medium">@{github}</div>
+              <div className="text-orange-500 font-medium">@{github.trim().replace(/\s+/g, '')}</div>
               <div className="text-sm text-gray-400 italic">Cohort 2025 API Fellow</div>
               <div className="w-full h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent my-2"></div>
               <div className="text-xs text-gray-500">Keploy.io</div>

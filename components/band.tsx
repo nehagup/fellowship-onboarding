@@ -201,41 +201,20 @@ export default function BandBand({ userData }: BandProps) {
       
       ctx.clearRect(0, 0, 512, 512);
       
-      // Create circular clipping path
+      // Create circular clipping path with smaller radius
       ctx.beginPath();
-      ctx.arc(256, 256, 230, 0, Math.PI * 2);
+      ctx.arc(256, 256, 180, 0, Math.PI * 2); // Reduced from 230 to 180
       ctx.closePath();
       ctx.clip();
       
-      // Draw the profile image inside the circle
+      // Draw the profile image inside the smaller circle
       ctx.drawImage(profileTexture.image, 0, 0, 512, 512);
       ctx.restore();
       ctx.save();
       
-      // Draw gradient border
-   // Draw partial orange borders (only at certain angles)
-
-  //  const orangeColor = '#FF6E1F';
-
-  //  ctx.lineWidth = 12;
-
-  //  ctx.strokeStyle = orangeColor;
-
-   
-
-  //  // Top-right arc segment
-
-  //  ctx.beginPath();
-
-  //  ctx.arc(256, 256, 230, -0.6, 0.8, false);
-
-  //  ctx.stroke();
-
-   // Bottom-left arc segment
-
-   ctx.beginPath();
-
-   ctx.arc(256, 256, 230, Math.PI + 0.4, Math.PI + 1.8, false);
+      // Bottom-left arc segment - adjusted to match smaller radius
+      ctx.beginPath();
+      ctx.arc(256, 256, 180, Math.PI + 0.4, Math.PI + 1.8, false);
       ctx.stroke();
     };
     
@@ -271,63 +250,50 @@ export default function BandBand({ userData }: BandProps) {
     if (context) {
       context.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
   
-      // Draw the logo above the heading
-      // if (keployLogoTexture.image) {
-      //   const logoSize = 84; // small size
-      //   const logoX = (cardCanvas.width - logoSize) / 2; // center horizontally
-      //   const logoY = 40; // 30px from top
-      //   context.drawImage(keployLogoTexture.image, logoX, logoY, logoSize, logoSize);
-      // }
+      // Keploy logo - top center
+      if (keployLogoTexture.image) {
+        const logoWidth = 146;
+        const logoHeight = 48;
+        const logoX = (cardCanvas.width - logoWidth) / 2;
+        const logoY = 55;
+        context.drawImage(keployLogoTexture.image, logoX, logoY, logoWidth, logoHeight);
+      }
   
-      // Fellowship heading gradient (orange to red)
-      const titleGradient = context.createLinearGradient(50, 0, 462, 0);
-      titleGradient.addColorStop(0, '#FF8C00');
-      titleGradient.addColorStop(0.5, '#FFA500');
-      titleGradient.addColorStop(1, '#FF4500');
+      // "Keploy API Fellowship" heading
+      const headingGradient = context.createLinearGradient(50, 0, 462, 0);
+      headingGradient.addColorStop(0, '#FF8C00');
+      headingGradient.addColorStop(1, '#FF4500');
   
-      context.fillStyle = titleGradient;
-           context.font = 'bold 40px "Trebuchet MS", Helvetica, sans-serif';
-      context.textAlign = 'center';
-      context.fillText('API FELLOWSHIP', 256, 90);
-      
-      // Name gradient (different orange palette)
-      const nameGradient = context.createLinearGradient(100, 360, 400, 360);
-      nameGradient.addColorStop(0, '#FF8036');    // Coral Orange
-      nameGradient.addColorStop(0.5, '#FFAA33');  // Amber
-      nameGradient.addColorStop(1, '#FF6E1F');    // Deep Orange
-      
-      // Person name with gradient and more attractive font
+    
+  
+      // User name
+      const nameGradient = context.createLinearGradient(100, 0, 400, 0);
+      nameGradient.addColorStop(0, '#FFFFFF');
+      nameGradient.addColorStop(0.5, '#FFFFFF');
+      nameGradient.addColorStop(1, '#FFFFFF');
       context.fillStyle = nameGradient;
-      context.font = 'bold 38px "Trebuchet MS", Helvetica, sans-serif';
-      context.fillText(userData.name, 256, 350);
-      
-      // Add subtle shadow effect to name text
-      context.shadowColor = 'rgba(0, 0, 0, 0.3)';
-      context.shadowBlur = 4;
-      context.shadowOffsetX = 2;
-      context.shadowOffsetY = 2;
-      context.fillText(userData.name, 256, 350);
-      
-      // Reset shadow for other text
-      context.shadowColor = 'transparent';
-      context.shadowBlur = 0;
-      context.shadowOffsetX = 0;
-      context.shadowOffsetY = 0;
-      
-      // GitHub username, font for the same can be changed here as well
-      context.fillStyle = '#E0E0E0';  // Light gray
-      context.font = '24px "Roboto", Arial, sans-serif';
-      context.fillText(`@${userData.github}`, 256, 380);
-      
-      // Fellow title, font and style can be changed here
+      context.font = 'bold 38px Helvetica, sans-serif';
+      context.textAlign = 'center';
+      context.fillText('API Fellowship', 256, 140);
+  
+      context.fillStyle = nameGradient;
+      context.font = 'bold 32px Helvetica, sans-serif';
+      context.fillText(userData.name, 256, 360);
+
+
+  
+      // GitHub handle
+      context.fillStyle = '#DDDDDD';
+      context.font = '24px Helvetica, sans-serif';
+      context.fillText(`@${userData.github}`, 256, 395);
+  
+      // Cohort
       context.fillStyle = 'white';
-      context.font = 'bold 26px "Segoe UI", Arial, sans-serif';
+      context.font = '22px Helvetica, sans-serif';
       context.fillText('Cohort 2025', 256, 490);
-      
-      // context.font = '22px "Segoe UI", Arial, sans-serif';
-      // context.fillText('', 256, 470);
     }
-  }, [userData.name, personTitle, userData.github, cardCanvas]);
+  }, [userData.name, personTitle, userData.github, cardCanvas, keployLogoTexture]);
+  
 
   // Create texture from canvas
   const [cardTextTexture] = useState(() => new THREE.CanvasTexture(cardCanvas));
@@ -379,7 +345,6 @@ export default function BandBand({ userData }: BandProps) {
           >
             {/* Custom 3D ID Card */}
             <group>
-              {/* Card Base */}
               <mesh position={[0, 0, 0]}>
                 <boxGeometry args={[1.6, 2.25, 0.05]} />
                 <meshPhysicalMaterial 
@@ -392,17 +357,17 @@ export default function BandBand({ userData }: BandProps) {
                 />
               </mesh>
               
-              {/* Photo Area - Circular with gradient border */}
-              <mesh position={[0, 0.15, 0.031]}>
-                <planeGeometry args={[0.9, 0.9]} />
+              {/* Photo Area - Circular with gradient border - moved down and sized smaller */}
+              <mesh position={[0, 0.05, 0.031]}>
+                <planeGeometry args={[1.0, 1.0]} /> 
                 <meshBasicMaterial 
                   map={circularImageTexture}
                   transparent
                   alphaTest={0.1}
                 />
               </mesh>
-              
-              {/* Text Content Area - covering the entire card for better layout */}
+
+
               <mesh position={[0, 0, 0.03]}>
                 <planeGeometry args={[1.5, 2.2]} />
                 <meshBasicMaterial 
