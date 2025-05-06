@@ -1,18 +1,11 @@
 'use client';
 import React, { useRef, useState } from 'react';
 import NextImage from 'next/image';
-// import { SparklesCore } from './ui/sparkles';
 
 const loadingStates = [
-  {
-   text: "Checking the registration Status",
-  },
-  {
-    text: "Checking your acceptance into the program",
-  },
-  {
-    text: "Checking if you have star marked our repository",
-  },
+  { text: "Checking the registration Status" },
+  { text: "Checking your acceptance into the program" },
+  { text: "Checking if you have star marked our repository" },
 ];
 
 interface UserData {
@@ -116,10 +109,8 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
       logo.src = '/assets/images/keploy-logo.png';
 
       logo.onload = () => {
-        // Draw logo at top
         ctx.drawImage(logo, x - 60, 20, 120, 40);
 
-        // Heading text below logo
         const headingY = 80;
         const gradient = ctx.createLinearGradient(20, headingY, 280, headingY);
         gradient.addColorStop(0, '#ff8800');
@@ -129,14 +120,12 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
         ctx.textAlign = 'center';
         ctx.fillText('API Fellowship', x, headingY + 8);
 
-        // Load user image
         const img = new window.Image();
         img.src = image;
         img.onload = () => {
           const y = 180;
           const radius = 70;
 
-          // Draw circular image
           ctx.save();
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -145,18 +134,15 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
           ctx.drawImage(img, x - radius, y - radius, radius * 2, radius * 2);
           ctx.restore();
 
-          // User name
           ctx.fillStyle = 'white';
           ctx.font = 'bold 28px Helvetica';
-          ctx.fillText(name, x, y + radius + 30); // slightly reduced margin
+          ctx.fillText(name, x, y + radius + 30);
 
-          // GitHub username
           ctx.fillStyle = '#ff8800';
           ctx.font = '16px Helvetica';
           const sanitizedGithub = github.trim().replace(/\s+/g, '');
           ctx.fillText(`@${sanitizedGithub}`, x, y + radius + 50);
 
-          // Stick bottom elements to end of card
           const baseY = canvas.height - 70;
           ctx.fillStyle = '#999999';
           ctx.font = 'italic 14px Helvetica';
@@ -173,7 +159,6 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
           ctx.font = '12px Helvetica';
           ctx.fillText('Keploy.io', x, baseY + 30);
 
-          // Trigger download
           const link = document.createElement('a');
           link.download = `${name.replace(/\s/g, '_')}_keploy_id.png`;
           link.href = canvas.toDataURL();
@@ -184,40 +169,43 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
   };
 
   return (
-    <main className="bg-gradient-to-br from-white to-orange-50 text-gray-800 flex flex-col items-center p-8 space-y-8 min-h-screen relative">
-      {/* Orange gradient circles in background */}
-      <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-gradient-to-r from-orange-200 to-orange-100 opacity-40 blur-3xl"></div>
-      <div className="absolute bottom-40 right-20 w-80 h-80 rounded-full bg-gradient-to-l from-orange-200 to-orange-100 opacity-30 blur-3xl"></div>
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/3 w-40 h-40 rounded-full bg-gradient-to-tr from-orange-300 to-orange-100 opacity-20 blur-2xl"></div>
-      
-      <div className="text-center mt-10 relative z-10">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-          Keploy API Fellowship
-        </h1>
-        <p className="text-lg text-gray-600 mt-2">Onboarding and ID Card Collection</p>
+    <main className="relative min-h-screen w-full flex flex-col items-center justify-start overflow-hidden pb-24">
+      <div className="absolute inset-0 -z-10">
+        <NextImage
+          src="/assets/images/orange-painting.jpg"
+          alt="Background"
+          fill
+          priority
+          style={{ objectFit: 'cover' }}
+        />
       </div>
 
       {/* Form */}
-      <form onSubmit={(e) => e.preventDefault()} className="relative backdrop-blur-md bg-white/70 border border-orange-200 p-8 rounded-2xl shadow-lg space-y-6 w-full max-w-md z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-orange-50/80 rounded-2xl pointer-events-none" />
-        {/* Inputs */}
+      <form onSubmit={(e) => e.preventDefault()} className="relative backdrop-blur-xl bg-white/10 border border-white/30 p-8 rounded-2xl shadow-xl space-y-6 w-full max-w-md z-10 mt-10">
+        <div className="text-center relative z-10">
+          <h1 className="text-3xl font-bold text-white">
+            Keploy API Fellowship
+          </h1>
+          <p className="text-lg text-white/80 mt-2">Onboarding and ID Card Collection</p>
+        </div>
+
         <div className="relative space-y-6">
           {["name", "github", "email"].map((field, i) => (
             <div key={i}>
-              <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">{field}</label>
+              <label className="block text-sm font-medium text-white/90 mb-2 capitalize">{field}</label>
               <input
                 type={field === "email" ? "email" : "text"}
                 placeholder={field === "github" ? "user-name" : `Your ${field}`}
-                className="w-full p-3 rounded-lg bg-white/80 border border-orange-200 text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-orange-400 focus:outline-none transition shadow-sm"
+                className="w-full p-3 rounded-lg bg-white/30 text-white placeholder-white/70 border border-white/20 focus:ring-2 focus:ring-orange-300 focus:outline-none transition shadow-sm"
                 value={userData[field as keyof UserData] as string}
                 onChange={(e) => onDataUpdate({ [field]: e.target.value })}
               />
             </div>
           ))}
-          {/* Image Upload */}
+
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Profile Picture</label>
-            <div className="border-2 border-dashed border-orange-300 rounded-lg p-4 text-center hover:border-orange-500 transition bg-orange-50/80">
+            <label className="block text-sm font-medium text-white/90 mb-2">Profile Picture</label>
+            <div className="border-2 border-dashed border-orange-300 rounded-lg p-4 text-center hover:border-orange-500 transition bg-orange-50/10">
               {image ? (
                 <div className="flex flex-col items-center">
                   <div className="w-24 h-24 rounded-full overflow-hidden relative shadow-md">
@@ -229,54 +217,54 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
                       sizes="96px"
                     />
                   </div>
-                  <label className="text-orange-600 hover:text-orange-700 cursor-pointer text-sm mt-2 font-medium">
+                  <label className="text-orange-100 hover:text-orange-500 cursor-pointer text-sm mt-2 font-medium">
                     Change Image
                     <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                   </label>
                 </div>
               ) : (
                 <label className="cursor-pointer">
-                  <div className="text-gray-500 mb-2">Click to upload image</div>
+                  <div className="text-white/70 mb-2">Click to upload image</div>
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                 </label>
               )}
             </div>
           </div>
+
           {error && (
-            <div className="mb-6 p-4 bg-orange-50 border border-orange-300 rounded-lg text-orange-800">
+            <div className="mb-6 p-4 bg-orange-50/10 border border-orange-300 rounded-lg text-orange-200">
               <p className="mb-2">{error}</p>
               <a
                 href="https://github.com/keploy/keploy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-orange-600 hover:text-orange-800 underline font-medium"
+                className="text-orange-400 hover:text-orange-600 underline font-medium"
               >
                 Star the repository here
               </a>
-              <p className="text-sm mt-2 text-gray-600">
-                If you have already starred the repository and still facing issues, please wait a few minutes for GitHub&apos;s API to update or contact to us on our <a href=''>Slack Channel</a>
+              <p className="text-sm mt-2 text-white/70">
+                If you have already starred the repository and still facing issues, please wait a few minutes or contact us on <a href="">Slack</a>
               </p>
             </div>
           )}
+
           <button
             onClick={handleGenerate}
             disabled={isLoading}
-            className={`w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-300 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+            className={`w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-300 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isLoading ? 'Checking Star and Register Status...' : 'Generate ID Card'}
           </button>
-          <div className="mt-4 text-sm text-gray-600 text-center">
-            {/* <p>⭐ You must star the <a href="https://github.com/keploy/keploy" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Keploy repository</a> to generate your ID card</p> */}
+
+          <div className="mt-4 text-sm text-white/70 text-center">
             <p>If there is an issue in generating your badge, reach out to us on our <a href="">Slack Channel</a></p>
           </div>
         </div>
       </form>
 
-      {/* Rendered Card */}
       {generated && (
-        <div className="mt-6 flex flex-col items-center space-y-6 z-10">
+        <div className="mt-10 flex flex-col items-center space-y-6 z-10">
           <div className="relative pt-8 pb-6 px-6 rounded-xl shadow-xl w-80 flex flex-col items-center overflow-hidden bg-black">
-            {/* Background image */}
             <div className="absolute inset-0">
               <NextImage
                 src="/assets/images/card-background.png"
@@ -287,7 +275,6 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
               />
             </div>
 
-            {/* Logo */}
             <div className="relative z-10 w-24 h-10 mb-0">
               <NextImage
                 src="/assets/images/keploy-logo.png"
@@ -313,7 +300,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
                 </div>
               </div>
               <div className="text-xl font-bold text-white -mt-1 mb-0">{name}</div>
-              <div className="text-orange-500 font-medium mt-100">@{github.trim().replace(/\s+/g, '')}</div>
+              <div className="text-orange-500 font-medium">@{github.trim().replace(/\s+/g, '')}</div>
               <div className="mt-3 text-sm text-gray-400 italic">API Fellow Cohort 2025</div>
               <div className="w-full h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent my-2"></div>
               <div className="text-xs text-gray-500">Keploy.io</div>
