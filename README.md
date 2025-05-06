@@ -33,7 +33,6 @@ Page slugs (URLs), menu labels, and the location of information are a few of the
 
 If information you are looking for seems to be missing, visit the [Keploy community](https://join.slack.com/t/keploy/shared_invite/zt-2poflru6f-_VAuvQfCBT8fDWv1WwSbkw) forum for help.
 
-Please read the [CONTRIBUTING](/CONTRIBUTING.md) guide and the [STYLE](/STYLE.md) guide before you submit any pull requests.
 
 Maintainers and contributors to this project are expected to conduct themselves in a respectful way.
 See the [CNCF Community Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) as a reference.
