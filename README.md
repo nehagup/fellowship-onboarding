@@ -63,7 +63,7 @@ This project is built using:
 ```bash
 # Clone the repository
 git clone https://github.com/keploy/badge-fellowship.git
-cd api-fellowship-badge-website
+cd badge-fellowship
 
 # Install dependencies
 npm install
