@@ -90,87 +90,105 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
     }
   };
 
-  const handleDownload = async () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+  const handleDownload = () => {
+  const canvas = canvasRef.current;
+  if (!canvas) return;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const x = canvas.width / 2;
+  /* ultra‑HD factor (tweak up to 6‑8 if you ever need poster‑size) */
+  const scale = 5;               // 350×500 → 1750×2500 px
+  const baseW = 350;
+  const baseH = 500;
 
-    const bgImg = new window.Image();
-    bgImg.src = '/assets/images/card-background.png';
+  canvas.width  = baseW * scale;
+  canvas.height = baseH * scale;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  ctx.scale(scale, scale);       // draw in logical units
 
-    bgImg.onload = () => {
-      ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+  /* helper */
+  const load = (src: string) =>
+    new Promise<HTMLImageElement>((res, rej) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => res(img);
+      img.onerror = rej;
+      img.src = src;
+    });
 
-      const logo = new window.Image();
-      logo.src = '/assets/images/keploy-logo.png';
+  (async () => {
+    ctx.clearRect(0, 0, baseW, baseH);
+    const cx = baseW / 2;
 
-      logo.onload = () => {
-        ctx.drawImage(logo, x - 60, 20, 120, 40);
+    const [bg, logo, avatar] = await Promise.all([
+      load('/assets/images/card-background.png'),
+      load('/assets/images/keploy-logo.png'),
+      load(image),
+    ]);
 
-        const headingY = 80;
-        const gradient = ctx.createLinearGradient(20, headingY, 280, headingY);
-        gradient.addColorStop(0, '#ff8800');
-        gradient.addColorStop(1, '#ff5500');
-        ctx.fillStyle = gradient;
-        ctx.font = 'bold 26px Helvetica';
-        ctx.textAlign = 'center';
-        ctx.fillText('API Fellowship', x, headingY + 8);
+    ctx.drawImage(bg, 0, 0, baseW, baseH);
+    ctx.drawImage(logo, cx - 60, 20, 120, 40);
 
-        const img = new window.Image();
-        img.src = image;
-        img.onload = () => {
-          const y = 180;
-          const radius = 70;
+    const headingY = 80;
+    const grad = ctx.createLinearGradient(20, headingY, 280, headingY);
+    grad.addColorStop(0, '#ff8800');
+    grad.addColorStop(1, '#ff5500');
+    ctx.fillStyle = grad;
+    ctx.font = 'bold 26px Helvetica';
+    ctx.textAlign = 'center';
+    ctx.fillText('API Fellowship', cx, headingY + 8);
 
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.closePath();
-          ctx.clip();
-          ctx.drawImage(img, x - radius, y - radius, radius * 2, radius * 2);
-          ctx.restore();
+    const r = 70, avatarY = 180;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, avatarY, r, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(avatar, cx - r, avatarY - r, r * 2, r * 2);
+    ctx.restore();
 
-          ctx.fillStyle = 'white';
-          ctx.font = 'bold 28px Helvetica';
-          ctx.fillText(name, x, y + radius + 30);
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 28px Helvetica';
+    ctx.fillText(name, cx, avatarY + r + 30);
 
-          ctx.fillStyle = '#ff8800';
-          ctx.font = '16px Helvetica';
-          const sanitizedGithub = github.trim().replace(/\s+/g, '');
-          ctx.fillText(`@${sanitizedGithub}`, x, y + radius + 50);
+    ctx.fillStyle = '#ff8800';
+    ctx.font = '16px Helvetica';
+    ctx.fillText(`@${github.trim().replace(/\s+/g, '')}`, cx, avatarY + r + 50);
 
-          const baseY = canvas.height - 70;
-          ctx.fillStyle = '#999999';
-          ctx.font = 'italic 14px Helvetica';
-          ctx.fillText('API Fellow - Cohort 2025', x, baseY);
+    const baseY = baseH - 70;
+    ctx.fillStyle = '#999999';
+    ctx.font = 'italic 14px Helvetica';
+    ctx.fillText('API Fellow - Cohort 2025', cx, baseY);
 
-          ctx.strokeStyle = 'rgba(255, 136, 0, 0.3)';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(50, baseY + 15);
-          ctx.lineTo(canvas.width - 50, baseY + 15);
-          ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,136,0,0.3)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(50, baseY + 15);
+    ctx.lineTo(baseW - 50, baseY + 15);
+    ctx.stroke();
 
-          ctx.fillStyle = '#777777';
-          ctx.font = '12px Helvetica';
-          ctx.fillText('Keploy.io', x, baseY + 30);
+    ctx.fillStyle = '#777777';
+    ctx.font = '12px Helvetica';
+    ctx.fillText('Keploy.io', cx, baseY + 30);
 
-          const link = document.createElement('a');
-          link.download = `${name.replace(/\s/g, '_')}_keploy_id.png`;
-          link.href = canvas.toDataURL();
-          link.click();
-        };
-      };
-    };
-  };
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.download = `${name.replace(/\s/g, '_')}_keploy_id_hd.png`;
+        a.href = url;
+        a.click();
+        URL.revokeObjectURL(url);
+      },
+      'image/png',
+      1 /* quality ignored by PNG but keeps signature */
+    );
+  })();
+};
 
   return (
     <main className="relative min-h-screen w-full flex flex-col items-center justify-start overflow-hidden pb-24">
-      <div className="absolute inset-0 -z-10">
+      {/* <div className="absolute inset-0 -z-10">
         <NextImage
           src="/assets/images/orange-painting.jpg"
           alt="Background"
@@ -178,10 +196,18 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
           priority
           style={{ objectFit: 'cover' }}
         />
+      </div> */}
+
+
+      <div className='absolute inset-0 -z-10'>
+      <NextImage src ="/assets/images/orange-painting.jpg" alt='background of the input form'
+      fill priority 
+      style = { { objectFit: 'cover'}}
+      />
       </div>
 
       {/* Form */}
-      <form onSubmit={(e) => e.preventDefault()} className="relative backdrop-blur-xl bg-white/10 border border-white/30 p-8 rounded-2xl shadow-xl space-y-6 w-full max-w-md z-10 mt-10">
+      <form onSubmit={(e) => e.preventDefault()} className="relative backdrop-blur-xl bg-white/10 border border-white/30 p-8 rounded-2xl shadow-xl space-y-6 w-full max-w-md z-10 mt-20">
         <div className="text-center relative z-10">
           <h1 className="text-3xl font-bold text-white">
             Keploy API Fellowship
@@ -216,6 +242,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
                       style={{ objectFit: 'cover' }}
                       sizes="96px"
                     />
+                    
                   </div>
                   <label className="text-orange-100 hover:text-orange-500 cursor-pointer text-sm mt-2 font-medium">
                     Change Image
@@ -232,32 +259,32 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-orange-50/10 border border-orange-300 rounded-lg text-orange-200">
-              <p className="mb-2">{error}</p>
-              <a
-                href="https://github.com/keploy/keploy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-orange-400 hover:text-orange-600 underline font-medium"
-              >
-                Star the repository here
-              </a>
-              <p className="text-sm mt-2 text-white/70">
-                If you have already starred the repository and still facing issues, please wait a few minutes or contact us on <a href="">Slack</a>
-              </p>
-            </div>
-          )}
+  <div className="mb-6 p-4 bg-gray-800/50 border border-orange-300 rounded-lg text-orange-200">
+    <p className="mb-2">{error}</p>
+    <a
+      href="https://github.com/keploy/keploy"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-orange-400 hover:text-orange-600 underline font-medium"
+    >
+      Star the repository here
+    </a>
+    <p className="text-sm mt-2 text-white/70">
+      If you have already starred the repository and still facing issues, please wait a few minutes or contact us on <a className="text-orange-100" href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg">Slack</a>
+    </p>
+  </div>
+)}
 
           <button
             onClick={handleGenerate}
             disabled={isLoading}
-            className={`w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-300 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+            className={`w-full bg-gradient-to-r from-orange-700 to-orange-800 hover:from-orange-900 hover:to-orange-700 shadow-orange-300 text-white font-semibold py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-500 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isLoading ? 'Checking Star and Register Status...' : 'Generate ID Card'}
           </button>
 
           <div className="mt-4 text-sm text-white/70 text-center">
-            <p>If there is an issue in generating your badge, reach out to us on our <a href="">Slack Channel</a></p>
+            <p>If there is an issue in generating your badge, reach out to us on our <a className="text-indigo-100" href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg">Slack Channel</a></p>
           </div>
         </div>
       </form>
