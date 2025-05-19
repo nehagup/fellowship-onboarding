@@ -2214,14 +2214,15 @@ ctx.restore();
 
         {/* submit */}
         <button
-          onClick={handleGenerate}
-          disabled={isLoading}
-          className={`w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-900 hover:to-orange-700 shadow-orange-300 text-white font-semibold py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-500 ${
-            isLoading ? 'opacity-70 cursor-not-allowed' : ''
-          }`}
-        >
-          {isLoading ? 'Checking Star & Registration Status…' : 'Generate ID Card'}
-        </button>
+  onClick={handleGenerate}
+  disabled={isLoading}
+  className={`w-full bg-[#1a0e1f] hover:bg-[#2b1535] text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-200 font-semibold py-3 px-4 rounded-lg transition shadow-md shadow-orange-900 hover:shadow-orange-500 border border-orange-800 ${
+    isLoading ? 'opacity-70 cursor-not-allowed' : ''
+  }`}
+>
+  {isLoading ? 'Checking Star & Registration Status…' : 'Generate ID Card'}
+</button>
+
 
         <div className="mt-4 text-sm text-white/70 text-center">
           <p>
