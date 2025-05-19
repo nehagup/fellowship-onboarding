@@ -2,10 +2,1877 @@
 import React, { useRef, useState } from 'react';
 import NextImage from 'next/image';
 
+/* 1HARD-CODED SHORTLIST */
+const ALLOWED_EMAILS = new Set<string>([
+'amaanbhati49@gmail.com',
+'swapsnil12@gmail.com',
+'sakshisme8@gmail.com',
+'22054292@kiit.ac.in',
+'22051740@kiit.ac.in',
+'22051304@kiit.ac.in',
+'anandabhinav293@gmail.com',
+'2230304@kiit.ac.in',
+'rishita.mohanty28@gmail.com',
+'22051098@kiit.ac.in',
+'22053515@kiit.ac.in',
+'yuvraj13preet@gmail.com',
+'22051449@kiit.ac.in',
+'shubham.hamirwasia03@gmail.com',
+'22052854@kiit.ac.in',
+'22053845@kiit.ac.in',
+'crazyme07071996@gmail.com',
+'2205740@kiit.ac.in',
+'22051847@kiit.ac.in',
+'punitpanda26022005@gmail.com',
+'vishalanandmahatha64@gmail.com',
+'roshan.kr.singh9857@gmail.com',
+'devdivyesh04@gmail.com',
+'23057006@kiit.ac.in',
+'routsanket00@gmail.com',
+'goyalayush3089@gmail.com',
+'saishibamani@gmail.com',
+'saketpriyadarshi0883@gmail.com',
+'rahulsaha1126@gmail.com',
+'bosejyotiska@gmail.com',
+'22053007@kiit.ac.in',
+'yashpratap0183@gmail.com',
+'22051521@kiit.ac.in',
+'piyushku.jena@gmail.com',
+'2205409@kiit.ac.in',
+'22053423@kiit.ac.in',
+'2205130@kiit.ac.in',
+'5608.vaibhav@gmail.com',
+'rishikeshsarangi122004@gmail.com',
+'paarth.chandan@gmail.com',
+'22051918@kiit.ac.in',
+'2205938@kiit.ac.in',
+'tanisha222132@gmail.com',
+'shriyaa0902@gmail.com',
+'22052633@kiit.ac.in',
+'22053634@kiit.ac.in',
+'raghavjaiswal0000@gmail.com',
+'22052381@kiit.ac.in',
+'adityakittu2773@gmail.com',
+'prathamshandilya2207@gmail.com',
+'22051621@kiit.ac.in',
+'shafaqueakhtar270@gmail.com',
+'ghoshsreejani@gmail.com',
+'soult2202@gmail.com',
+'22051927@kiit.ac.in',
+'22052516@kiit.ac.in',
+'22051322@kiit.ac.in',
+'2229118@kiit.ac.in',
+'22051395@kiit.ac.in',
+'shauryatiwari1874@gmail.com',
+'vaidikjsk@gmail.com',
+'22051714@kiit.ac.in',
+'22052832@kiit.ac.in',
+'22052388@kiit.ac.in',
+'22051675@kiit.ac.in',
+'devadityadey008@gmail.com',
+'howladarkunal@gmail.com',
+'22051302@kiit.ac.in',
+'sabyasachi.mitra.2003@gmail.com',
+'aayushjamaiyar.19@gmail.com',
+'22053654@kiit.ac.in',
+'2205908@kiit.ac.in',
+'khushisaxena1010@gmail.com',
+'2230121@kiit.ac.in',
+'adarshsingh109064@gmail.com',
+'2205598@kiit.ac.in',
+'2205846@kiit.ac.in',
+'2205960@kiit.ac.in',
+'2205967@kiit.ac.in',
+'2229164@kiit.ac.in',
+'vanshikasingh.2610.as@gmail.com',
+'gitanshu813109@gmail.com',
+'2205674@kiit.ac.in',
+'22052040@kiit.ac.in',
+'govilmeghansh@gmail.com',
+'anush4krish@gmail.com',
+'22053294@kiit.ac.in',
+'2205180@kiit.ac.in',
+'kumar.ayushx24@gmail.com',
+'22052757@kiit.ac.in',
+'shubhammohapatra094@gmail.com',
+'22052641@kiit.ac.in',
+'saimanikantapatro04@gmail.com',
+'22052101@kiit.ac.in',
+'23057052@kiit.ac.in',
+'22053274@kiit.ac.in',
+'22051308@kiit.ac.in',
+'22053911@kiit.ac.in',
+'rssmp120@gmail.com',
+'ashishkumarkhandual904@gmail.com',
+'22051793@kiit.ac.in',
+'22053292@kiit.ac.in',
+'tusharbhattacharya2022@gmail.com',
+'22053190@kiit.ac.in',
+'soumyadeepbanerjee2910@gmail.com',
+'22051123@kiit.ac.in',
+'22052801@kiit.ac.in',
+'sharadshahi36@gmail.com',
+'22052233@kiit.ac.in',
+'22051976@kiit.ac.in',
+'22053662@kiit.ac.in',
+'2205775@kiit.ac.in',
+'22052651@kiit.ac.in',
+'22051874@kiit.ac.in',
+'22053118@kiit.ac.in',
+'22051928@kiit.ac.in',
+'shreyas2307s@gmail.com',
+'22053229@kiit.ac.in',
+'22052968@kiit.ac.in',
+'22053601@kiit.ac.in',
+'22051076@kiit.ac.in',
+'22052884@kiit.ac.in',
+'22053930@kiit.ac.in',
+'22054176@kiit.ac.in',
+'ayushsuman.2956@gmail.com',
+'aryankumar230304@gmail.com',
+'2205712@kiit.ac.in',
+'2230139@kiit.ac.in',
+'22053867@kiit.ac.in',
+'2205012@kiit.ac.in',
+'2205700@kiit.ac.in',
+'nishantr846@gmail.com',
+'swastikad164@gmail.com',
+'22052824@kiit.ac.in',
+'2205910@kiit.ac.in',
+'viditwatson@gmail.com',
+'22051035@kiit.ac.in',
+'krpdl1904@gmail.com',
+'2450037@kiit.ac.in',
+'22052172@kiit.ac.in',
+'2205976@kiit.ac.in',
+'22053076@kiit.ac.in',
+'2205951@kiit.ac.in',
+'22052229@kiit.ac.in',
+'22053407@kiit.ac.in',
+'22052732@kiit.ac.in',
+'yashigarg016@gmail.com',
+'rajpriyanshu1204@gmail.com',
+'utkarshjha.4009@gmail.com',
+'ashishhsharma19@gmail.com',
+'2205554@kiit.ac.in',
+'22051187@kiit.ac.in',
+'22052675@kiit.ac.in',
+'22051081@kiit.ac.in',
+'22052471@kiit.ac.in',
+'madhu73738@gmail.com',
+'bornikdekaviraj@gmail.com',
+'mitulgoswami1212@gmail.com',
+'isha05vik@gmail.com',
+'22051525@kiit.ac.in',
+'tiwarivinayak10@gmail.com',
+'22052805@kiit.ac.in',
+'officialrahulnaik@gmail.com',
+'mehulkumar.mk02@gmail.com',
+'sankalprout2004@gmail.com',
+'22052800@kiit.ac.in',
+'2230290@kiit.ac.in',
+'2205643@kiit.ac.in',
+'kumarshresth04@gmail.com',
+'22053873@kiit.ac.in',
+'daithoulungrongmai@gmail.com',
+'sourav1201singh@gmail.com',
+'kaushikiwrk2001@gmail.com',
+'singhsahil812003@gmail.com',
+'2205617@kiit.ac.in',
+'22051285@kiit.ac.in',
+'22053318@kiit.ac.in',
+'snehakumari2507@gmail.com',
+'22053227@kiit.ac.in',
+'bakshiankit1005@gmail.com',
+'2206003@kiit.ac.in',
+'22053334@kiit.ac.in',
+'2206296@kiit.ac.in',
+'22052808@kiit.ac.in',
+'2205190@kiit.ac.in',
+'2230243@kiit.ac.in',
+'vishwakarmaniharika03@gmail.com',
+'2206309@kiit.ac.in',
+'riyamalh75@gmail.com',
+'22052673@kiit.ac.in',
+'2230243@kiit.ac.in',
+'snehaghosal2004@gmail.com',
+'22053253@kiit.ac.in',
+'2230155@kiit.ac.in',
+'22052901@kiit.ac.in',
+'aditya.singhh011@gmail.com',
+'22054363@kiit.ac.in',
+'anushaamar1111@gmail.com',
+'tamonashmajumder33@gmail.com',
+'2205282@kiit.ac.in',
+'2205868@kiit.ac.in',
+'roykaushik354@gmail.com',
+'22051030@kiit.ac.in',
+'kavyachandrakar1234@gmail.com',
+'22053984@kiit.ac.in',
+'2205225@kiit.ac.in',
+'a.for.abhinav.2003@gmail.com',
+'2228131@kiit.ac.in',
+'2230226@kiit.ac.in',
+'22051979@kiit.ac.in',
+'2205751@kiit.ac.in',
+'deyarnav874@gmail.com',
+'taniyanawalpathak@gmail.com',
+'riyakumari9189@gmail.com',
+'chithkalalella@gmail.com',
+'debeshacharya30@gmail.com',
+'22053277@kiit.ac.in',
+'adrijach123@gmail.com',
+'22051051@kiit.ac.in',
+'22052816@kiit.ac.in',
+'22053713@kiit.ac.in',
+'22053722@kiit.ac.in',
+'22051055@kiit.ac.in',
+'ayushsingh2004.abs@gmail.com',
+'ananyaritu51@gmail.com',
+'22052785@kiit.ac.in',
+'2470099@kiit.ac.in',
+'22054184@kiit.ac.in',
+'srij35666@gmail.com',
+'22051756@kiit.ac.in',
+'prakashaditya061@gmail.com',
+'2229120@kiit.ac.in',
+'maitiagniva@gmail.com',
+'2205697@kiit.ac.in',
+'amarpreeta497@gmail.com',
+'lalatendurajguru.work@gmail.com',
+'22051379@kiit.ac.in',
+'22053615@kiit.ac.in',
+'22053309@kiit.ac.in',
+'bhartiananya2@gmail.com',
+'ashishsingh009876@gmail.com',
+'ishaancodes01@gmail.com',
+'22052374@kiit.ac.in',
+'2205412@kiit.ac.in',
+'22054434@kiit.ac.in',
+'22051660@kiit.ac.in',
+'khushiii629@gmail.com',
+'22051814@kiit.ac.in',
+'yashaswinisarangi@gmail.com',
+'22051610@kiit.ac.in',
+'2206162@kiit.ac.in',
+'2230239@kiit.ac.in',
+'2205376@kiit.ac.in',
+'2205159@kiit.ac.in',
+'2205412@kiit.ac.in',
+'22052269@kiit.ac.in',
+'22052787@kiit.ac.in',
+'anirbant05@gmail.com',
+'22054408@kiit.ac.in',
+'22052931@kiit.ac.in',
+'22052872@kiit.ac.in',
+'2230131@kiit.ac.in',
+'swastikranjanmandal@gmail.com',
+'chaudharypriyankaofficial@gmail.com',
+'2205333@kiit.ac.in',
+'22051375@kiit.ac.in',
+'2228036@kiit.ac.in',
+'sarthaksenapati8768@gmail.com',
+'22052288@kiit.ac.in',
+'22052321@kiit.ac.in',
+'ayusshhhhhh12@gmail.com',
+'22051987@kiit.ac.in',
+'taniskar2003@gmail.com',
+'22054321@kiit.ac.in',
+'jk942803@gmail.com',
+'2470369@kiit.ac.in',
+'amritapattnaik290@gmail.com',
+'22052935@kiit.ac.in',
+'2470359@kiit.ac.in',
+'22053599@kiit.ac.in',
+'22051990@kiit.ac.in',
+'22053440@kiit.ac.in',
+'omaasinha.99@gmail.com',
+'22053375@kiit.ac.in',
+'pushkarjay.ajay1@gmail.com',
+'22052504@kiit.ac.in',
+'22053458@kiit.ac.in',
+'chaurasianikita984@gmail.com',
+'22052939@kiit.ac.in',
+'22051773@kiit.ac.in',
+'2470224@kiit.ac.in',
+'vaibhavmkiit@gmail.com',
+'22053754@kiit.ac.in',
+'22051677@kiit.ac.in',
+'pandasmayan@gmail.com',
+'22052218@kiit.ac.in',
+'22052095@kiit.ac.in',
+'poorvisinghh2004@gmail.com',
+'uddipta278@gmail.com',
+'22051752@kiit.ac.in',
+'ankitaa.kumari.23@gmail.com',
+'2205664@kiit.ac.in',
+'lakshyadhingra26@gmail.com',
+'srinivas.charan20@gmail.com',
+'22052424@kiit.ac.in',
+'22053163@kiit.ac.in',
+'22052987@kiit.ac.in',
+'prajitandian@gmail.com',
+'ramankumar7c@gmail.com',
+'sambhav26k@gmail.com',
+'piyushbhattacharyya@gmail.com',
+'22051155@kiit.ac.in',
+'22052702@kiit.ac.in',
+'22052629@kiit.ac.in',
+'anthonyrozario62@gmail.com',
+'22051222@kiit.ac.in',
+'2205743@kiit.ac.in',
+'22053226@kiit.ac.in',
+'deepsikha1104@gmail.com',
+'prityanshusingh2003@gmail.com',
+'22053276@kiit.ac.in',
+'2470390@kiit.ac.in',
+'aarab.nishchal@gmail.com',
+'krishnaalegend@gmail.com',
+'22053339@kiit.ac.in',
+'vardhan.leb@gmail.com',
+'22052485@kiit.ac.in',
+'22053205@kiit.ac.in',
+'ashishkr2102@gmail.com',
+'22052616@kiit.ac.in',
+'rishav8242366@gmail.com',
+'22053095@kiit.ac.in',
+'2230120@kiit.ac.in',
+'indrayudh2009@gmail.com',
+'ritesh.90503@gmail.com',
+'swapnashree2020@gmail.com',
+'gbidisha49@gmail.com',
+'22052168@kiit.ac.in',
+'upalthisside@gmail.com',
+'2205639@kiit.ac.in',
+'ishitasrivastava013@gmail.com',
+'hcmcdc6038@gmail.com',
+'22052842@kiit.ac.in',
+'2206107@kiit.ac.in',
+'22052664@kiit.ac.in',
+'22054173@kiit.ac.in',
+'22054370@kiit.ac.in',
+'22053334@kiit.ac.in',
+'22052626@kiit.ac.in',
+'22053210@kiit.ac.in',
+'22053257@kiit.ac.in',
+'agrawalmohak988@gmail.com',
+'nandini.nd17@gmail.com',
+'2470198@kiit.ac.in',
+'aditijalan6204@gmail.com',
+'2205732@kiit.ac.in',
+'22052576@kiit.ac.in',
+'22052020@kiit.ac.in',
+'dp.dash12@gmail.com',
+'sumitsaha.ps@gmail.com',
+'22053431@kiit.ac.in',
+'daliasen16@gmail.com',
+'prateekparija4@gmail.com',
+'22051253@kiit.ac.in',
+'akashdutta3113@gmail.com',
+'22053860@kiit.ac.in',
+'devanshupundir599@gmail.com',
+'22053260@kiit.ac.in',
+'sukarnbharadwaj2020@gmail.com',
+'22054406@kiit.ac.in',
+'2205731@kiit.ac.in',
+'junaid.me5348@gmail.com',
+'arpreet4114@gmail.com',
+'22054114@kiit.ac.in',
+'22053989@kiit.ac.in',
+'anuragdgp@gmail.com',
+'nikhilprince973@gmail.com',
+'22051698@kiit.ac.in',
+'pratyaypatra31@gmail.com',
+'singhvishalk165@gmail.com',
+'22052746@kiit.ac.in',
+'22051269@kiit.ac.in',
+'22054237@kiit.ac.in',
+'22053056@kiit.ac.in',
+'2205840@kiit.ac.in',
+'2206053@kiit.ac.in',
+'ghoshkaushiki2004@gmail.com',
+'abhishekjain3113@gmail.com',
+'22052703@kiit.ac.in',
+'22051021@kiit.ac.in',
+'22051160@kiit.ac.in',
+'22051875@kiit.ac.in',
+'sakshipathak237@gmail.com',
+'22052303@kiit.ac.in',
+'2228029@kiit.ac.in',
+'2205537@kiit.ac.in',
+'22053942@kiit.ac.in',
+'2470117@kiit.ac.in',
+'rahulchuriwal7@gmail.com',
+'22051829@kiit.ac.in',
+'22051652@kiit.ac.in',
+'mdl.dhruba@gmail.com',
+'kanishkjakhmola@gmail.com',
+'sohankrshah000@gmail.com',
+'2205449@kiit.ac.in',
+'rudranil.das9900@gmail.com',
+'2230024@kiit.ac.in',
+'22052726@kiit.ac.in',
+'arookrishna@gmail.com',
+'2205140@kiit.ac.in',
+'2205087@kiit.ac.in',
+'2205336@kiit.ac.in',
+'arnabworkinfo@gmail.com',
+'2228157@kiit.ac.in',
+'22052486@kiit.ac.in',
+'22053131@kiit.ac.in',
+'22052550@kiit.ac.in',
+'22053324@kiit.ac.in',
+'praveer28singh@gmail.com',
+'22052896@kiit.ac.in',
+'22051992@kiit.ac.in',
+'sanuyadav00007@gmail.com',
+'22051372@kiit.ac.in',
+'22051848@kiit.ac.in',
+'22051093@kiit.ac.in',
+'22053368@kiit.ac.in',
+'aaryan711820@gmail.com',
+'2205118@kiit.ac.in',
+'2206091@kiit.ac.in',
+'akashsardaryt@gmail.com',
+'2206398@kiit.ac.in',
+'2206067@kiit.ac.in',
+'gauravkr7103@gmail.com',
+'22051193@kiit.ac.in',
+'22052514@kiit.ac.in',
+'gammaray.coding@gmail.com',
+'2206034@kiit.ac.in',
+'harshxkumar7@gmail.com',
+'22052443@kiit.ac.in',
+'22052461@kiit.ac.in',
+'22052355@kiit.ac.in',
+'2230063@kiit.ac.in',
+'22052944@kiit.ac.in',
+'22051229@kiit.ac.in',
+'22052467@kiit.ac.in',
+'22052259@kiit.ac.in',
+'manveer7saggu@gmail.com',
+'2205920@kiit.ac.in',
+'2205854@kiit.ac.in',
+'22051787@kiit.ac.in',
+'sanchitamohanty2405@gmail.com',
+'22052527@kiit.ac.in',
+'rawlokanika05@gmail.com',
+'2230028@kiit.ac.in',
+'2205749@kiit.ac.in',
+'ashankar637@gmail.com',
+'ayushagrawal.5288@gmail.com',
+'tanish3967@gmail.com',
+'2230274@kiit.ac.in',
+'2205119@kiit.ac.in',
+'22052983@kiit.ac.in',
+'abhinabtata@gmail.com',
+'granthpai1503@gmail.com',
+'22051085@kiit.ac.in',
+'2230028@kiit.ac.in',
+'rupoummitra15278@gmail.com',
+'akshansh0705@gmail.com',
+'abhranilnxt@gmail.com',
+'22052171@kiit.ac.in',
+'amanshrivastav7297@gmail.com',
+'22054359@kiit.ac.in',
+'shreyyprasad@gmail.com',
+'aakashsensharma@gmail.com',
+'22051937@kiit.ac.in',
+'2206353@kiit.ac.in',
+'nikhildwivedi42794@gmail.com',
+'abhifrbsp@gmail.com',
+'22052859@kiit.ac.in',
+'2206226@kiit.ac.in',
+'hzbprerna15@gmail.com',
+'22052280@kiit.ac.in',
+'22052936@kiit.ac.in',
+'22053156@kiit.ac.in',
+'sourasishbasu06@gmail.com',
+'asishkumar2418@gmail.com',
+'mridulagarwal20082004@gmail.com',
+'22054305@kiit.ac.in',
+'2206115@kiit.ac.in',
+'22052376@kiit.ac.in',
+'prabritdas15@gmail.com',
+'22051862@kiit.ac.in',
+'2205934@kiit.ac.in',
+'arpanghosal0160@gmail.com',
+'22054202@kiit.ac.in',
+'debalina.maity04138@gmail.com',
+'sanjana96212@gmail.com',
+'ashutoshas2610@gmail.com',
+'2230220@kiit.ac.in',
+'2228137@kiit.ac.in',
+'jhashubham2076@gmail.com',
+'22053978@kiit.ac.in',
+'2205026@kiit.ac.in',
+'suavarnavats244@gmail.com',
+'2205007@kiit.ac.in',
+'22052018@kiit.ac.in',
+'2206065@kiit.ac.in',
+'rickritwik901@gmail.com',
+'22053303@kiit.ac.in',
+'22053657@kiit.ac.in',
+'22052706@kiit.ac.in',
+'2206308@kiit.ac.in',
+'singhprabhakarkumar07@gmail.com',
+'sauvatrapaul7@gmail.com',
+'pallavi.p0987654321@gmail.com',
+'che3zcake@gmail.com',
+'2206068@kiit.ac.in',
+'22051011@kiit.ac.in',
+'sahooananya036@gmail.com',
+'22052551@kiit.ac.in',
+'2204132@kiit.ac.in',
+'22052789@kiit.ac.in',
+'2229154@kiit.ac.in',
+'krishsenpai7@gmail.com',
+'2206046@kiit.ac.in',
+'22052155@kiit.ac.in',
+'2205689@kiit.ac.in',
+'22052273@kiit.ac.in',
+'22051416@kiit.ac.in',
+'sanchitar2003@gmail.com',
+'22053291@kiit.ac.in',
+'22053046@kiit.ac.in',
+'agarwalreet15@gmail.com',
+'satyamswain227@gmail.com',
+'22052811@kiit.ac.in',
+'22051162@kiit.ac.in',
+'22052865@kiit.ac.in',
+'22052828@kiit.ac.in',
+'ashishchaudhary110411@gmail.com',
+'22051342@kiit.ac.in',
+'divyanipandey55@gmail.com',
+'22052284@kiit.ac.in',
+'22052327@kiit.ac.in',
+'rbose7236@gmail.com',
+'22054167@kiit.ac.in',
+'22054003@kiit.ac.in',
+'2206205@kiit.ac.in',
+'alokkumar0709003@gmail.com',
+'2206138@kiit.ac.in',
+'22052847@kiit.ac.in',
+'22053302@kiit.ac.in',
+'2205432@kiit.ac.in',
+'22052631@kiit.ac.in',
+'22053724@kiit.ac.in',
+'22054041@kiit.ac.in',
+'shamim1245789@gmail.com',
+'22053178@kiit.ac.in',
+'22053234@kiit.ac.in',
+'2229132@kiit.ac.in',
+'22053850@kiit.ac.in',
+'btejanshu@gmail.com',
+'22052038@kiit.ac.in',
+'diptesh.bal@gmail.com',
+'amanraj1227@gmail.com',
+'sreyash31@gmail.com',
+'swagatpatel03@gmail.com',
+'22054272@kiit.ac.in',
+'rishikesh2747@gmail.com',
+'22053764@kiit.ac.in',
+'2230292@kiit.ac.in',
+'ritesh.90503@gmail.com',
+'oishanibanerjee09@gmail.com',
+'22052549@kiit.ac.in',
+'kishalaylahiri@gmail.com',
+'adityabahadur294@gmail.com',
+'22051376@kiit.ac.in',
+'22051899@kiit.ac.in',
+'2205937@kiit.ac.in',
+'22052848@kiit.ac.in',
+'snehakashyap020704@gmail.com',
+'richakumari.rk03@gmail.com',
+'abhiksamanta004@gmail.com',
+'22052490@kiit.ac.in',
+'2229061@kiit.ac.in',
+'2229035@kiit.ac.in',
+'22053977@kiit.ac.in',
+'varun.mohanta323@gmail.com',
+'2228053@kiit.ac.in',
+'22052093@kiit.ac.in',
+'22053398@kiit.ac.in',
+'vipulsingh.1404@gmail.com',
+'22052820@kiit.ac.in',
+'barsha.baibhabi2005@gmail.com',
+'1504aniket@gmail.com',
+'barmansagarika303@gmail.com',
+'2206172@kiit.ac.in',
+'sraj80525@gmail.com',
+'22051344@kiit.ac.in',
+'shreyasisaha74@gmail.com',
+'shreyasingh2k2@gmail.com',
+'22053660@kiit.ac.in',
+'2206410@kiit.ac.in',
+'987sayak@gmail.com',
+'opikadash@gmail.com',
+'siyonaj7@gmail.com',
+'gauravv.kr9@gmail.com',
+'maithilibprojects@gmail.com',
+'22051004@kiit.ac.in',
+'jiyajha2020@gmail.com',
+'datta.soujanya@gmail.com',
+'2206266@kiit.ac.in',
+'2470268@kiit.ac.in',
+'22053415@kiit.ac.in',
+'22053745@kiit.ac.in',
+'22053437@kiit.ac.in',
+'22052506@kiit.ac.in',
+'chetalihariramani@gmail.com',
+'iampriyanshukumar.2003@gmail.com',
+'suvo.ghosh.965@gmail.com',
+'manojpradhan1803@gmail.com',
+'arushimishra2510@gmail.com',
+'krishnakumarlal8421@gmail.com',
+'mdasifnawaz545@gmail.com',
+'22052724@kiit.ac.in',
+'anushkaryaa@gmail.com',
+'sudeeppatraspider@gmail.com',
+'22053255@kiit.ac.in',
+'22051178@kiit.ac.in',
+'22051782@kiit.ac.in',
+'22051289@kiit.ac.in',
+'22054355@kiit.ac.in',
+'2205452@kiit.ac.in',
+'shreeyadebnath2003@gmail.com',
+'shivangisrivastva30@gmail.com',
+'depankar707@gmail.com',
+'22051158@kiit.ac.in',
+'pahujanandini@gmail.com',
+'2205725@kiit.ac.in',
+'adityakum8242@gmail.com',
+'2230079@kiit.ac.in',
+'22052106@kiit.ac.in',
+'aishani.dhar18@gmail.com',
+'22051718@kiit.ac.in',
+'2230315@kiit.ac.in',
+'22053295@kiit.ac.in',
+'2005.amandas@gmail.com',
+'smodi2306@gmail.com',
+'22053590@kiit.ac.in',
+'2230046@kiit.ac.in',
+'22053602@kiit.ac.in',
+'22054331@kiit.ac.in',
+'2205841@kiit.ac.in',
+'22053035@kiit.ac.in',
+'22051108@kiit.ac.in',
+'harshit.kr.singh.work@gmail.com',
+'aradhyasinghhh231@gmail.com',
+'aditi22mehta22@gmail.com',
+'omprernaroy@gmail.com',
+'youvalsingh40@gmail.com',
+'22051869@kiit.ac.in',
+'rashmeetkalra03@gmail.com',
+'2205888@kiit.ac.in',
+'shuklamridul29@gmail.com',
+'22053297@kiit.ac.in',
+'2206411@kiit.ac.in',
+'2206343@kiit.ac.in',
+'2205995@kiit.ac.in',
+'a.vardhan120017@gmail.com',
+'22051570@kiit.ac.in',
+'souravadhikari2003@gmail.com',
+'chittej.vertika1008@gmail.com',
+'d.soumyadeepofficial@gmail.com',
+'shashankpratyush450@gmail.com',
+'aayush2574@gmail.com',
+'22052753@kiit.ac.in',
+'hansikachaudhary20@gmail.com',
+'sudeepsar70@gmail.com',
+'22053577@kiit.ac.in',
+'aditya73biji@gmail.com',
+'2470075@kiit.ac.in',
+'arinkishore7@gmail.com',
+'hranjan3246@gmail.com',
+'satviksriva2003@gmail.com',
+'2205961@kiit.ac.in',
+'samriddhi.singh1222@gmail.com',
+'22051972@kiit.ac.in',
+'pratiksarkarofficial004@gmail.com',
+'2228126@kiit.ac.in',
+'22053402@kiit.ac.in',
+'22051974@kiit.ac.in',
+'22054199@kiit.ac.in',
+'2205758@kiit.ac.in',
+'shrutineeta3@gmail.com',
+'2205107@kiit.ac.in',
+'22053915@kiit.ac.in',
+'2205415@kiit.ac.in',
+'22054220@kiit.ac.in',
+'2205551@kiit.ac.in',
+'akritipatro@gmail.com',
+'mukulgopalmandal@gmail.com',
+'22051084@kiit.ac.in',
+'devanshbajpai07@gmail.com',
+'22051795@kiit.ac.in',
+'22052674@kiit.ac.in',
+'22052821@kiit.ac.in',
+'22052926@kiit.ac.in',
+'shritisadhu@gmail.com',
+'22051279@kiit.ac.in',
+'22052719@kiit.ac.in',
+'riyasinha06032004@gmail.com',
+'22053103@kiit.ac.in',
+'2470057@kiit.ac.in',
+'goyalpalak708@gmail.com',
+'2205498@kiit.ac.in',
+'22053145@kiit.ac.in',
+'rishabh26082004@gmail.com',
+'2470251@kiit.ac.in',
+'07gaurav04kumar03@gmail.com',
+'22053848@kiit.ac.in',
+'22053019@kiit.ac.in',
+'sarvanshmehta28@gmail.com',
+'2230315@kiit.ac.in',
+'kritika2311singh@gmail.com',
+'2230071@kiit.ac.in',
+'22051428@kiit.ac.in',
+'jaya85300@gmail.com',
+'22052056@kiit.ac.in',
+'22051509@kiit.ac.in',
+'2206235@kiit.ac.in',
+'22052228@kiit.ac.in',
+'22051008@kiit.ac.in',
+'22051027@kiit.ac.in',
+'22052055@kiit.ac.in',
+'22052960@kiit.ac.in',
+'deyt213@gmail.com',
+'22053127@kiit.ac.in',
+'aryankapoor0604@gmail.com',
+'pallabi.pal2901@gmail.com',
+'souravparida170@gmail.com',
+'22051977@kiit.ac.in',
+'2205240@kiit.ac.in',
+'22053938@kiit.ac.in',
+'2205983@kiit.ac.in',
+'22054016@kiit.ac.in',
+'2230326@kiit.ac.in',
+'22052140@kiit.ac.in',
+'22052445@kiit.ac.in',
+'22051996@kiit.ac.in',
+'prithad974@gmail.com',
+'22054217@kiit.ac.in',
+'2205521@kiit.ac.in',
+'22051620@kiit.ac.in',
+'ahijitkante122@gmail.com',
+'dugul0025@gmail.com',
+'avinashanand536@gmail.com',
+'22053050@kiit.ac.in',
+'2205834@kiit.ac.in',
+'ayush.akm012@gmail.com',
+'2470189@kiit.ac.in',
+'22052562@kiit.ac.in',
+'22053994@kiit.ac.in',
+'iamsarthak2003@gmail.com',
+'shreyaharshita2693@gmail.com',
+'nayaksloveni@gmail.com',
+'2206114@kiit.ac.in',
+'22054129@kiit.ac.in',
+'2470076@kiit.ac.in',
+'dasayush483@gmail.com',
+'sanchita018392@gmail.com',
+'akshatsxngh@gmail.com',
+'22051984@kiit.ac.in',
+'2470355@kiit.ac.in',
+'2205025@kiit.ac.in',
+'saif.ul.2003.haq@gmail.com',
+'lavasrivastava765@gmail.com',
+'architgautam05@gmail.com',
+'2205515@kiit.ac.in',
+'2230182@kiit.ac.in',
+'22052181@kiit.ac.in',
+'somenmishra333@gmail.com',
+'22052428@kiit.ac.in',
+'22053810@kiit.ac.in',
+'22053301@kiit.ac.in',
+'22053233@kiit.ac.in',
+'shubhamsahoo401@gmail.com',
+'2206243@kiit.ac.in',
+'22053501@kiit.ac.in',
+'22052387@kiit.ac.in',
+'2470239@kiit.ac.in',
+'22052025@kiit.ac.in',
+'ummesaleh06@gmail.com',
+'22053697@kiit.ac.in',
+'2205718@kiit.ac.in',
+'2470370@kiit.ac.in',
+'gargbhoomika79@gmail.com',
+'2205504@kiit.ac.in',
+'22052300@kiit.ac.in',
+'suvechhabanerjee2004@gmail.com',
+'2206421@kiit.ac.in',
+'www.ashikasingh04968@gmail.com',
+'2450004@kiit.ac.in',
+'22052830@kiit.ac.in',
+'22051754@kiit.ac.in',
+'2205292@kiit.ac.in',
+'dripclade@gmail.com',
+'2228180@kiit.ac.in',
+'anushkaborah2004@gmail.com',
+'akashnath0206@gmail.com',
+'2470236@kiit.ac.in',
+'anweshanemapj205@gmail.com',
+'2229046@kiit.ac.in',
+'2205665@kiit.ac.in',
+'aditivikey@gmail.com',
+'prathammaanyadav2003@gmail.com',
+'krishnagulati1212@gmail.com',
+'22051977@kiit.ac.in',
+'2470450@kiit.ac.in',
+'2470331@kiit.ac.in',
+'bhsomdipto04@gmail.com',
+'22053947@kiit.ac.in',
+'22052625@kiit.ac.in',
+'2205883@kiit.ac.in',
+'22051720@kiit.ac.in',
+'2205029@kiit.ac.in',
+'22054323@kiit.ac.in',
+'22052250@kiit.ac.in',
+'2228103@kiit.ac.in',
+'souravrrr75@gmail.com',
+'22051881@kiit.ac.in',
+'offcsayantubecode@gmail.com',
+'datta.ahana21@gmail.com',
+'anshitadara10@gmail.com',
+'22052122@kiit.ac.in',
+'2470237@kiit.ac.in',
+'rathkeshav960@gmail.com',
+'jenaashutosh17@gmail.com',
+'arpanofficial321@gmail.com',
+'agrawalpranjal0077@gmail.com',
+'swapneelbhattacharjee700@gmail.com',
+'22053184@kiit.ac.in',
+'22051388@kiit.ac.in',
+'jaideepbose03@gmail.com',
+'sanjanabiswasiscute@gmail.com',
+'22054376@kiit.ac.in',
+'22054339@kiit.ac.in',
+'22053486@kiit.ac.in',
+'22052892@kiit.ac.in',
+'prateekk.bharadwaj@gmail.com',
+'22052116@kiit.ac.in',
+'codewithshyam01@gmail.com',
+'viswachaitanya444@gmail.com',
+'satyanarpit05@gmail.com',
+'22053032@kiit.ac.in',
+'2205142@kiit.ac.in',
+'2206289@kiit.ac.in',
+'2205502@kiit.ac.in',
+'2229030@kiit.ac.in',
+'2205739@kiit.ac.in',
+'2228046@kiit.ac.in',
+'2470153@kiit.ac.in',
+'22051040@kiit.ac.in',
+'shakshi.221b@gmail.com',
+'jashikasethi06@gmail.com',
+'tulsyanaditya03@gmail.com',
+'22052982@kiit.ac.in',
+'22053150@kiit.ac.in',
+'2230172@kiit.ac.in',
+'2206340@kiit.ac.in',
+'2205391@kiit.ac.in',
+'2229088@kiit.ac.in',
+'2470232@kiit.ac.in',
+'2206079@kiit.ac.in',
+'22052796@kiit.ac.in',
+'2470312@kiit.ac.in',
+'bal.gourav.0303@gmail.com',
+'aayushbharuka@gmail.com',
+'2228094@kiit.ac.in',
+'2470455@kiit.ac.in',
+'2470412@kiit.ac.in',
+'usutkarsh47@gmail.com',
+'ananyabiswal193@gmail.com',
+'debashispani61@gmail.com',
+'22051616@kiit.ac.in',
+'adyashaanayakk@gmail.com',
+'22052452@kiit.ac.in',
+'anshumaanrath310@gmail.com',
+'harjinder2003.02@gmail.com',
+'22051961@kiit.ac.in',
+'2205462@kiit.ac.in',
+'tpiyush2626@gmail.com',
+'22053244@kiit.ac.in',
+'22052689@kiit.ac.in',
+'arjunveersinghrathore12@gmail.com',
+'2206297@kiit.ac.in',
+'22052668@kiit.ac.in',
+'2205417@kiit.ac.in',
+'22051551@kiit.ac.in',
+'porijayinag100@gmail.com',
+'abhibratchandabunty@gmail.com',
+'anuragprasoon23@gmail.com',
+'22052359@kiit.ac.in',
+'2206248@kiit.ac.in',
+'2205446@kiit.ac.in',
+'adarshsikreewal1211@gmail.com',
+'22052700@kiit.ac.in',
+'krishnam.agarwal15@gmail.com',
+'2205131@kiit.ac.in',
+'22053033@kiit.ac.in',
+'aj8364524@gmail.com',
+'mdaaskhan786@gmail.com',
+'22051676@kiit.ac.in',
+'2205254@kiit.ac.in',
+'22052254@kiit.ac.in',
+'22053015@kiit.ac.in',
+'22051810@kiit.ac.in',
+'22054144@kiit.ac.in',
+'22051328@kiit.ac.in',
+'pratyushchauhan147@gmail.com',
+'22053904@kiit.ac.in',
+'22054160@kiit.ac.in',
+'diksha166gupta@gmail.com',
+'2229069@kiit.ac.in',
+'2204154@kiit.ac.in',
+'2206067@kiit.ac.in',
+'shubhitiwari54321@gmail.com',
+'shreesamridhi503@gmail.com',
+'nisarg.nargund@gmail.com',
+'22053968@kiit.ac.in',
+'yugpratap28@gmail.com',
+'dipanshuchaturvedi219@gmail.com',
+'22053325@kiit.ac.in',
+'22052867@kiit.ac.in',
+'22051814@kiit.ac.in',
+'22051532@kiit.ac.in',
+'shauryatiwari1874@gmail.com',
+'vaidikjsk@gmail.com',
+'22051797@kiit.ac.in',
+'22052107@kiit.ac.in',
+'akshitaak5221@gmail.com',
+'22053065@kiit.ac.in',
+'2230175@kiit.ac.in',
+'22053352@kiit.ac.in',
+'2205502@kiit.ac.in',
+'22051911@kiit.ac.in',
+'2228161@kiit.ac.in',
+'siddharthpanda315@gmail.com',
+'apratimdutta.2003@gmail.com',
+'www.ashikasingh04968@gmail.com',
+'22051675@kiit.ac.in',
+'22051449@kiit.ac.in',
+'shivensisodia2003@gmail.com',
+'2204042@kiit.ac.in',
+'2205107@kiit.ac.in',
+'22052244@kiit.ac.in',
+'2205868@kiit.ac.in',
+'raj.shubh8216@gmail.com',
+'adityasr790@gmail.com',
+'2205009@kiit.ac.in',
+'tamonashmajumder33@gmail.com',
+'22053334@kiit.ac.in',
+'suyash2004pandey@gmail.com',
+'22053194@kiit.ac.in',
+'sayoniofficial266@gmail.com',
+'ankudutt101@gmail.com',
+'oishanibanerjee09@gmail.com',
+'hariomjha100@gmail.com',
+'2230028@kiit.ac.in',
+'22052721@kiit.ac.in',
+'22052368@kiit.ac.in',
+'22053073@kiit.ac.in',
+'22053922@kiit.ac.in',
+'22051815@kiit.ac.in',
+'2229164@kiit.ac.in',
+'arpitarout132@gmail.com',
+'2203003@kiit.ac.in',
+'adi.rnc@gmail.com',
+'22051720@kiit.ac.in',
+'22052624@kiit.ac.in',
+'23057021@kiit.ac.in',
+'22053945@kiit.ac.in',
+'2205478@kiit.ac.in',
+'2304801@kiit.ac.in',
+'22054426@kiit.ac.in',
+'22052229@kiit.ac.in',
+'jeetsahoo2203@gmail.com',
+'akhterkaif10@gmail.com',
+'pandeyshatakhi16@gmail.com',
+'22053565@kiit.ac.in',
+'sanuyadav00007@gmail.com',
+'shreya.g1105@gmail.com',
+'22051282@kiit.ac.in',
+'22053597@kiit.ac.in',
+'jobsforarya2023@gmail.com',
+'2204043@kiit.ac.in',
+'2206312@kiit.ac.in',
+'22053223@kiit.ac.in',
+'2205429@kiit.ac.in',
+'23057064@kiit.ac.in',
+'22053423@kiit.ac.in',
+'souravadhikari2003@gmail.com',
+'adityabahadur294@gmail.com',
+'singhaarka0@gmail.com',
+'singhaarka0@gmail.com',
+'prasunjha3003@gmail.com',
+'22053654@kiit.ac.in',
+'vermashubhranshu9@gmail.com',
+'sakshamsingh4848@gmail.com',
+'22053420@kiit.ac.in',
+'debasishbisoi524@gmail.com',
+'22054295@kiit.ac.in',
+'2205995@kiit.ac.in',
+'22053448@kiit.ac.in',
+'2230243@kiit.ac.in',
+'2470254@kiit.ac.in',
+'22051190@kiit.ac.in',
+'amitanshupattnaik@gmail.com',
+'22051150@kiit.ac.in',
+'tanmayb203@gmail.com',
+'22053910@kiit.ac.in',
+'2470405@kiit.ac.in',
+'22051241@kiit.ac.in',
+'2206310@kiit.ac.in',
+'22054408@kiit.ac.in',
+'2230204@kiit.ac.in',
+'soham.ganguly1110@gmail.com',
+'22051172@kiit.ac.in',
+'singh886383@gmail.com',
+'23057048@kiit.ac.in',
+'meshiprasingh02@gmail.com',
+'22051066@kiit.ac.in',
+'ayushsriavstava@gmail.com',
+'purba.nandi.r@gmail.com',
+'alexbinu2004@gmail.com',
+'2205021@kiit.ac.in',
+'2205051@kiit.ac.in',
+'2205497@kiit.ac.in',
+'hijhabhishek@gmail.com',
+'2230125@kiit.ac.in',
+'2229198@kiit.ac.in',
+'2228144@kiit.ac.in',
+'bishalbaral20033@gmail.com',
+'22053558@kiit.ac.in',
+'22053008@kiit.ac.in',
+'2206178@kiit.ac.in',
+'22053452@kiit.ac.in',
+'akritipatro@gmail.com',
+'22051809@kiit.ac.in',
+'22053410@kiit.ac.in',
+'prakashpramanickjsr1717@gmail.com',
+'22053002@kiit.ac.in',
+'22054129@kiit.ac.in',
+'24166006@kiit.ac.in',
+'24166011@kiit.ac.in',
+'22053840@kiit.ac.in',
+'rudrakshidas72@gmail.com',
+'psmishra648@gmail.com',
+'2205043@kiit.ac.in',
+'sensoumodeep2@gmail.com',
+'2230211@kiit.ac.in',
+'2470235@kiit.ac.in',
+'hustlersbibek@gmail.com',
+'debasmith.111@gmail.com',
+'sanathabhinav47@gmail.com',
+'2228055@kiit.ac.in',
+'22052352@kiit.ac.in',
+'2205624@kiit.ac.in',
+'rluhar200@gmail.com',
+'meghana020404@gmail.com',
+'kn4shss@gmail.com',
+'gairolachaitanya@gmail.com',
+'info.nazimqureshi@gmail.com',
+'anjupathak9810@gmail.com',
+'rajshreeonly.workmail@gmail.com',
+'22054211@kiit.ac.in',
+'22051748@kiit.ac.in',
+'khamarumoinak@gmail.com',
+'2204131@kiit.ac.in',
+'vipin.tomar2016@gmail.com',
+'nishujain0312@gmail.com',
+'soham.ganguly1110@gmail.com',
+'rishiraj0519@gmail.com',
+'prarabdhatrey@gmail.com',
+'chaitanya.gera74@gmail.com',
+'22052831@kiit.ac.in',
+'2470415@kiit.ac.in',
+'2230257@kiit.ac.in',
+'harshraj2749@gmail.com',
+'2206062@kiit.ac.in',
+'22054222@kiit.ac.in',
+'2206424@kiit.ac.in',
+'22051951@kiit.ac.in',
+'2470404@kiit.ac.in',
+'2230134@kiit.ac.in',
+'rishikapal2005@gmail.com',
+'22052320@kiit.ac.in',
+'22051003@kiit.ac.in',
+'2205952@kiit.ac.in',
+'adityasr790@gmail.com',
+'2204037@kiit.ac.in',
+'2229053@kiit.ac.in',
+'22053578@kiit.ac.in',
+'22051894@kiit.ac.in',
+'2470478@kiit.ac.in',
+'shivi82468@gmail.com',
+'2230147@kiit.ac.in',
+'22051300@kiit.ac.in',
+'2205930@kiit.ac.in',
+'keshriayush123@gmail.com',
+'2470272@kiit.ac.in',
+'22052998@kiit.ac.in',
+'2205716@kiit.ac.in',
+'22052669@kiit.ac.in',
+'aks231273@gmail.com',
+'anandita.s006@gmail.com',
+'22052692@kiit.ac.in',
+'apurvan.337@gmail.com',
+'22052365@kiit.ac.in',
+'22052724@kiit.ac.in',
+'22053384@kiit.ac.in',
+'22053819@kiit.ac.in',
+'22052495@kiit.ac.in',
+'22051288@kiit.ac.in',
+'2205039@kiit.ac.in',
+'2206273@kiit.ac.in',
+'22051890@kiit.ac.in',
+'22052779@kiit.ac.in',
+'2230231@kiit.ac.in',
+'22053873@kiit.ac.in',
+'22053096@kiit.ac.in',
+'2205984@kiit.ac.in',
+'2206362@kiit.ac.in',
+'2206306@kiit.ac.in',
+'22054192@kiit.ac.in',
+'dugul0025@gmail.com',
+'nigamtumul99@gmail.com',
+'soult2202@gmail.com',
+'2204148@kiit.ac.in',
+'22051229@kiit.ac.in',
+'soumikdehury@gmail.com',
+'kuldeeppatra8@gmail.com',
+'akashalone2002@gmail.com',
+'2229099@kiit.ac.in',
+'alokbeherasubham089@gmail.com',
+'jawadsyed406@gmail.com',
+'all3n49@gmail.com',
+'siddharth.22010150@viit.ac.in',
+'mishrakundan073@gmail.com',
+'yzeng0521@gmail.com',
+'rahulkhandait84206@gmail.com',
+'peytonlflores@gmail.com',
+'masif15881@gmail.com',
+'maheshwarijanhavi@gmail.com',
+'piyushsuthar524@gmail.com',
+'iamightyraju@gmail.com',
+'shreyadey02020@gmail.com',
+'chetalihariramani@gmail.com',
+'suhaibkhan830@gmail.com',
+'pahujanandini@gmail.com',
+'umrsjd123@gmail.com',
+'mehakmantri2004@gmail.com',
+'utkrist.j@gmail.com',
+'2405213@kiit.ac.in',
+'pranjaljaypee@gmail.com',
+'manishchaudharyttt@gmail.com',
+'saivamshik11@gmail.com',
+'nkurunzizakati@gmail.com',
+'rohannsahh@gmail.com',
+'saumili.work@gmail.com',
+'singh.shikhar0712@gmail.com',
+'abhijeetw035@gmail.com',
+'sarthakyeole25@gmail.com',
+'asaksena100@gmail.com',
+'jyotir.aditya.tf@gmail.com',
+'muhammadalimandela007@gmail.com',
+'rohansen856@gmail.com',
+'vikasvishwakarma963@gmail.com',
+'misbahofficialwork@gmail.com',
+'poddarsharad460@gmail.com',
+'harshitbamotra.01@gmail.com',
+'mega89956@gmail.com',
+'raymondhu2006@gmail.com',
+'shrilakshmikakati@gmail.com',
+'aayushdahiya07@gmail.com',
+'gairolachaitanya@gmail.com',
+'vedant10d@gmail.com',
+'aayushrajbinod@gmail.com',
+'adi10pansare@gmail.com',
+'crossrehk@gmail.com',
+'shubhammahar1306@gmail.com',
+'divyanshurajput709@gmail.com',
+'mohitmsq@gmail.com',
+'anmol99993@gmail.com',
+'t-akaash.tripathee@ocltp.com',
+'abhilashbl.n505@gmail.com',
+'1sangamghimire1@gmail.com',
+'syedkhajamoinuddin293@gmail.com',
+'alpeshsaxena12@gmail.com',
+'tejasv0804@gmail.com',
+'adityabhattacharya3002@gmail.com',
+'jain0735@gmail.com',
+'aryanbakliwal12345@gmail.com',
+'yashshar.2323@gmail.com',
+'mavrickrishi@gmail.com',
+'iampriyanshukumar.2003@gmail.com',
+'bittudey190925@gmail.com',
+'chakrabortyrohan.abc01@gmail.com',
+'soumyodeep89s@gmail.com',
+'chitrankusarkar1@gmail.com',
+'hrittickramspi40@gmail.com',
+'bijitmondal567@gmail.com',
+'nagsoumita04@gmail.com',
+'anupunja.opensource@gmail.com',
+'indrajitmondal284@gmail.com',
+'akarsh22164013@akgec.ac.in',
+'lizarakshit@gmail.com',
+'pritam1813@gmail.com',
+'kotalpratik@gmail.com',
+'shahmeermondal1576@gmail.com',
+'shiladityamukherjee5486@gmail.com',
+'ashishpothal@gmail.com',
+'itsparnachakrabarti.04@gmail.com',
+'24155653@kiit.ac.in',
+'srishtymangutte@gmail.com',
+'akashadhya19@gmail.com',
+'seetalmitra2005@gmail.com',
+'p2005p5499p@gmail.com',
+'p2005p5499p@gmail.com',
+'sidhant0020@gmail.com',
+'sanskar0627@gmail.com',
+'peterc.co1ins@gmail.com',
+'sikadnan2@gmail.com',
+'samama251251@gmail.com',
+'sparshgupta1001@gmail.com',
+'georgesgewargis0@gmail.com',
+'muhammedsabith221b@gmail.com',
+'sanjaiexplores@gmail.com',
+'024nish@gmail.com',
+'prasang023@gmail.com',
+'shecoder30@gmail.com',
+'gkrcoder@gmail.com',
+'panditdipesh12@gmail.com',
+'ritankar.saha786@gmail.com',
+'asirp67970@gmail.com',
+'shashwat11muz@gmail.com',
+'vkp5602@gmail.com',
+'shyamendrahazra@gmail.com',
+'omkar.devx@gmail.com',
+'sgc.burdwan@gmail.com',
+'purnendunaskar.714@gmail.com',
+'rs0284388@gmail.com',
+'mukarram.mbp@gmail.com',
+'chaitra051103@gmail.com',
+'jalvarado@colgate.edu',
+'yawalkarpriyansh@gmail.com',
+'demnavzn@gmail.com',
+'mokonemanti256@gmail.com',
+'abhinavmittal554@gmail.com',
+'angeldeborahraj@gmail.com',
+'deyaniket666@gmail.com',
+'gupta878aditya@gmail.com',
+'saleep24@gmail.com',
+'vsh45904@gmail.com',
+'rishupatel.rp@gmail.com',
+'priyanshusingh27045@gmail.com',
+'kaushikmitra89@gmail.com',
+'mondalshibanshu088@gmail.com',
+'ankitabar1710@gmail.com',
+'abdul.muqit341@gmail.com',
+'jed.espiritu.000@gmail.com',
+'alison.zou@vanderbilt.edu',
+'princepoudel1010@gmail.com',
+'avantikasharma405@gmail.com',
+'anuragvermacontact@gmail.com',
+'priyaghosal2005@gmail.com',
+'soundaryagsk@gmail.com',
+'abhigyanmemes@gmail.com',
+'negiayush7579@gmail.com',
+'samayrainaop77777@gmail.com',
+'vkrishnan9074@gmail.com',
+'rishiksuddapalli@gmail.com',
+'harshitkumar1409@gmail.com',
+'rrksh.71@gmail.com',
+'sathviksmart9@gmail.com',
+'utkarshjha.4009@gmail.com',
+'rajshreeonly.workmail@gmail.com',
+'arpankanyakubja@gmail.com',
+'ngugimwathi254@gmail.com',
+'srikanth.1si16ee043@gmail.com',
+'tuhinpoddar114@gmail.com',
+'manojpradhan1803@gmail.com',
+'souvik1252@gmail.com',
+'lidiatesfaye05@gmail.com',
+'sm5114690@gmail.com',
+'shahananwer786@gmail.com',
+'aryansaxenaalig@gmail.com',
+'vkabhishek04@gmail.com',
+'123bst0@gmail.com',
+'nour.darragi@yale.edu',
+'abutochris2015@gmail.com',
+'sibomanaedouard974@gmail.com',
+'arunrawatar404@gmail.com',
+'aswathiswiss12@gmail.com',
+'souptik.gh189@gmail.com',
+'abdullatifnizamani517@gmail.com',
+'sarptandoven@gmail.com',
+'ibnsalamah2005@gmail.com',
+'pajinew@gmail.com',
+'22052724@kiit.ac.in',
+'apoorvaaanand28@gmail.com',
+'archikanungo2004@gmail.com',
+'gk.work047@gmail.com',
+'samanyuroy@gmail.com',
+'bakshivaishvik@gmail.com',
+'aadityarayyadav@gmail.com',
+'baviskarhd9@gmail.com',
+'itachi.sarthak2@gmail.com',
+'k.keyan2915@gmail.com',
+'krishnamoorthy.gcyber@gmail.com',
+'arushimishra2510@gmail.com',
+'sourasishmondal95@gmail.com',
+'lohitkolluri@gmail.com',
+'krishnakumarlal8421@gmail.com',
+'ryan.tran7312@gmail.com',
+'shwetatripathi0508@gmail.com',
+'anushkagautam704@gmail.com',
+'myworkplacesince2022@gmail.com',
+'nandinigoyal1005@gmail.com',
+'maitreya99@gmail.com',
+'utk24g@gmail.com',
+'21051135@kiit.ac.in',
+'inet.nishant@gmail.com',
+'2105495@kiit.ac.in',
+'akshat.reach@gmail.com',
+'anasnihal03@gmail.com',
+'harrykakadia@gmail.com',
+'aboubakarytr1@gmail.com',
+'roshan17072001@gmail.com',
+'shamunkhatri@gmail.com',
+'sparshgupta1001@gmail.com',
+'efeaizesogie@gmail.com',
+'studybcaonline@gmail.com',
+'saugatpandey2074@gmail.com',
+'rojinaghimire6538@gmail.com',
+'jaimenonhere@gmail.com',
+'wsamuelwondimu@gmail.com',
+'anvitha.mattapalli@gmail.com',
+'anilsingh.2chd@gmail.com',
+'mayo16collins@gmail.com',
+'swapsnil12@gmail.com',
+'suhana02062003@gmail.com',
+'satyapriyanidhi@gmail.com',
+'kelvintawiah224@gmail.com',
+'minhhaa2006@gmail.com',
+'shahriyarabrarhimel@gmail.com',
+'tuanafk2006@gmail.com',
+'naitik7475@gmail.com',
+'ayushmans012@gmail.com',
+'khushkushwaha45@gmail.com',
+'levanthienquang@gmail.com',
+'asimabrar333@gmail.com',
+'jaydonkchen@gmail.com',
+'mailtoumet@gmail.com',
+'mauryapriyadarshi2004@gmail.com',
+'marvishchandra98@gmail.com',
+'madhucharan512@gmail.com',
+'dhavanskaggi@gmail.com',
+'chandrika10c@gmail.com',
+'rajeshwaridm.ai22@bmsce.ac.in',
+'vivekganeshs12@gmail.com',
+'yashaswini.0716@gmail.com',
+'dileep.is21@bmsce.ac.in',
+'jkprajwal41@gmail.com',
+'apeksha7015@gmail.com',
+'rohithb892@gmail.com',
+'speak2syedsaif@gmail.com',
+'yashksaini89@gmail.com',
+'thanusha.ch21@bmsce.ac.in',
+'khalid.abukar99@gmail.com',
+'rahulshirur15@gmail.com',
+'tanzeel.ec21@bmsce.ac.in',
+'shreyareddyannapureddy@gmail.com',
+'shashikantamodak.is21@bmsce.ac.in',
+'prashu0705@gmail.com',
+'abhinavsomisetty@gmail.com',
+'mehnoor.is21@bmsce.ac.in',
+'goel.tarushi@gmail.com',
+'siddharthrishi17@gmail.com',
+'ayman.abumaike1@gmail.com',
+'mdarslan7@gmail.com',
+'kubendra386@gmail.com',
+'edjutaweedawit@gmail.com',
+'routrow@gmail.com',
+'aniket.ai21@bmsce.ac.in',
+'bkuntesuraj@gmail.com',
+'anshu27005@gmail.com',
+'vladarava112@gmail.com',
+'jasteghsingh04@gmail.com',
+'gamar8692@gmail.com',
+'pandeyaditya8707@gmail.com',
+'adalui260@gmail.com',
+'shirshendupodder@gmail.com',
+'sneha2004goswami@gmail.com',
+'riyagdgc@gmail.com',
+'aec.cse.2024shivammodi@gmail.com',
+'aryankeshri67@gmail.com',
+'xq1@williams.edu',
+'subhadipguchhait106@gmail.com',
+'aec.cse2024shashankgupta@gmail.com',
+'sanchit.ci22@bmsce.ac.in',
+'aganahelyon@gmail.com',
+'anirbansingha20@gmail.com',
+'ritikraturiworks@gmail.com',
+'yawbtngjr.05@gmail.com',
+'tyu2105@stanford.edu',
+'preethikumar776@gmail.com',
+'soumensmaji1990@gmail.com',
+'nathanong.cs@gmail.com',
+'umreutkarsh@gmail.com',
+'kaand21@morgan.edu',
+'nintang48@gmail.com',
+'tessellison10@gmail.com',
+'nhuha919@gmail.com',
+'lakshmishreekp0205@gmail.com',
+'ysmaelsandoval096@gmail.com',
+'cdtnkmcc98@gmail.com',
+'alokkumarp2511@gmail.com',
+'wittenpan@gmail.com',
+'amayd@iitbhilai.ac.in',
+'samueltk@umich.edu',
+'kchaou.malek0@gmail.com',
+'liza.06.04.27@gmail.com',
+'truannecn@gmail.com',
+'trangta0807@gmail.com',
+'bagelseeds0110@gmail.com',
+'lakshmishreekp.ci23@bmsce.ac.in',
+'mnabie55@gmail.com',
+'enesyilmaz5157@gmail.com',
+'daa3@williams.edu',
+'devisamidurai435@gmail.com',
+'bansalakshita0106@gmail.com',
+'anthonyn54535@gmail.com',
+'rayaneskiker9@gmail.com',
+'debarjunpal134@gmail.com',
+'himanshupatidar622@gmail.com',
+'aryanv.india1@gmail.com',
+'gurnoorsingh5294@gmail.com',
+'pawanblady@gmail.com',
+'jaimeed2105@gmail.com',
+'tur97346@temple.edu',
+'james.k.leung@stonybrook.edu',
+'jmcle144@gmail.com',
+'hariszeb2006@gmail.com',
+'utsuronoyume@gmail.com',
+'isadir7.12.05@gmail.com',
+'xxacvgxxxx@gmail.com',
+'prasadyuvraj8805@gmail.com',
+'nehabommireddy@gmail.com',
+'jeffrey.ye2002@gmail.com',
+'trisclaye@gmail.com',
+'33sorbojitmondal@gmail.com',
+'anuragofficial260@gmail.com',
+'sukjais7120@gmail.com',
+'mfaisal4@dons.usfca.edu',
+'alexanderabakah70@gmail.com',
+'jjh320306420@gmail.com',
+'sriramnat123@gmail.com',
+'sukjais7120@gmail.com',
+'benjaminprush@gmail.com',
+'gauravraj987123@gmail.com',
+'rp5454@srmist.edu.in',
+'ayushri_jain@tamu.edu',
+'kevinw8765@gmail.com',
+'bhendrat@andrew.cmu.edu',
+'komnoob123@gmail.com',
+'debasis2122004@gmail.com',
+'maniraharie075@gmail.com',
+'mahallepratik683@gmail.com',
+'srishtijaiswal2823@gmail.com',
+'alamayaan120@gmail.com',
+'sainadthpagadala@gmail.com',
+'anasgaamal@gmail.com',
+'jasswanth.24@gmail.com',
+'septdat@gmail.com',
+'emma91zhang@gmail.com',
+'sonavikash733@gmail.com',
+'pranovvimal30@gmail.com',
+'himanesh2k3@gmail.com',
+'rajamurugan09123@gmail.com',
+'nameerasyed22@gmail.com',
+'brysonroyale2026@gmail.com',
+'divyabala0112@gmail.com',
+'kishorehosur330@gmail.com',
+'harshinin2003@gmail.com',
+'mani18012003@gmail.com',
+'mbalajimbalaji640@gmail.com',
+'ssnehashree24@gmail.com',
+'vinothr4252@gmail.com',
+'cphari08@gmail.com',
+'krishnaprasadandco12@gmail.com',
+'brindhatshb@gmail.com',
+'suhainafathimam@gmail.com',
+'kalasaraswathi83@gmail.com',
+'solaiselvisda27@gmail.com',
+'priyaspd2004@gmail.com',
+'1504shajith@gmail.com',
+'lokendras.715@gmail.com',
+'muthuanandhakumar1002@gmail.com',
+'santhiya231104@gmail.com',
+'nivethasriashok176@gmail.com',
+'saranyakvl10@gmail.com',
+'raviharish296@gmail.com',
+'gayathrimagheswarann@gmail.com',
+'tanishgupta@umass.edu',
+'lokeshvenkatesan44@gmail.com',
+'mohanasrimohana601@gmail.com',
+'salwansandeep5@gmail.com',
+'sanmathi172003a@gmail.com',
+'badikaayushi@gmail.com',
+'hariniks0618@gmail.com',
+'tylertang50@gmail.com',
+'gokulalakshmimlaksh2005@gmail.com',
+'shameee0905@gmail.com',
+'vineka2004@gmail.com',
+'jaganraj2806@gmail.com',
+'anandhivasudevan242@gmail.com',
+'deviswathi41@gmail.com',
+'vaishnavinandha2005@gmail.com',
+'subashinikumaravel49@gmail.com',
+'dharaniveerappan18@gmail.com',
+'akshayaviknesh2806@gmail.com',
+'thamizh27arasi@gmail.com',
+'jgayathri327@gmail.com',
+'devadharshiniravi6@gmail.com',
+'thiru4676456@gmail.com',
+'nithyasreep2004@gmail.com',
+'oviyaramesh01@gmail.com',
+'narmathaa2005@gmail.com',
+'lragesh28@gmail.com',
+'suvethaapalanisamy07@gmail.com',
+'monasrimohandoss@gmail.com',
+'prethikaschl@gmail.com',
+'mmishrit0201@gmail.com',
+'nearyrothchs@gmail.com',
+'kanimeena678@gmail.com',
+'ybhatter@scu.edu',
+'dipayansinha2000@gmail.com',
+'harishanbukumar@gmail.com',
+'rajeshsekar062004@gmail.com',
+'sandhiyadaisy7@gmail.com',
+'rohinirk.2005@gmail.com',
+'kanikapoovalavan@gmail.com',
+'gangapalani20@gmail.com',
+'rajeshwariravi2005@gmail.com',
+'jamunad1404@gmail.com',
+'arunganesh7070@gmail.com',
+'jaivisal123@gmail.com',
+'jharshan07@gmail.com',
+'thiyathiya088@gmail.com',
+'krishnakumarj0000@gmail.com',
+'priyadharshinisgfd@gmail.com',
+'deviswathi41@gmail.com',
+'preethi969875@gmail.com',
+'ksanumica@gmail.com',
+'michelckcet@gmail.com',
+'nithyasreep2004@gmail.com',
+'thenmozhithenmozhi600@gmail.com',
+'kumareshwarib@gmail.com',
+'abidhanam2005@gmail.com',
+'vaishnavinandha2005@gmail.com',
+'mohangunasekaran384@gmail.com',
+'adhithya608@gmail.com',
+'sachinjana295@gmail.com',
+'nasreennasreen1102@gmail.com',
+'jubair247987@gmail.com',
+'pranavanathanks@gmail.com',
+'anandhivasudevan242@gmail.com',
+'srik2301@gmail.com',
+'arun21ak21@gmail.com',
+'keerthananagaraj21@gmail.com',
+'tadiwanashedumba.101@gmail.com',
+'kathirvetri2050@gmail.com',
+'srikanthl1401@gmail.com',
+'nragu362@gmail.com',
+'srisriram2567@gmail.com',
+'alwinabrisha@gmail.com',
+'haridha0346@gmail.com',
+'ramyaramya1086@gmail.com',
+'dsri7935@gmail.com',
+'dhikshanapalani@gmail.com',
+'parameshwarivelparamu@gmail.com',
+'poojadharmaraj73@gmail.com',
+'zerihunabigail@gmail.com',
+'deyricky36@gmail.com',
+'vetribalan90@gmail.com',
+'shivanialive2007@gmail.com',
+'wansaf05@gmail.com',
+'poulomidas2801@gmail.com',
+'ddas21030417@gmail.com',
+'daniyaishteyaque@gmail.com',
+'abhijeetxz10@gmail.com',
+'anunayk61@gmail.com',
+'kumarakash60725@gmail.com',
+'md7231931@gmail.com',
+'sneha.c1105@gmail.com',
+'anishrajdmk@gmail.com',
+'subham25012002@gmail.com',
+'rajdippodder123@gmail.com',
+'ojhabhumi528@gmail.com',
+'shreyasroy25@gmail.com',
+'debnath.auritree3107@gmail.com',
+'alisha.afaque786@gmail.com',
+'moumitac098@gmail.com',
+'redietg35@gmail.com',
+'murugansathya2005@gmail.com',
+'theerthiyatheerthiya@gmail.com',
+'srii120305@gmail.com',
+'anayan0915@gmail.com',
+'sreyanandi25@gmail.com',
+'p2005p5499p@gmail.com',
+'adityabakshi1011@gmail.com',
+'abhishekrajputji2004@gmail.com',
+'azeezalishah@gmail.com',
+'nitin.shukla12004@gmail.com',
+'srishtymangutte@gmail.com',
+'dutta_ayush@srmap.edu.in',
+'pandeyansal77@gmail.com',
+'namanparlecha@gmail.com',
+'mdasifnawaz545@gmail.com',
+'vrindabindal1212@gmail.com',
+'divyanshurajput709@gmail.com',
+'nageshkharat1910@gmail.com',
+'dilipkumar491249@gmail.com',
+'sharmasuyash821@gmail.com',
+'lavanya.varshney2104@gmail.com',
+'varavind09032003@gmail.com',
+'devidas.blr@gmail.com',
+'raghavbansal1981@gmail.com',
+'kahaneajinkya051@gmail.com',
+'hungkhanh.truong112@gmail.com',
+'parthi15august@gmail.com',
+'asirp67970@gmail.com',
+'perfectprince35@gmail.com',
+'nishika06sharma@gmail.com',
+'eivorftw234@gmail.com',
+'subinpjohn3@gmail.com',
+'spl.sp999@gmail.com',
+'ananyakumari0710@gmail.com',
+'pnvshravan@gmail.com',
+'mahetanirav2006@gmail.com',
+'22f3002016@ds.study.iitm.ac.in',
+'apshaiderbukhari786@gmail.com',
+'sayedsalem767@gmail.com',
+'mrshravankumarb@gmail.com',
+'jayant99acharya@gmail.com',
+'hetvidoshi2205@gmail.com',
+'ridhi149btcseai23@igdtuw.ac.in',
+'prath0309@gmail.com',
+'dba.desh@gmail.com',
+'ayushya.official@gmail.com',
+'ashmitaluthra33@gmail.com',
+'kumarvyasaditya@gmail.com',
+'supalvasani@gmail.com',
+'jyotikaj30@gmail.com',
+'saniajahanvi@gmail.com',
+'absvt.007b69@gmail.com',
+'ayushjuventus2830@gmail.com',
+'ankitgupta8504@gmail.com',
+'asifmalik22789@gmail.com',
+'devabdulx@gmail.com',
+'patelmuh2003@gmail.com',
+'risabsingh9903115009@gmail.com',
+'pujadjorwar103@gmail.com',
+'tripathiakaash@gmail.com',
+'souravdishri@gmail.com',
+'manishchaudharyttt@gmail.com',
+'rt56400@gmail.com',
+'nikhilchandelldh@gmail.com',
+'impriyanshu2901@gmail.com',
+'nehaprasad27118@gmail.com',
+'suvetha.devi.r.25@gmail.com',
+'suvetha.devi.r.25@gmail.com',
+'wingoals2020@gmail.com',
+'itz.deeepak@gmail.com',
+'9003557rre@gmail.com',
+'mohamedimthiyas62696@gmail.com',
+'vikranthprathap@gmail.com',
+'shivam.mishranawa@gmail.com',
+'sameeramansoor03@gmail.com',
+'udieshkr@gmail.com',
+'adarshrawat146@gmail.com',
+'samyukthasr03@gmail.com',
+'amezcuaalfredo81@gmail.com',
+'euclidstellar@gmail.com',
+'krishnakantmaurya1616@gmail.com',
+'singh28aishwarya@gmail.com',
+'sakshammishra112@gmail.com',
+'utkarshshah000@gmail.com',
+'12j23ramameiyappanrm@gmail.com',
+'adityanv4@gmail.com',
+'ajusnevixarulraj@gmail.com',
+'varshaun58@gmail.com',
+'sanand03072005@gmail.com',
+'swarupapawbake1@gmail.com',
+'jayedalamshiningoff@gmail.com',
+'ranshup5@gmail.com',
+'prasadsarwar22@gmail.com',
+'thakurishaant075@gmail.com',
+'aniketwani1729@gmail.com',
+'hr215144@gmail.com',
+'aamreet12345@gmail.com',
+'suresurendiran777@gmail.com',
+'spj7666@gmail.com',
+'thakuriaditya121@gmail.com',
+'prasadsarwar22@gmail.com',
+'vaishnaviparawade991@gmail.com',
+'bawiskarvaibhav@gmail.com',
+'sanavirahane2005@gmail.com',
+'phuleaditya77@gmail.com',
+'susmitadeywork@gmail.com',
+'sejalsonawane23@gmail.com',
+'worknick110@gmail.com',
+'kajendiranm7@gmail.com',
+'sahityajb@gmail.com',
+'suvam01072005@gmail.com',
+'yashpal2104@gmail.com',
+'reetsharma230403@gmail.com',
+'rootrahull21@gmail.com',
+'bhagathemang360@gmail.com',
+'abhilashnitk3@gmail.com',
+'nitish.pkv@gmail.com',
+'anilshelke912003@gmail.com',
+'garadomkar78@gmail.com',
+'deokarpavan0262@gmail.com',
+'diyashakya01@gmail.com',
+'anjalmallick1@gmail.com',
+'bryanningthoujam542@gmail.com',
+'agrawalsuryansh71@gmail.com',
+'kanishkmishra402@gmail.com',
+'adityabodha7@gmail.com',
+'tanmaykulkarni2112@gmail.com',
+'shaikhehtesham48@gmail.com',
+'spowartech@gmail.com',
+'erprituyadav@gmail.com',
+'22052724@kiit.ac.in',
+'aishik.tokdar2023@vitstudent.ac.in',
+'ranjanearyan82@gmail.com',
+'shanmukhsharma667@gmail.com',
+'amishaagarwal105@gmail.com',
+'johnibasha671@gmail.com',
+'jigarvyasidea@gmail.com',
+'yesiamritik33@gmail.com',
+'devlohani14251425@gmail.com',
+'prakash.pavankumar@gmail.com',
+'amitantu7277@gmail.com',
+'bhumika.c.prasanna@gmail.com',
+'nraj99858@gmail.com',
+'kishorekumar02122004@gmail.com',
+'mahi13singh2004@gmail.com',
+'saurabhdoke96@gmail.com',
+'chaitanyarai19@gmail.com',
+'imailyash57@gmail.com',
+'surendar1160@gmail.com',
+'ishween.khatri22@gmail.com',
+'ojaswanirajor@gmail.com',
+'faizanali29042000@gmail.com',
+'harshgulati020@gmail.com',
+'virinchi0407@gmail.com',
+'agastyasahil@gmail.com',
+'sumantripathi735@gmail.com',
+'suyashxd@gmail.com',
+'ritabrataghosh09@gmail.com',
+'subhampops2409@gmail.com',
+'jensenjose101016@gmail.com',
+'dineshambhore1033@gmail.com',
+'yawalkarpriyansh@gmail.com',
+'srivigneshfb@gmail.com',
+'yogeshwarank068@gmail.com',
+'siddhi12612@gmail.com',
+'itsaarnakhwaish@gmail.com',
+'pranavmetil@gmail.com',
+'rishita.2327cse1025@kiet.edu',
+'rahmanayan53@gmail.com',
+'hemrajshelke087@gmail.com',
+'yashikagarg1124@gmail.com',
+'kathirckcet3@gmail.com',
+'pranjalbarnwaldev@gmail.com',
+'meadamann2002@gmail.com',
+'ashwinmreddy@gmail.com',
+'manulpatel99@gmail.com',
+'tanishashrutidey@gmail.com',
+'balanibhoomi8@gmail.com',
+'322103310091@gvpce.ac.in',
+'revanthmaddala5@gmail.com',
+'dagayash17@gmail.com',
+'dev.kunaldarekar99@gmail.com',
+'kevinw8765@gmail.com',
+'preethve.b@gmail.com',
+'mail.mohitbisht@gmail.com',
+'nakulsingh.vnit@gmail.com',
+'anvitakashikar29@gmail.com',
+'vsujathag@gmail.com',
+'hudaniel79@gmail.com',
+'gundetiakansha@gmail.com',
+'mohammedaleem061@gmail.com',
+'latchpani@gmail.com',
+'dharshadharsha17@gmail.com',
+'saravanakrishnan16@gmail.com',
+'shakunth5401@gmail.com',
+'10447.thomas@gmail.com',
+'narasimhapavanb@gmail.com',
+'tamizhvanan10vs@gmail.com',
+'ehhchall.28@gmail.com',
+'joyslinjenifer@gmail.com',
+'madhavan0823@gmail.com',
+'rishwantthi18@gmail.com',
+'kathirganesan11@gmail.com',
+'riyas45riya@gmail.com',
+'rishini443@gmail.com',
+'aajitha6258@gmail.com',
+'d.k.madhumithaa@gmail.com',
+'gopinath2k31@gmail.com',
+'je4919744@gmail.com',
+'nandanmyd321@gmail.com',
+'resanth18x@gmail.com',
+'manikandannachiappan299@gmail.com',
+'ajishadthampi@gmail.com',
+'jeffersengodfrey@gmail.com',
+'aswinakilash2005@gmail.com',
+'subamanju25@gmail.com',
+'josephstudent001@gmail.com',
+'amirthavarshiniamg@gmail.com',
+'vinisha0014@gmail.com',
+'sakthisharuka@gmail.com',
+'joyslinjenifer@gmail.com',
+'gopinathanasokan591@gmail.com',
+'krishnaasaravanan2286@gmail.com',
+'ravisankarananditha@gmail.com',
+'renitaofficial1504@gmail.com',
+'mithraacct@gmail.com',
+'bhavadharani590@gmail.com',
+'svasanth2392005@gmail.com',
+'c.saravanapriyan@gmail.com',
+'sakthilakshman521@gmail.com',
+'priya22dharshini001@gmail.com',
+'saravansenthil007@gmail.com',
+'veeraed1612006@gmail.com',
+'shlokakumari2007@gmail.com',
+'hanzili0217@gmail.com',
+'shinelikestar1997@gmail.com',
+'ansakanwal2145@gmail.com',
+'prithudutta@gmail.com',
+'bhuvaneswari181204@gmail.com',
+'durgesh13kesharwani@gmail.com',
+'shyamnathab2006@gmail.com',
+'msurendhar8815@gmail.com',
+'poojammhs@gmail.com',
+'vaibhav.panchal2k4@gmail.com',
+'pjanuja5185425@gmail.com',
+'kishorshelke018@gmail.com',
+'mahashree20uva@gmail.com',
+'jeswinr.vlsi2023@citchennai.net',
+
+
+]);
+
+
 const loadingStates = [
-  { text: "Checking the registration Status" },
-  { text: "Checking your acceptance into the program" },
-  { text: "Checking if you have star marked our repository" },
+  { text: 'Checking the registration Status' },
+  { text: 'Checking your acceptance into the program' },
+  { text: 'Checking if you have star marked our repository' },
 ];
 
 interface UserData {
@@ -23,50 +1890,58 @@ interface HeroProps {
 
 export default function Hero({ onDataUpdate, userData }: HeroProps) {
   const { name, github, email, image, generated } = userData;
+
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [errorType, setErrorType] = useState<'email' | 'star' | 'general' | null>(null);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => onDataUpdate({ image: reader.result as string });
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => onDataUpdate({ image: reader.result as string });
+    reader.readAsDataURL(file);
   };
 
   const checkGitHubStar = async (username: string): Promise<boolean> => {
     if (!username) return false;
-    const sanitizedUsername = username.trim().replace(/\s+/g, '');
-    if (!sanitizedUsername) return false;
+    const sanitized = username.trim().replace(/\s+/g, '');
+    if (!sanitized) return false;
 
     try {
-      setIsLoading(true);
-      setError(null);
-      const response = await fetch(`https://api.github.com/user/starred/keploy/keploy`, {
-        headers: {
-          'X-GitHub-Api-Version': '2022-11-28',
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': sanitizedUsername
+
+      const resp = await fetch(
+        `https://api.github.com/user/starred/keploy/keploy`,
+        {
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28',
+            Accept: 'application/vnd.github.v3+json',
+            'User-Agent': sanitized,
+          },
         }
-      });
+      );
 
-      if (response.status === 401 || response.status === 403) {
-        const page1Response = await fetch(`https://api.github.com/users/${sanitizedUsername}/starred?per_page=100&page=1`);
-        if (!page1Response.ok) return false;
 
-        const starredRepos = await page1Response.json();
-        return starredRepos.some((repo: any) => repo.full_name.toLowerCase() === 'keploy/keploy');
+      if (resp.status === 401 || resp.status === 403) {
+        const p1 = await fetch(
+          `https://api.github.com/users/${sanitized}/starred?per_page=100&page=1`
+        );
+        if (!p1.ok) return false;
+        const list = await p1.json();
+        return list.some(
+          (repo: any) => repo.full_name?.toLowerCase() === 'keploy/keploy'
+        );
       }
 
-      return response.status === 204;
-    } catch (error) {
+      return resp.status === 204;
+    } catch {
       return false;
-    } finally {
-      setIsLoading(false);
     }
   };
+
 
   const handleGenerate = async () => {
     if (!name || !github || !email || !image) {
@@ -74,121 +1949,142 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
       return;
     }
 
+
+    const shortlisted = ALLOWED_EMAILS.has(email.trim().toLowerCase());
+    if (!shortlisted) {
+      setErrorType('email');
+      setErrorMsg(
+        'Sorry, this user was not shortlisted for the fellowship.'
+      );
+      return;
+    }
+
+
     try {
       setIsLoading(true);
-      setError(null);
-      const hasStarred = await checkGitHubStar(github);
-      if (!hasStarred) {
-        setError("You need to star the Keploy repository to generate an ID card.");
+      setErrorType(null);
+      setErrorMsg(null);
+
+      const starred = await checkGitHubStar(github);
+      if (!starred) {
+        setErrorType('star');
+        setErrorMsg(
+          'You need to star the Keploy repository to generate an ID card.'
+        );
         return;
       }
+
+
       onDataUpdate({ generated: true });
-    } catch (error) {
-      setError("There was an error processing your request.");
+    } catch {
+      setErrorType('general');
+      setErrorMsg('There was an error processing your request.');
     } finally {
       setIsLoading(false);
     }
   };
 
+
   const handleDownload = () => {
-  const canvas = canvasRef.current;
-  if (!canvas) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-  /* ultra‑HD factor (tweak up to 6‑8 if you ever need poster‑size) */
-  const scale = 5;               // 350×500 → 1750×2500 px
-  const baseW = 350;
-  const baseH = 500;
+    const scale = 5;
+    const baseW = 350;
+    const baseH = 500;
 
-  canvas.width  = baseW * scale;
-  canvas.height = baseH * scale;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-  ctx.scale(scale, scale);       // draw in logical units
+    canvas.width = baseW * scale;
+    canvas.height = baseH * scale;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.scale(scale, scale);
 
-  /* helper */
-  const load = (src: string) =>
-    new Promise<HTMLImageElement>((res, rej) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => res(img);
-      img.onerror = rej;
-      img.src = src;
-    });
+    const load = (src: string) =>
+      new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
 
-  (async () => {
-    ctx.clearRect(0, 0, baseW, baseH);
-    const cx = baseW / 2;
+    (async () => {
+      ctx.clearRect(0, 0, baseW, baseH);
+      const cx = baseW / 2;
 
-    const [bg, logo, avatar] = await Promise.all([
-      load('/assets/images/card-background.png'),
-      load('/assets/images/keploy-logo.png'),
-      load(image),
-    ]);
+      const [bg, logo, avatar] = await Promise.all([
+        load('/assets/images/card-background.png'),
+        load('/assets/images/keploy-logo.png'),
+        load(image),
+      ]);
 
-    ctx.drawImage(bg, 0, 0, baseW, baseH);
-    ctx.drawImage(logo, cx - 60, 20, 120, 40);
+      ctx.drawImage(bg, 0, 0, baseW, baseH);
+      ctx.drawImage(logo, cx - 60, 20, 120, 40);
 
-    const headingY = 80;
-    const grad = ctx.createLinearGradient(20, headingY, 280, headingY);
-    grad.addColorStop(0, '#ff8800');
-    grad.addColorStop(1, '#ff5500');
-    ctx.fillStyle = grad;
-    ctx.font = 'bold 26px Helvetica';
-    ctx.textAlign = 'center';
-    ctx.fillText('API Fellowship', cx, headingY + 8);
+      const headingY = 80;
+      const grad = ctx.createLinearGradient(20, headingY, 280, headingY);
+      grad.addColorStop(0, '#ff8800');
+      grad.addColorStop(1, '#ff5500');
+      ctx.fillStyle = grad;
+      ctx.font = 'bold 26px Helvetica';
+      ctx.textAlign = 'center';
+      ctx.fillText('API Fellowship', cx, headingY + 8);
 
-    const r = 70, avatarY = 180;
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, avatarY, r, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.clip();
-    ctx.drawImage(avatar, cx - r, avatarY - r, r * 2, r * 2);
-    ctx.restore();
+      const r = 70,
+        avatarY = 180;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, avatarY, r, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(avatar, cx - r, avatarY - r, r * 2, r * 2);
+      ctx.restore();
 
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 28px Helvetica';
-    ctx.fillText(name, cx, avatarY + r + 30);
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 28px Helvetica';
+      ctx.fillText(name, cx, avatarY + r + 30);
 
-    ctx.fillStyle = '#ff8800';
-    ctx.font = '16px Helvetica';
-    ctx.fillText(`@${github.trim().replace(/\s+/g, '')}`, cx, avatarY + r + 50);
+      ctx.fillStyle = '#ff8800';
+      ctx.font = '16px Helvetica';
+      ctx.fillText(`@${github.trim().replace(/\s+/g, '')}`, cx, avatarY + r + 50);
 
-    const baseY = baseH - 70;
-    ctx.fillStyle = '#999999';
-    ctx.font = 'italic 14px Helvetica';
-    ctx.fillText('API Fellow - Cohort 2025', cx, baseY);
+      const baseY = baseH - 70;
+      ctx.fillStyle = '#999999';
+      ctx.font = 'italic 14px Helvetica';
+      ctx.fillText('API Fellow - Cohort 2025', cx, baseY);
 
-    ctx.strokeStyle = 'rgba(255,136,0,0.3)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(50, baseY + 15);
-    ctx.lineTo(baseW - 50, baseY + 15);
-    ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,136,0,0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(50, baseY + 15);
+      ctx.lineTo(baseW - 50, baseY + 15);
+      ctx.stroke();
 
-    ctx.fillStyle = '#777777';
-    ctx.font = '12px Helvetica';
-    ctx.fillText('Keploy.io', cx, baseY + 30);
+      ctx.fillStyle = '#777777';
+      ctx.font = '12px Helvetica';
+      ctx.fillText('Keploy.io', cx, baseY + 30);
 
-    canvas.toBlob(
-      (blob) => {
-        if (!blob) return;
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.download = `${name.replace(/\s/g, '_')}_keploy_id_hd.png`;
-        a.href = url;
-        a.click();
-        URL.revokeObjectURL(url);
-      },
-      'image/png',
-      1 /* quality ignored by PNG but keeps signature */
-    );
-  })();
-};
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) return;
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.download = `${name.replace(/\s/g, '_')}_keploy_id_hd.png`;
+          a.href = url;
+          a.click();
+          URL.revokeObjectURL(url);
+        },
+        'image/png',
+        1
+      );
+    })();
+  };
 
+  /* ------------------------------------------------------------------ */
   return (
     <main className="relative min-h-screen w-full flex flex-col items-center justify-start overflow-hidden pb-24">
-      {/* <div className="absolute inset-0 -z-10">
+      {/* blurred background */}
+      <div className="absolute inset-0 -z-10">
         <NextImage
           src="/assets/images/orange-painting.jpg"
           alt="Background"
@@ -196,99 +2092,141 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
           priority
           style={{ objectFit: 'cover' }}
         />
-      </div> */}
-
-
-      <div className='absolute inset-0 -z-10'>
-      <NextImage src ="/assets/images/orange-painting.jpg" alt='background of the input form'
-      fill priority 
-      style = { { objectFit: 'cover'}}
-      />
       </div>
 
-      {/* Form */}
-      <form onSubmit={(e) => e.preventDefault()} className="relative backdrop-blur-xl bg-white/10 border border-white/30 p-8 rounded-2xl shadow-xl space-y-6 w-full max-w-md z-10 mt-20">
-        <div className="text-center relative z-10">
-          <h1 className="text-3xl font-bold text-white">
-            Keploy API Fellowship
-          </h1>
-          <p className="text-lg text-white/80 mt-2">Onboarding and ID Card Collection</p>
+      {/* ---------------------------------- FORM ---------------------------------- */}
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="relative backdrop-blur-xl bg-white/10 border border-white/30 p-8 rounded-2xl shadow-xl space-y-6 w-full max-w-md z-10 mt-20"
+      >
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-white">Keploy API Fellowship</h1>
+          <p className="text-lg text-white/80 mt-2">
+            Onboarding and ID Card Collection
+          </p>
         </div>
 
-        <div className="relative space-y-6">
-          {["name", "github", "email"].map((field, i) => (
-            <div key={i}>
-              <label className="block text-sm font-medium text-white/90 mb-2 capitalize">{field}</label>
-              <input
-                type={field === "email" ? "email" : "text"}
-                placeholder={field === "github" ? "user-name" : `Your ${field}`}
-                className="w-full p-3 rounded-lg bg-white/30 text-white placeholder-white/70 border border-white/20 focus:ring-2 focus:ring-orange-300 focus:outline-none transition shadow-sm"
-                value={userData[field as keyof UserData] as string}
-                onChange={(e) => onDataUpdate({ [field]: e.target.value })}
-              />
-            </div>
-          ))}
+        {/* text inputs */}
+        {['name', 'github', 'email'].map((field) => (
+          <div key={field}>
+            <label className="block text-sm font-medium text-white/90 mb-2 capitalize">
+              {field}
+            </label>
+            <input
+              type={field === 'email' ? 'email' : 'text'}
+              placeholder={field === 'github' ? 'user-name' : `Your ${field}`}
+              className="w-full p-3 rounded-lg bg-white/30 text-white placeholder-white/70 border border-white/20 focus:ring-2 focus:ring-orange-300 focus:outline-none transition shadow-sm"
+              value={userData[field as keyof UserData] as string}
+              onChange={(e) => onDataUpdate({ [field]: e.target.value })}
+            />
+          </div>
+        ))}
 
-          <div>
-            <label className="block text-sm font-medium text-white/90 mb-2">Profile Picture</label>
-            <div className="border-2 border-dashed border-orange-300 rounded-lg p-4 text-center hover:border-orange-500 transition bg-orange-50/10">
-              {image ? (
-                <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 rounded-full overflow-hidden relative shadow-md">
-                    <NextImage
-                      src={image}
-                      alt="Preview"
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      sizes="96px"
-                    />
-                    
-                  </div>
-                  <label className="text-orange-100 hover:text-orange-500 cursor-pointer text-sm mt-2 font-medium">
-                    Change Image
-                    <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
-                  </label>
+        {/* image upload */}
+        <div>
+          <label className="block text-sm font-medium text-white/90 mb-2">
+            Profile Picture
+          </label>
+          <div className="border-2 border-dashed border-orange-300 rounded-lg p-4 text-center hover:border-orange-500 transition bg-orange-50/10">
+            {image ? (
+              <div className="flex flex-col items-center">
+                <div className="w-24 h-24 rounded-full overflow-hidden relative shadow-md">
+                  <NextImage
+                    src={image}
+                    alt="Preview"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    sizes="96px"
+                  />
                 </div>
-              ) : (
-                <label className="cursor-pointer">
-                  <div className="text-white/70 mb-2">Click to upload image</div>
-                  <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                <label className="text-orange-100 hover:text-orange-500 cursor-pointer text-sm mt-2 font-medium">
+                  Change Image
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
                 </label>
-              )}
-            </div>
+              </div>
+            ) : (
+              <label className="cursor-pointer">
+                <div className="text-white/70 mb-2">Click to upload image</div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </label>
+            )}
           </div>
+        </div>
 
-          {error && (
-  <div className="mb-6 p-4 bg-gray-800/50 border border-orange-300 rounded-lg text-orange-200">
-    <p className="mb-2">{error}</p>
-    <a
-      href="https://github.com/keploy/keploy"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-orange-400 hover:text-orange-600 underline font-medium"
-    >
-      Star the repository here
-    </a>
-    <p className="text-sm mt-2 text-white/70">
-      If you have already starred the repository and still facing issues, please wait a few minutes or contact us on <a className="text-orange-100" href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg">Slack</a>
-    </p>
-  </div>
-)}
+        {/* ---------------- ERROR BLOCK ---------------- */}
+        {errorMsg && (
+          <div className="mb-6 p-4 bg-gray-800/50 border border-orange-300 rounded-lg text-orange-200">
+            <p className="mb-2">{errorMsg}</p>
 
-          <button
-            onClick={handleGenerate}
-            disabled={isLoading}
-            className={`w-full bg-gradient-to-r from-orange-700 to-orange-800 hover:from-orange-900 hover:to-orange-700 shadow-orange-300 text-white font-semibold py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-500 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
-          >
-            {isLoading ? 'Checking Star and Register Status...' : 'Generate ID Card'}
-          </button>
+            {errorType === 'star' && (
+              <>
+                <a
+                  href="https://github.com/keploy/keploy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-400 hover:text-orange-600 underline font-medium"
+                >
+                  Star the repository here
+                </a>
+                <p className="text-sm mt-2 text-white/70">
+                  If you have already starred the repository and still face
+                  issues, please wait a few minutes or contact us on{' '}
+                  <a
+                    className="text-orange-100"
+                    href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
+                  >
+                    Slack
+                  </a>
+                  .
+                </p>
+              </>
+            )}
 
-          <div className="mt-4 text-sm text-white/70 text-center">
-            <p>If there is an issue in generating your badge, reach out to us on our <a className="text-indigo-100" href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg">Slack Channel</a></p>
+            {errorType === 'email' && (
+              <p className="text-sm mt-2 text-white/70">
+                
+We got an overwhelming number of registrations from 18k+ folks around the globe and could only shortlist 1000 people. We're sorry to inform that due to high competition, we couldn't shortlist you this time. If you think there's been a mistake, please double-check your email inbox and ensure you're using the same email address you registered with. You definitely hold potential! Do keep an eye on our socials and feel free to apply to other programs offered by Keploy. We wish you the best!
+              </p>
+            )}
           </div>
+        )}
+
+        {/* submit */}
+        <button
+          onClick={handleGenerate}
+          disabled={isLoading}
+          className={`w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-900 hover:to-orange-700 shadow-orange-300 text-white font-semibold py-3 px-4 rounded-lg transition shadow-md hover:shadow-orange-500 ${
+            isLoading ? 'opacity-70 cursor-not-allowed' : ''
+          }`}
+        >
+          {isLoading ? 'Checking Star & Registration Status…' : 'Generate ID Card'}
+        </button>
+
+        <div className="mt-4 text-sm text-white/70 text-center">
+          <p>
+            Trouble generating your badge? Reach out on our{' '}
+            <a
+              className="text-indigo-100 underline"
+              href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
+            >
+              Slack channel
+            </a>
+            .
+          </p>
         </div>
       </form>
 
+      {/* ---------------------------------- PREVIEW ---------------------------------- */}
       {generated && (
         <div className="mt-10 flex flex-col items-center space-y-6 z-10">
           <div className="relative pt-8 pb-6 px-6 rounded-xl shadow-xl w-80 flex flex-col items-center overflow-hidden bg-black">
@@ -327,9 +2265,13 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
                 </div>
               </div>
               <div className="text-xl font-bold text-white -mt-1 mb-0">{name}</div>
-              <div className="text-orange-500 font-medium">@{github.trim().replace(/\s+/g, '')}</div>
-              <div className="mt-3 text-sm text-gray-400 italic">API Fellow Cohort 2025</div>
-              <div className="w-full h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent my-2"></div>
+              <div className="text-orange-500 font-medium">
+                @{github.trim().replace(/\s+/g, '')}
+              </div>
+              <div className="mt-3 text-sm text-gray-400 italic">
+                API Fellow Cohort 2025
+              </div>
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent my-2" />
               <div className="text-xs text-gray-500">Keploy.io</div>
             </div>
           </div>
@@ -341,7 +2283,12 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
             <span>Download ID Card</span>
           </button>
 
-          <canvas ref={canvasRef} width={350} height={500} style={{ display: 'none' }} />
+          <canvas
+            ref={canvasRef}
+            width={350}
+            height={500}
+            style={{ display: 'none' }}
+          />
         </div>
       )}
     </main>
