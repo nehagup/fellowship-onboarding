@@ -1989,16 +1989,33 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const scale = 5;
-    const baseW = 350;
-    const baseH = 500;
+    /* ---------- layout knobs ---------- */
+    const scale           = 5;      // overall resolution multiplier
+    const baseW           = 350;
+    const baseH           = 500;
 
-    canvas.width = baseW * scale;
+    const mLogoTop        = 50;     // logo: distance from top
+    const logoH        = 45;     // a touch taller
+    const logoW        = 140; 
+
+    const mHeadingTop     = 20;     // gap between logo-bottom and heading
+    const mAvatarTop      = 40;     // gap between heading-bottom and avatar
+    const avatarR         = 70;
+
+    const mNameTop        = 50;     // gap below avatar
+    const mUsernameTop    = 20;     // gap below name
+    const mHelloTop       = 28;     // gap below username (“API Fellow – …” line)
+    const mDividerTop     = 12;     // gap above decorative divider
+    const mFooterTop      = 20;     // gap above “Keploy.io”
+
+    /* ---------- canvas prep ---------- */
+    canvas.width  = baseW * scale;
     canvas.height = baseH * scale;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     ctx.scale(scale, scale);
 
+    /* ---------- helpers ---------- */
     const load = (src: string) =>
       new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
@@ -2010,7 +2027,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
 
     (async () => {
       ctx.clearRect(0, 0, baseW, baseH);
-      const cx = baseW / 2;
+      const cx = baseW / 2;                         // center-x for everything
 
       const [bg, logo, avatar] = await Promise.all([
         load('/assets/images/card-background.png'),
@@ -2018,10 +2035,15 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
         load(image),
       ]);
 
+      /* ---------- draw sequence ---------- */
       ctx.drawImage(bg, 0, 0, baseW, baseH);
-      ctx.drawImage(logo, cx - 60, 20, 120, 40);
 
-      const headingY = 80;
+      /* logo */
+      const logoY = mLogoTop;
+      ctx.drawImage(logo, cx - logoW / 2, logoY, logoW, logoH); 
+
+      /* heading */
+      const headingY = logoY + logoH + mHeadingTop;
       const grad = ctx.createLinearGradient(20, headingY, 280, headingY);
       grad.addColorStop(0, '#f97316');
       grad.addColorStop(1, '#f59e0b');
@@ -2030,51 +2052,60 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
       ctx.textAlign = 'center';
       ctx.fillText('API Fellowship', cx, headingY + 8);
 
-
-
-      const r = 70,
-      avatarY = 180;
-
-
-ctx.beginPath();
-ctx.arc(cx, avatarY, r + 4, 0, Math.PI * 2);   
-ctx.strokeStyle = 'rgba(249, 115, 22, 0.18)';  
-ctx.lineWidth   = 4;                           
-ctx.stroke();
-
-ctx.save();
-ctx.beginPath();
-ctx.arc(cx, avatarY, r, 0, Math.PI * 2);
-ctx.closePath();
-ctx.clip();
-ctx.drawImage(avatar, cx - r, avatarY - r, r * 2, r * 2);
-ctx.restore();
-
-
-      ctx.fillStyle = 'white';
-      ctx.font = 'bold 28px Helvetica';
-      ctx.fillText(name, cx, avatarY + r + 30);
-
-      ctx.fillStyle = '#ff8800';
-      ctx.font = '16px Helvetica';
-      ctx.fillText(`@${github.trim().replace(/\s+/g, '')}`, cx, avatarY + r + 50);
-
-      const baseY = baseH - 70;
-      ctx.fillStyle = '#999999';
-      ctx.font = 'italic 14px Helvetica';
-      ctx.fillText('API Fellow - Cohort 2025', cx, baseY);
-
-      ctx.strokeStyle = 'rgba(255,136,0,0.3)';
-      ctx.lineWidth = 1;
+      /* avatar */
+      const avatarY = headingY + 26 + mAvatarTop + avatarR; // center of circle
       ctx.beginPath();
-      ctx.moveTo(50, baseY + 15);
-      ctx.lineTo(baseW - 50, baseY + 15);
+      ctx.arc(cx, avatarY, avatarR + 4, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(249,115,22,0.18)';
+      ctx.lineWidth = 4;
       ctx.stroke();
 
-      ctx.fillStyle = '#777777';
-      ctx.font = '12px Helvetica';
-      ctx.fillText('Keploy.io', cx, baseY + 30);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, avatarY, avatarR, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(avatar, cx - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
+      ctx.restore();
 
+      /* name */
+      const nameY = avatarY + avatarR + mNameTop;
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 28px Helvetica';
+      ctx.fillText(name, cx, nameY);
+
+      /* username */
+      const userY = nameY + mUsernameTop;
+      ctx.fillStyle = '#ff8800';
+      ctx.font = '16px Helvetica';
+      ctx.fillText(`@${github.trim().replace(/\s+/g, '')}`, cx, userY);
+
+      /* hello / cohort line */
+      const helloY = userY + mHelloTop;
+      ctx.fillStyle = '#999';
+      ctx.font = 'italic 14px Helvetica';
+      ctx.fillText('API Fellow - Cohort 2025', cx, helloY);
+
+   /* divider – fade out toward the ends */
+const dividerY = helloY + mDividerTop;
+const grd = ctx.createLinearGradient(50, dividerY, baseW - 50, dividerY);
+grd.addColorStop(0,   'rgba(255,136,0,0)');   // fully transparent at left edge
+grd.addColorStop(0.5, 'rgba(255,136,0,0.3)'); // solid in the middle
+grd.addColorStop(1,   'rgba(255,136,0,0)');   // fully transparent at right edge
+ctx.strokeStyle = grd;
+ctx.lineWidth = 1;
+ctx.beginPath();
+ctx.moveTo(50, dividerY);
+ctx.lineTo(baseW - 50, dividerY);
+ctx.stroke();
+
+      /* footer */
+      const footerY = dividerY + mFooterTop;
+      ctx.fillStyle = '#777';
+      ctx.font = '12px Helvetica';
+      ctx.fillText('Keploy.io', cx, footerY);
+
+      /* ---------- export ---------- */
       canvas.toBlob(
         (blob) => {
           if (!blob) return;
