@@ -2023,22 +2023,33 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
 
       const headingY = 80;
       const grad = ctx.createLinearGradient(20, headingY, 280, headingY);
-      grad.addColorStop(0, '#ff8800');
-      grad.addColorStop(1, '#ff5500');
+      grad.addColorStop(0, '#f97316');
+      grad.addColorStop(1, '#f59e0b');
       ctx.fillStyle = grad;
       ctx.font = 'bold 26px Helvetica';
       ctx.textAlign = 'center';
       ctx.fillText('API Fellowship', cx, headingY + 8);
 
+
+
       const r = 70,
-        avatarY = 180;
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(cx, avatarY, r, 0, Math.PI * 2);
-      ctx.closePath();
-      ctx.clip();
-      ctx.drawImage(avatar, cx - r, avatarY - r, r * 2, r * 2);
-      ctx.restore();
+      avatarY = 180;
+
+
+ctx.beginPath();
+ctx.arc(cx, avatarY, r + 4, 0, Math.PI * 2);   
+ctx.strokeStyle = 'rgba(249, 115, 22, 0.18)';  
+ctx.lineWidth   = 4;                           
+ctx.stroke();
+
+ctx.save();
+ctx.beginPath();
+ctx.arc(cx, avatarY, r, 0, Math.PI * 2);
+ctx.closePath();
+ctx.clip();
+ctx.drawImage(avatar, cx - r, avatarY - r, r * 2, r * 2);
+ctx.restore();
+
 
       ctx.fillStyle = 'white';
       ctx.font = 'bold 28px Helvetica';
@@ -2195,7 +2206,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
             {errorType === 'email' && (
               <p className="text-sm mt-2 text-white/70">
                 
-We got an overwhelming number of registrations from 18k+ folks around the globe and could only shortlist 1000 people. We're sorry to inform that due to high competition, we couldn't shortlist you this time. If you think there's been a mistake, please double-check your email inbox and ensure you're using the same email address you registered with. You definitely hold potential! Do keep an eye on our socials and feel free to apply to other programs offered by Keploy. We wish you the best!
+                We got an overwhelming number of registrations from 18k+ folks around the globe and could only shortlist 1000 people. We&apos;re sorry to inform that due to high competition, we couldn&apos;t shortlist you this time. If you think there&apos;s been a mistake, please double-check your email inbox and ensure you&apos;re using the same email address you registered with. You definitely hold potential! Do keep an eye on our socials and feel free to apply to other programs offered by Keploy. We wish you the best!
               </p>
             )}
           </div>
