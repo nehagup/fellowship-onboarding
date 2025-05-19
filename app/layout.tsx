@@ -5,7 +5,7 @@ import "@/styles/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Download Your Keploy API Fellowship ID Card | 2D & 3D Format",
+  title: "Keploy API Fellowship Onboarding",
   description:
     "Keploy API Fellowship is a free 2-week program to learn open source, Git, GitHub, CI/CD, GSoC prep, and automation. Download your official Fellowship ID card here in 2D and 3D formats.",
   keywords: [
