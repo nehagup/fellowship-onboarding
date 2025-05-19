@@ -1954,7 +1954,7 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
     if (!shortlisted) {
       setErrorType('email');
       setErrorMsg(
-        'Sorry, this user was not shortlisted for the fellowship.'
+        'Sorry, this user was either not shortlisted for the fellowship or must be using the wrong email/github username.'
       );
       return;
     }
@@ -2008,14 +2008,14 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
     const mDividerTop     = 12;     // gap above decorative divider
     const mFooterTop      = 20;     // gap above “Keploy.io”
 
-    /* ---------- canvas prep ---------- */
+
     canvas.width  = baseW * scale;
     canvas.height = baseH * scale;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     ctx.scale(scale, scale);
 
-    /* ---------- helpers ---------- */
+
     const load = (src: string) =>
       new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
@@ -2035,14 +2035,14 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
         load(image),
       ]);
 
-      /* ---------- draw sequence ---------- */
+
       ctx.drawImage(bg, 0, 0, baseW, baseH);
 
       /* logo */
       const logoY = mLogoTop;
       ctx.drawImage(logo, cx - logoW / 2, logoY, logoW, logoH); 
 
-      /* heading */
+
       const headingY = logoY + logoH + mHeadingTop;
       const grad = ctx.createLinearGradient(20, headingY, 280, headingY);
       grad.addColorStop(0, '#f97316');
@@ -2080,18 +2080,18 @@ export default function Hero({ onDataUpdate, userData }: HeroProps) {
       ctx.font = '16px Helvetica';
       ctx.fillText(`@${github.trim().replace(/\s+/g, '')}`, cx, userY);
 
-      /* hello / cohort line */
+
       const helloY = userY + mHelloTop;
       ctx.fillStyle = '#999';
       ctx.font = 'italic 14px Helvetica';
       ctx.fillText('API Fellow - Cohort 2025', cx, helloY);
 
-   /* divider – fade out toward the ends */
+
 const dividerY = helloY + mDividerTop;
 const grd = ctx.createLinearGradient(50, dividerY, baseW - 50, dividerY);
-grd.addColorStop(0,   'rgba(255,136,0,0)');   // fully transparent at left edge
-grd.addColorStop(0.5, 'rgba(255,136,0,0.3)'); // solid in the middle
-grd.addColorStop(1,   'rgba(255,136,0,0)');   // fully transparent at right edge
+grd.addColorStop(0,   'rgba(255,136,0,0)');   
+grd.addColorStop(0.5, 'rgba(255,136,0,0.3)'); 
+grd.addColorStop(1,   'rgba(255,136,0,0)');   
 ctx.strokeStyle = grd;
 ctx.lineWidth = 1;
 ctx.beginPath();
@@ -2099,13 +2099,13 @@ ctx.moveTo(50, dividerY);
 ctx.lineTo(baseW - 50, dividerY);
 ctx.stroke();
 
-      /* footer */
+
       const footerY = dividerY + mFooterTop;
       ctx.fillStyle = '#777';
       ctx.font = '12px Helvetica';
       ctx.fillText('Keploy.io', cx, footerY);
 
-      /* ---------- export ---------- */
+
       canvas.toBlob(
         (blob) => {
           if (!blob) return;
@@ -2122,7 +2122,7 @@ ctx.stroke();
     })();
   };
 
-  /* ------------------------------------------------------------------ */
+
   return (
     <main className="relative min-h-screen w-full flex flex-col items-center justify-start overflow-hidden pb-24">
       {/* blurred background */}
@@ -2136,7 +2136,7 @@ ctx.stroke();
         />
       </div>
 
-      {/* ---------------------------------- FORM ---------------------------------- */}
+
       <form
         onSubmit={(e) => e.preventDefault()}
         className="relative backdrop-blur-xl bg-white/10 border border-white/30 p-8 rounded-2xl shadow-xl space-y-6 w-full max-w-md z-10 mt-20"
@@ -2148,7 +2148,7 @@ ctx.stroke();
           </p>
         </div>
 
-        {/* text inputs */}
+
         {['name', 'github', 'email'].map((field) => (
           <div key={field}>
             <label className="block text-sm font-medium text-white/90 mb-2 capitalize">
@@ -2164,7 +2164,7 @@ ctx.stroke();
           </div>
         ))}
 
-        {/* image upload */}
+
         <div>
           <label className="block text-sm font-medium text-white/90 mb-2">
             Profile Picture
@@ -2205,7 +2205,7 @@ ctx.stroke();
           </div>
         </div>
 
-        {/* ---------------- ERROR BLOCK ---------------- */}
+
         {errorMsg && (
           <div className="mb-6 p-4 bg-gray-800/50 border border-orange-300 rounded-lg text-orange-200">
             <p className="mb-2">{errorMsg}</p>
@@ -2235,15 +2235,29 @@ ctx.stroke();
             )}
 
             {errorType === 'email' && (
-              <p className="text-sm mt-2 text-white/70">
-                
-                We got an overwhelming number of registrations from 18k+ folks around the globe and could only shortlist 1000 people. We&apos;re sorry to inform that due to high competition, we couldn&apos;t shortlist you this time. If you think there&apos;s been a mistake, please double-check your email inbox and ensure you&apos;re using the same email address you registered with. You definitely hold potential! Do keep an eye on our socials and feel free to apply to other programs offered by Keploy. We wish you the best!
-              </p>
+         <p className="text-sm mt-2 text-white/70">
+         We received an overwhelming 18,000+ registrations from around the globe and were only able to shortlist 1,000 people for this program. After careful review, we regret to inform you that your application was not selected for the shortlist.
+         <br /><br />
+         <b className="text-orange">
+           {`If you believe this might be a mistake, please ensure that you're checking the correct email inbox (the same one used during registration) and that the GitHub username you submitted is accurate.`} {' '}
+           <span className="bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent font-semibold">
+             There is a chance that either the email address or the GitHub username you provided is incorrect.
+           </span>
+         </b>
+         <br /><br />
+         We still see great potential in your application and encourage you to stay connected with Keploy through our social channels and apply to our future programs.
+         <br /><br />
+         For any queries, please reach out to <span className="underline">devrel@keploy.io</span>.
+         <br /><br />
+         Thank you for your interest in Keploy.
+       </p>
+       
+              
             )}
           </div>
         )}
 
-        {/* submit */}
+
         <button
   onClick={handleGenerate}
   disabled={isLoading}
@@ -2269,7 +2283,7 @@ ctx.stroke();
         </div>
       </form>
 
-      {/* ---------------------------------- PREVIEW ---------------------------------- */}
+
       {generated && (
         <div className="mt-10 flex flex-col items-center space-y-6 z-10">
           <div className="relative pt-8 pb-6 px-6 rounded-xl shadow-xl w-80 flex flex-col items-center overflow-hidden bg-black">
