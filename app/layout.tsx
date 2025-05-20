@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script"; // ✅ Import Script
 import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,13 +31,13 @@ export const metadata: Metadata = {
     siteName: "Keploy API Fellowship",
     images: [
       {
-        url: "https://keploy.io/images/api-fellowship-banner.png", 
+        url: "https://keploy.io/images/api-fellowship-banner.png",
         width: 1200,
         height: 630,
-        alt: "Keploy API Fellowship ID Card Preview",
-      },
+        alt: "Keploy API Fellowship ID Card Preview"
+      }
     ],
-    type: "website",
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
@@ -44,19 +45,43 @@ export const metadata: Metadata = {
     description:
       "Claim your 2D and 3D ID card for the Keploy API Fellowship. Learn Git, GitHub, CI/CD, and open source to unlock internship opportunities.",
     images: ["https://keploy.io/images/api-fellowship-banner.png"],
-    site: "@keployio",
-  },
+    site: "@keployio"
+  }
 };
 
-
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      
+      <head>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TLL6DW2H6N"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TLL6DW2H6N');
+          `}
+        </Script>
+
+        {/* Microsoft Clarity */}
+        <Script id="clarity-init" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "iu0391ggta");
+          `}
+        </Script>
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
