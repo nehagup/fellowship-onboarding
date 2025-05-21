@@ -1864,6 +1864,7 @@ const ALLOWED_EMAILS = new Set<string>([
 'kishorshelke018@gmail.com',
 'mahashree20uva@gmail.com',
 'jeswinr.vlsi2023@citchennai.net',
+
 '22051288@kiit.ac.in',
 'sounakdutta942@gmail.com',
 '22052369@kiit.ac.in',
@@ -1947,6 +1948,7 @@ const ALLOWED_EMAILS = new Set<string>([
 'jaishrees23102001@gmail.com',
 'harshkhaitan04@gmail.com',
 'duyphuclenguyen@gmail.com',
+'anjupathak9810@gmail.com',
 'param2k3@gmail.com',
 'palshreya1818@gmail.com',
 ]);
