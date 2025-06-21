@@ -297,6 +297,7 @@ const verifiedEmails = new Set([
     '2229069@kiit.ac.in',
     'vibhavyash30@gmail.com',
     '2470224@kiit.ac.in',
+    'avantikasharma405@gmail.com',
     'supalvasani@gmail.com',
   ]);
   
