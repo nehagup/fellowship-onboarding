@@ -5,7 +5,12 @@ import html2canvas from 'html2canvas';
 
 const verifiedEmails = new Set([
   'amaanbhati49@gmail.com',
-  'amaan.bhati@keploy.io'
+  'amaan.bhati@keploy.io',
+  'achanandhi.m@keploy.io',
+  'singhaarka0@gmail.com',
+  'harshitbamotra.01@gmail.com',
+  'anjupathak9810@gmail.com',
+  '22052471@kiit.ac.in',
 ]);
 
 
