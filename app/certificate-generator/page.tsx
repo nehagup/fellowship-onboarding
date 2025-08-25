@@ -3,17 +3,147 @@
 import { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { Great_Vibes } from 'next/font/google';
+import { Alex_Brush } from 'next/font/google';
 
 const verifiedEmails = new Set([
     'amaan.bhati@keploy.io',
     'mahallepratik683@gmail.com',
+    'aarab.nishchal@gmail.com',
+    '2206424@kiit.ac.in',
+    'devabdulx@gmail.com',
+    'abhayrathore036@gmail.com',
+    'adarshsikreewal1211@gmail.com',
+    '22051308@kiit.ac.in',
+    'adityabahadur294@gmail.com',
+    'prakashaditya061@gmail.com',
+    '22052616@kiit.ac.in',
+    'amanraj1227@gmail.com',
+    '22051055@kiit.ac.in',
+    'ananyaritu51@gmail.com',
+    'andrew@consarnproject.com',
+    'tuanafk2006@gmail.com',
+    '22052093@kiit.ac.in',
+    'anjupathak9810@gmail.com',
+    '22053140@kiit.ac.in',
+    '22052706@kiit.ac.in',
+    'annashapaul65855@gmail.com',
+    'anthonyrozario62@gmail.com',
+    'anuragofficial260@gmail.com',
+    'anushaamar1111@gmail.com',
+    '2205712@kiit.ac.in',
+    '22053227@kiit.ac.in',
+    'arinkishore7@gmail.com',
+    '22051754@kiit.ac.in',
+    'singhaarka0@gmail.com',
+    'arpreet4114@gmail.com',
+    '22054363@kiit.ac.in',
+    '22052626@kiit.ac.in',
+    '22052101@kiit.ac.in',
+    'aryanv.india1@gmail.com',
+    '2205190@kiit.ac.in',
+    'ashishsingh009876@gmail.com',
+    'eatulrajput@gmail.com',
+    '22054295@kiit.ac.in',
+    'dasayush483@gmail.com',
+    'kumar.ayushx24@gmail.com',
+    'ayushmans012@gmail.com',
+    'debarjunpal134@gmail.com',
+    'deepsikha1104@gmail.com',
+    'devanshbajpai07@gmail.com',
+    'mdl.dhruba@gmail.com',
+    'utsuronoyume@gmail.com',
+    '22051158@kiit.ac.in',
+    '22052724@kiit.ac.in',
+    'gkrcoder@gmail.com',
+    'hansikachaudhary20@gmail.com',
+    'hranjan3246@gmail.com',
+    'harshitbamotra.01@gmail.com',
+    '22052982@kiit.ac.in',
+    'harshit.kr.singh.work@gmail.com',
+    '22052983@kiit.ac.in',
+    '2205732@kiit.ac.in',
+    '22052388@kiit.ac.in',
+    'roykaushik354@gmail.com',
+    '22052732@kiit.ac.in',
+    '22051081@kiit.ac.in',
+    'kanimeena678@gmail.com',
+    'krishsenpai7@gmail.com',
+    '22054339@kiit.ac.in',
+    '22053178@kiit.ac.in',
+    '22052471@kiit.ac.in',
+    'maithilibprojects@gmail.com',
+    '2206353@kiit.ac.in',
+    'manveer7saggu@gmail.com',
+    '2205751@kiit.ac.in',
+    'agrawalmohak988@gmail.com',
+    'mohamedimthiyas62696@gmail.com',
+    'monasrimohandoss@gmail.com',
+    'mratyunjaychouhan45@gmail.com',
+    'mridulagarwal20082004@gmail.com',
+    'nehabommireddy@gmail.com',
+    'omaasinha.99@gmail.com',
+    'p2005p5499p@gmail.com',
+    '22054406@kiit.ac.in',
+    '22052485@kiit.ac.in',
+    'pranjalbarnwaldev@gmail.com',
+    '22053615@kiit.ac.in',
+    'kotalpratik@gmail.com',
+    '22051178@kiit.ac.in',
+    'rajpriyanshu1204@gmail.com',
+    'lragesh28@gmail.com',
+    '2470251@kiit.ac.in',
+    '22052842@kiit.ac.in',
+    '22052576@kiit.ac.in',
+    'ramankumar7c@gmail.com',
+    '22052140@kiit.ac.in',
+    'deyricky36@gmail.com',
+    'rishikesh2747@gmail.com',
+    '22052668@kiit.ac.in',
+    '2228053@kiit.ac.in',
+    'mauryapriyadarshi2004@gmail.com',
+    '22051187@kiit.ac.in',
+    'dripclade@gmail.com',
+    'samriddhi.singh1222@gmail.com',
+    'sanjanabiswasiscute@gmail.com',
+    '2205846@kiit.ac.in',
+    'sahadribhattacharyya@gmail.com',
+    '2229061@kiit.ac.in',
+    'shafaqueakhtar43@gmail.com',
+    'shaswatjha12345@gmail.com',
+    '22052854@kiit.ac.in',
+    '22051621@kiit.ac.in',
+    '22053194@kiit.ac.in',
+    '2230290@kiit.ac.in',
+    '22052155@kiit.ac.in',
+    'shritisadhu@gmail.com',
+    '2230121@kiit.ac.in',
+    'shubhamsahoo401@gmail.com',
+    '22051027@kiit.ac.in',
+    '33sorbojitmondal@gmail.com',
+    'soumyodeep89s@gmail.com',
+    '22051289@kiit.ac.in',
+    '100sumanghosh@gmail.com',
+    'swapsnil12@gmail.com',
+    '22054184@kiit.ac.in',
+    'thiyathiya088@gmail.com',
+    '2470404@kiit.ac.in',
+    'uddipta278@gmail.com',
+    '2205951@kiit.ac.in',
+    'utkarshshah000@gmail.com',
+    'varun.mohanta323@gmail.com',
+    '22053301@kiit.ac.in',
+    'vipulsingh.1404@gmail.com',
+    'singhvishalk165@gmail.com',
+    'yashigarg016@gmail.com',
+    'ybhatter@scu.edu',
+    'prasadyuvraj8805@gmail.com',
+    'xq1@williams.edu',
 ]);
 
 const generateCertificateId = () => `CERT-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
 const formatDate = (d: Date) => `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
-const greatVibes = Great_Vibes({ weight: '400', subsets: ['latin'] });
+const alexBrush = Alex_Brush({ weight: '400', subsets: ['latin'] });
 
 const Certificate = ({ name, program, signer, date }: any) => {
   return (
@@ -21,16 +151,213 @@ const Certificate = ({ name, program, signer, date }: any) => {
       id="certificate"
       className="bg-white"
       style={{
-        width: 'min(1000px, 95vw)',
-        height: 'auto',
+        width: '100%',
+        maxWidth: '1000px',
         aspectRatio: '1000 / 700',
         position: 'relative',
         margin: '0 auto',
         boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
         border: '1px solid #e5e7eb',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        minHeight: '280px'
       }}
     >
+      <style>{`
+        /* Mobile First Responsive Design */
+        #certificate {
+          font-size: 14px;
+        }
+        
+        /* Extra small phones (320px and below) */
+        @media (max-width: 320px) {
+          #certificate { min-height: 200px !important; }
+          #certificate .logo { 
+            width: 30px !important; 
+            top: 8px !important; 
+            left: 8px !important; 
+          }
+          #certificate .cert-title { 
+            font-size: 14px !important; 
+            letter-spacing: 1px !important;
+            margin-bottom: 4px !important;
+          }
+          #certificate .cert-subtitle { 
+            font-size: 6px !important; 
+            letter-spacing: 1px !important;
+            margin-bottom: 4px !important;
+          }
+          #certificate .present-text { 
+            font-size: 7px !important;
+            margin-bottom: 4px !important;
+          }
+          #certificate .name-accent-top { 
+            width: 20px !important; 
+            height: 1px !important; 
+            margin-bottom: 3px !important; 
+          }
+          #certificate .participant-name { 
+            font-size: 12px !important;
+            margin-bottom: 3px !important;
+            line-height: 1 !important;
+          }
+          #certificate .name-underline { 
+            width: 50% !important; 
+            height: 1px !important;
+            margin-top: 4px !important; 
+          }
+          #certificate .body-paragraph { 
+            font-size: 6px !important; 
+            line-height: 1.3 !important;
+            margin-bottom: 4px !important;
+            padding: 0 4px !important;
+          }
+          #certificate .main-content { 
+            padding: 8px 4px 20px !important;
+          }
+          #certificate .footer-block { 
+            padding: 0 4px 8px !important;
+            height: 40px !important;
+          }
+          #certificate .signer-block { 
+            bottom: 4px !important;
+          }
+          #certificate .signer-block .signature-name { 
+            font-size: 10px !important;
+            margin-bottom: 1px !important;
+          }
+          #certificate .signer-block .signer-name { 
+            font-size: 5px !important;
+            margin-bottom: 1px !important;
+          }
+          #certificate .signer-block .signer-title { 
+            font-size: 5px !important;
+          }
+          #certificate .inner-border {
+            top: 4px !important;
+            left: 4px !important;
+            right: 4px !important;
+            bottom: 4px !important;
+            border-width: 1px !important;
+          }
+          #certificate .decorative-line {
+            width: 30px !important;
+            height: 2px !important;
+          }
+        }
+
+        /* Small phones (up to 480px) */
+        @media (min-width: 321px) and (max-width: 480px) {
+          #certificate { min-height: 250px !important; }
+          #certificate .logo { 
+            width: 35px !important; 
+            top: 12px !important; 
+            left: 12px !important; 
+          }
+          #certificate .cert-title { 
+            font-size: 16px !important; 
+            letter-spacing: 1.5px !important;
+            margin-bottom: 6px !important;
+          }
+          #certificate .cert-subtitle { 
+            font-size: 7px !important; 
+            letter-spacing: 1.5px !important;
+            margin-bottom: 6px !important;
+          }
+          #certificate .present-text { 
+            font-size: 8px !important;
+            margin-bottom: 6px !important;
+          }
+          #certificate .name-accent-top { 
+            width: 25px !important; 
+            height: 2px !important; 
+            margin-bottom: 4px !important; 
+          }
+          #certificate .participant-name { 
+            font-size: 14px !important;
+            margin-bottom: 6px !important;
+          }
+          #certificate .name-underline { 
+            width: 55% !important; 
+            height: 1px !important;
+            margin-top: 6px !important; 
+          }
+          #certificate .body-paragraph { 
+            font-size: 8px !important; 
+            line-height: 1.4 !important;
+            margin-bottom: 6px !important;
+            padding: 0 8px !important;
+          }
+          #certificate .main-content { 
+            padding: 12px 8px 30px !important;
+          }
+          #certificate .footer-block { 
+            padding: 0 8px 12px !important;
+            height: 50px !important;
+          }
+          #certificate .signer-block { 
+            bottom: 8px !important;
+          }
+          #certificate .signer-block .signature-name { 
+            font-size: 16px !important;
+            margin-bottom: 1px !important;
+          }
+          #certificate .signer-block .signer-name { 
+            font-size: 8px !important;
+            margin-bottom: 2px !important;
+          }
+          #certificate .signer-block .signer-title { 
+            margin-bottom: 2px !important;
+            font-size: 8px !important;
+          }
+          #certificate .inner-border {
+            top: 8px !important;
+            left: 8px !important;
+            right: 8px !important;
+            bottom: 8px !important;
+          }
+          #certificate .decorative-line {
+            width: 40px !important;
+            height: 2px !important;
+          }
+        }
+
+        /* Tablets and larger phones */
+        @media (min-width: 481px) and (max-width: 768px) {
+          #certificate .logo { 
+            width: clamp(40px, 7vw, 70px) !important; 
+            top: clamp(15px, 3.5vw, 25px) !important; 
+            left: clamp(15px, 3.5vw, 25px) !important; 
+          }
+          #certificate .cert-title { 
+            font-size: clamp(20px, 5vw, 32px) !important; 
+            letter-spacing: 3px !important;
+          }
+          #certificate .cert-subtitle { 
+            font-size: clamp(9px, 2vw, 14px) !important; 
+            letter-spacing: 2px !important;
+          }
+          #certificate .present-text { 
+            font-size: clamp(10px, 2.5vw, 16px) !important;
+          }
+          #certificate .participant-name { 
+            font-size: clamp(18px, 4vw, 28px) !important;
+          }
+          #certificate .body-paragraph { 
+            font-size: clamp(10px, 2.2vw, 14px) !important; 
+            line-height: 1.5 !important;
+          }
+          #certificate .signer-block .signature-name { 
+            font-size: clamp(20px, 4vw, 32px) !important;
+          }
+          #certificate .signer-block .signer-name { 
+            font-size: clamp(10px, 2vw, 12px) !important;
+          }
+          #certificate .signer-block .signer-title { 
+            font-size: clamp(10px, 2vw, 12px) !important;
+          }
+        }
+      `}</style>
+
       {/* Background geometric patterns */}
       <svg 
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}
@@ -54,7 +381,16 @@ const Certificate = ({ name, program, signer, date }: any) => {
       </svg>
 
       {/* Inner decorative border */}
-      <div className="inner-border" style={{ position: 'absolute', top: 'clamp(16px, 4vw, 40px)', left: 'clamp(16px, 4vw, 40px)', right: 'clamp(16px, 4vw, 40px)', bottom: 'clamp(16px, 4vw, 40px)', border: '2px solid #eab308', opacity: 0.9, zIndex: 2 }} />
+      <div className="inner-border" style={{ 
+        position: 'absolute', 
+        top: 'clamp(8px, 3vw, 40px)', 
+        left: 'clamp(8px, 3vw, 40px)', 
+        right: 'clamp(8px, 3vw, 40px)', 
+        bottom: 'clamp(8px, 3vw, 40px)', 
+        border: '2px solid #eab308', 
+        opacity: 0.9, 
+        zIndex: 2 
+      }} />
 
       {/* Content */}
       <div className="content-root" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', zIndex: 10 }}>
@@ -62,27 +398,89 @@ const Certificate = ({ name, program, signer, date }: any) => {
         <img className="logo"
           src="/assets/images/keploy-logo.png"
           alt="Keploy Logo"
-          style={{ position: 'absolute', top: 'clamp(20px, 5.6vw, 56px)', left: 'clamp(20px, 5.6vw, 56px)', width: 'clamp(110px, 14vw, 140px)', height: 'auto', objectFit: 'contain', imageRendering: 'crisp-edges' as any }}
+          style={{ 
+            position: 'absolute', 
+            top: 'clamp(20px, 5vw, 65px)', 
+            left: 'clamp(20px, 5vw, 65px)', 
+            width: 'clamp(50px, 10vw, 120px)', 
+            height: 'auto', 
+            objectFit: 'contain',
+            imageRendering: 'crisp-edges' as any,
+            zIndex: 15
+          }}
           crossOrigin="anonymous"
         />
 
-
-
         {/* Main Content */}
-        <div className="main-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 'clamp(60px, 10vw, 100px) clamp(24px, 8vw, 80px) 0', textAlign: 'center' }}>
-          <div className="cert-title" style={{ fontFamily: 'serif', fontSize: 'clamp(28px, 6vw, 60px)', fontWeight: 800, color: '#111827', marginBottom: 10, letterSpacing: 6 }}>CERTIFICATE</div>
-          <div className="cert-subtitle" style={{ fontFamily: 'serif', fontSize: 'clamp(12px, 2.2vw, 18px)', color: '#6b7280', letterSpacing: 6, marginBottom: 12, textTransform: 'uppercase' }}>OF PARTICIPATION</div>
+        <div className="main-content" style={{ 
+          flex: 1, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          padding: 'clamp(20px, 8vw, 100px) clamp(12px, 6vw, 80px) 0', 
+          textAlign: 'center' 
+        }}>
+          <div className="cert-title" style={{ 
+            fontFamily: 'serif', 
+            fontSize: 'clamp(18px, 5vw, 60px)', 
+            fontWeight: 800, 
+            color: '#111827', 
+            marginBottom: 'clamp(4px, 2vw, 10px)', 
+            letterSpacing: 'clamp(2px, 1vw, 6px)' 
+          }}>CERTIFICATE</div>
+          
+          <div className="cert-subtitle" style={{ 
+            fontFamily: 'serif', 
+            fontSize: 'clamp(8px, 2vw, 18px)', 
+            color: '#6b7280', 
+            letterSpacing: 'clamp(2px, 1vw, 6px)', 
+            marginBottom: 'clamp(6px, 2vw, 12px)', 
+            textTransform: 'uppercase' 
+          }}>OF PARTICIPATION</div>
 
-          <div className="present-text" style={{ fontSize: 'clamp(12px, 2vw, 18px)', color: '#374151', marginBottom: 12 }}>We are proud to present this to</div>
+          <div className="present-text" style={{ 
+            fontSize: 'clamp(9px, 2vw, 18px)', 
+            color: '#374151', 
+            marginBottom: 'clamp(6px, 2vw, 12px)' 
+          }}>We are proud to present this to</div>
 
-          <div className="name-block" style={{ marginBottom: 16 }}>
-            <div className="name-accent-top" style={{ width: 'clamp(40px, 8vw, 64px)', height: 3, background: '#b67d4b', margin: '0 auto 12px' }} />
-            <div className="participant-name" style={{ fontFamily: 'serif', fontSize: 'clamp(24px, 5vw, 48px)', fontWeight: 800, color: '#7a4b2a', marginBottom: 14, lineHeight: 1.15 }}>{name}</div>
-            <div className="name-underline" style={{ width: 'min(380px, 70%)', height: 2, background: '#8b5e3c', margin: '18px auto 0' }} />
+          <div className="name-block" style={{ marginBottom: 'clamp(8px, 3vw, 16px)' }}>
+            <div className="name-accent-top" style={{ 
+              width: 'clamp(30px, 6vw, 64px)', 
+              height: 'clamp(2px, 0.5vw, 3px)', 
+              background: '#b67d4b', 
+              margin: '0 auto clamp(4px, 2vw, 12px)' 
+            }} />
+            
+            <div className="participant-name" style={{ 
+              fontFamily: 'serif', 
+              fontSize: 'clamp(16px, 4vw, 48px)', 
+              fontWeight: 800, 
+              color: '#7a4b2a', 
+              marginBottom: 'clamp(6px, 2vw, 14px)', 
+              lineHeight: 1.15,
+              wordBreak: 'break-word',
+              hyphens: 'auto'
+            }}>{name}</div>
+            
+            <div className="name-underline" style={{ 
+              width: 'clamp(60%, 15vw, 70%)', 
+              height: 'clamp(1px, 0.3vw, 2px)', 
+              background: '#8b5e3c', 
+              margin: 'clamp(6px, 2vw, 18px) auto 0' 
+            }} />
           </div>
 
-          <div className="body-paragraph" style={{ maxWidth: 640, color: '#374151', fontSize: 'clamp(12px, 1.6vw, 16px)', lineHeight: 1.6, marginBottom: 18 }}>
-            <div style={{ marginBottom: 10 }}>
+          <div className="body-paragraph" style={{ 
+            maxWidth: '90%', 
+            color: '#374151', 
+            fontSize: 'clamp(9px, 1.8vw, 16px)', 
+            lineHeight: 'clamp(1.4, 0.3vw, 1.6)', 
+            marginBottom: 'clamp(8px, 3vw, 18px)',
+            textAlign: 'center'
+          }}>
+            <div style={{ marginBottom: 'clamp(4px, 1vw, 10px)' }}>
               for successfully participating <span style={{ fontWeight: 600, color: '#7a4b2a' }}>{program}</span>!
             </div>
             <div>
@@ -90,22 +488,45 @@ const Certificate = ({ name, program, signer, date }: any) => {
             </div>
           </div>
 
-          <div style={{ width: 80, height: 4, background: '#b67d4b', borderRadius: 9999 }} />
+          <div className="decorative-line" style={{ 
+            width: 'clamp(50px, 8vw, 80px)', 
+            height: 'clamp(2px, 0.5vw, 4px)', 
+            background: '#b67d4b', 
+            borderRadius: 9999 
+          }} />
         </div>
 
-        {/* Footer with centered Signature and Date on right */}
-        <div className="footer-block" style={{ position: 'relative', padding: '0 48px 64px', height: 146 }}>
-          {/* Centered signer with signature text */}
-          <div className="signer-block" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', bottom: 68, textAlign: 'center' }}>
-            <div className={greatVibes.className} style={{ fontSize: 'clamp(28px,3.2vw,40px)', color: '#2f2f2f', marginBottom: 12, lineHeight: 1 }}>Neha Gupta</div>
-            <div style={{ fontWeight: 700, color: '#7a4b2a', fontSize: 16, marginBottom: 2 }}>Neha Gupta</div>
-            <div style={{ fontSize: 12, color: '#6b7280' }}>CEO, Keploy.io</div>
-          </div>
-
-          {/* Date on the right */}
-          <div className="date-block" style={{ position: 'absolute', right: 48, bottom: 64, textAlign: 'right' }}>
-            <div style={{ color: '#374151', fontWeight: 600 }}>{date}</div>
-            <div style={{ fontSize: 12, color: '#6b7280' }}>Date of Completion</div>
+        {/* Footer with centered Signature */}
+        <div className="footer-block" style={{ 
+          position: 'relative', 
+          padding: '0 clamp(8px, 4vw, 48px) clamp(12px, 4vw, 64px)', 
+          height: 'clamp(60px, 12vw, 146px)' 
+        }}>
+          <div className="signer-block" style={{ 
+            position: 'absolute', 
+            left: '50%', 
+            transform: 'translateX(-50%)', 
+            bottom: 'clamp(10px, 4vw, 60px)', 
+            textAlign: 'center' 
+          }}>
+            <div className={`${alexBrush.className} signature-name`} style={{ 
+              fontSize: 'clamp(16px, 3vw, 44px)', 
+              color: '#25303f', 
+              marginBottom: 'clamp(2px, 1vw, 12px)', 
+              lineHeight: 1 
+            }}>Neha Gupta</div>
+            
+            <div className="signer-name" style={{ 
+              fontWeight: 700, 
+              color: '#7a4b2a', 
+              fontSize: 'clamp(8px, 1.5vw, 12px)', 
+              marginBottom: 2 
+            }}>Neha Gupta</div>
+            
+            <div className="signer-title" style={{ 
+              fontSize: 'clamp(8px, 1.5vw, 12px)', 
+              color: '#6b7280' 
+            }}>CEO, Keploy.io</div>
           </div>
         </div>
       </div>
@@ -151,28 +572,39 @@ export default function CertificateGenerator() {
     setIsGenerating(true);
 
     try {
-      const prevWidth = (element as HTMLElement).style.width;
-      const prevHeight = (element as HTMLElement).style.height;
-      const prevAspect = (element as HTMLElement).style.aspectRatio as any;
+      const prevStyles = {
+        width: (element as HTMLElement).style.width,
+        height: (element as HTMLElement).style.height,
+        aspectRatio: (element as HTMLElement).style.aspectRatio,
+        minHeight: (element as HTMLElement).style.minHeight
+      };
+      
       (element as HTMLElement).style.width = '1000px';
       (element as HTMLElement).style.height = '700px';
-      (element as HTMLElement).style.aspectRatio = 'auto' as any;
+      (element as HTMLElement).style.aspectRatio = 'auto';
+      (element as HTMLElement).style.minHeight = '700px';
+      
       const width = 1000;
       const height = 700;
       const canvas = await html2canvas(element, { 
         scale: 4,
         useCORS: true,
         backgroundColor: '#ffffff',
-        scrollY: -window.scrollY
+        scrollY: -window.scrollY,
+        width: width,
+        height: height
       });
       const imgData = canvas.toDataURL('image/png');
 
       const pdf = new jsPDF('landscape', 'px', [width, height]);
       pdf.addImage(imgData, 'PNG', 0, 0, width, height);
       pdf.save(`${formData.name.replace(/\s+/g, '_')}_keploy_api_fellowship_certificate.pdf`);
-      (element as HTMLElement).style.width = prevWidth;
-      (element as HTMLElement).style.height = prevHeight;
-      (element as HTMLElement).style.aspectRatio = prevAspect;
+      
+      // Restore previous styles
+      (element as HTMLElement).style.width = prevStyles.width;
+      (element as HTMLElement).style.height = prevStyles.height;
+      (element as HTMLElement).style.aspectRatio = prevStyles.aspectRatio;
+      (element as HTMLElement).style.minHeight = prevStyles.minHeight;
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('Error generating certificate. Please try again.');
@@ -185,54 +617,94 @@ export default function CertificateGenerator() {
     const element = document.getElementById('certificate');
     if (!element) return;
 
-    const prevWidth = (element as HTMLElement).style.width;
-    const prevHeight = (element as HTMLElement).style.height;
-    const prevAspect = (element as HTMLElement).style.aspectRatio as any;
+    const prevStyles = {
+      width: (element as HTMLElement).style.width,
+      height: (element as HTMLElement).style.height,
+      aspectRatio: (element as HTMLElement).style.aspectRatio,
+      minHeight: (element as HTMLElement).style.minHeight
+    };
+    
     (element as HTMLElement).style.width = '1000px';
     (element as HTMLElement).style.height = '700px';
-    (element as HTMLElement).style.aspectRatio = 'auto' as any;
+    (element as HTMLElement).style.aspectRatio = 'auto';
+    (element as HTMLElement).style.minHeight = '700px';
 
-    const canvas = await html2canvas(element, { scale: 4, useCORS: true, backgroundColor: '#ffffff', scrollY: -window.scrollY });
+    const canvas = await html2canvas(element, { 
+      scale: 4, 
+      useCORS: true, 
+      backgroundColor: '#ffffff', 
+      scrollY: -window.scrollY,
+      width: 1000,
+      height: 700
+    });
     const link = document.createElement('a');
     link.download = `${formData.name.replace(/\s+/g, '_')}_keploy_api_fellowship_certificate.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
-    (element as HTMLElement).style.width = prevWidth;
-    (element as HTMLElement).style.height = prevHeight;
-    (element as HTMLElement).style.aspectRatio = prevAspect;
+    
+    // Restore previous styles
+    (element as HTMLElement).style.width = prevStyles.width;
+    (element as HTMLElement).style.height = prevStyles.height;
+    (element as HTMLElement).style.aspectRatio = prevStyles.aspectRatio;
+    (element as HTMLElement).style.minHeight = prevStyles.minHeight;
   };
 
   return (
-    <div className="min-h-screen relative" style={{ padding: '40px 16px' }}>
+    <div className="min-h-screen relative" style={{ padding: 'clamp(16px, 4vw, 40px) clamp(8px, 2vw, 16px)' }}>
       <style>{`
         .cg-input::placeholder { color: rgba(255,255,255,0.8); }
         .cg-btn { background: #f97316; }
         .cg-btn:hover { background: #ea580c; }
-        .download-actions { display: flex; gap: 16px; justify-content: center; width: 100%; }
-        @media (max-width: 520px) {
-          .download-actions { flex-direction: column; gap: 12px; }
-          .download-actions button { width: 92vw; margin: 0 auto; }
+        .download-actions { 
+          display: flex; 
+          gap: clamp(8px, 3vw, 16px); 
+          justify-content: center; 
+          width: 100%;
+          flex-wrap: wrap;
+        }
+        @media (max-width: 480px) {
+          .download-actions { flex-direction: column; align-items: center; }
+          .download-actions button { 
+            width: clamp(200px, 80vw, 300px); 
+            margin: 0 auto; 
+          }
         }
       `}</style>
+      
       {/* Background image visible only when certificate not generated */}
       {!certificateGenerated && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, backgroundImage: "url('https://res.cloudinary.com/dqwbkjfuh/image/upload/v1750324750/orange-painting_edknnl.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
       )}
 
-      {/* Pre-generation Form (inline styled for consistency) */}
+      {/* Pre-generation Form */}
       {!certificateGenerated && (
         <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-          <h1 style={{ color: '#ffffff', fontSize: 32, fontWeight: 800, textShadow: '0 2px 6px rgba(0,0,0,0.3)', marginBottom: 8 }}>Keploy API Fellowship Certificate</h1>
-          <p style={{ color: 'rgba(255,255,255,0.9)', marginBottom: 12, textShadow: '0 1px 3px rgba(0,0,0,0.25)' }}>Enter your details to generate your certificate</p>
+          <h1 style={{ 
+            color: '#ffffff', 
+            fontSize: 'clamp(20px, 6vw, 32px)', 
+            fontWeight: 800, 
+            textShadow: '0 2px 6px rgba(0,0,0,0.3)', 
+            marginBottom: 8,
+            textAlign: 'center',
+            lineHeight: 1.2
+          }}>Keploy API Fellowship Certificate</h1>
+          
+          <p style={{ 
+            color: 'rgba(255,255,255,0.9)', 
+            marginBottom: 12, 
+            textShadow: '0 1px 3px rgba(0,0,0,0.25)',
+            fontSize: 'clamp(12px, 3vw, 16px)',
+            textAlign: 'center'
+          }}>Enter your details to generate your certificate</p>
 
           <form onSubmit={(e) => { e.preventDefault(); handleGenerate(); }}
             style={{
-              width: 'min(420px, 95vw)',
+              width: 'clamp(280px, 90vw, 420px)',
               background: 'rgba(255,255,255,0.15)',
               border: '1px solid rgba(255,255,255,0.35)',
               boxShadow: '0 10px 30px rgba(0,0,0,0.25)',
               borderRadius: 14,
-              padding: 18,
+              padding: 'clamp(14px, 4vw, 18px)',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
               color: '#fff'
@@ -247,9 +719,14 @@ export default function CertificateGenerator() {
                 required
                 className="cg-input"
                 style={{
-                  width: '100%', padding: '10px 12px', borderRadius: 10,
-                  border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.25)',
-                  color: '#fff', outline: 'none'
+                  width: '100%', 
+                  padding: 'clamp(8px, 2vw, 12px)', 
+                  borderRadius: 10,
+                  border: '1px solid rgba(255,255,255,0.4)', 
+                  background: 'rgba(255,255,255,0.25)',
+                  color: '#fff', 
+                  outline: 'none',
+                  fontSize: 'clamp(12px, 3vw, 16px)'
                 }}
               />
               <input
@@ -261,17 +738,28 @@ export default function CertificateGenerator() {
                 required
                 className="cg-input"
                 style={{
-                  width: '100%', padding: '10px 12px', borderRadius: 10,
-                  border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.25)',
-                  color: '#fff', outline: 'none'
+                  width: '100%', 
+                  padding: 'clamp(8px, 2vw, 12px)', 
+                  borderRadius: 10,
+                  border: '1px solid rgba(255,255,255,0.4)', 
+                  background: 'rgba(255,255,255,0.25)',
+                  color: '#fff', 
+                  outline: 'none',
+                  fontSize: 'clamp(12px, 3vw, 16px)'
                 }}
               />
 
               <button type="submit"
                 className="cg-btn"
                 style={{
-                  width: '100%', color: '#fff', fontWeight: 700,
-                  padding: '10px 12px', borderRadius: 10, border: 'none', cursor: 'pointer'
+                  width: '100%', 
+                  color: '#fff', 
+                  fontWeight: 700,
+                  padding: 'clamp(8px, 2vw, 12px)', 
+                  borderRadius: 10, 
+                  border: 'none', 
+                  cursor: 'pointer',
+                  fontSize: 'clamp(12px, 3vw, 16px)'
                 }}
               >
                 Generate Certificate
@@ -279,7 +767,15 @@ export default function CertificateGenerator() {
             </div>
 
             {certificateGenerated === false && (
-              <div style={{ marginTop: 12, padding: 10, borderRadius: 10, border: '1px solid rgba(254,226,226,0.8)', background: 'rgba(254,226,226,0.35)', color: '#7f1d1d' }}>
+              <div style={{ 
+                marginTop: 12, 
+                padding: 'clamp(8px, 2vw, 10px)', 
+                borderRadius: 10, 
+                border: '1px solid rgba(254,226,226,0.8)', 
+                background: 'rgba(254,226,226,0.35)', 
+                color: '#7f1d1d',
+                fontSize: 'clamp(11px, 2.5vw, 14px)'
+              }}>
                 <strong style={{ display: 'block', marginBottom: 6 }}>Certificate generation unsuccessful:</strong>
                 <ul style={{ margin: 0, paddingLeft: 18 }}>
                   <li>Ensure you are using a verified email address.</li>
@@ -293,8 +789,8 @@ export default function CertificateGenerator() {
 
       {/* Certificate Preview */}
       {certificateGenerated && (
-        <div className="flex flex-col items-center">
-          <div ref={certificateRef} className="mt-8">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div ref={certificateRef} style={{ marginTop: 'clamp(12px, 3vw, 32px)', width: '100%' }}>
             <Certificate 
               name={formData.name} 
               program="Keploy API Fellowship Program"
@@ -303,21 +799,27 @@ export default function CertificateGenerator() {
             />
           </div>
 
-          <div className="download-actions" style={{ marginTop: 24 }}>
+          <div className="download-actions" style={{ marginTop: 'clamp(16px, 4vw, 24px)' }}>
             <button
               onClick={handleDownloadPDF}
               disabled={isGenerating}
               style={{
                 backgroundColor: isGenerating ? '#fb923c' : '#f97316',
                 color: '#fff',
-                padding: '10px 16px',
+                padding: 'clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px)',
                 borderRadius: 8,
                 fontWeight: 600,
                 border: 'none',
-                cursor: isGenerating ? 'wait' : 'pointer'
+                cursor: isGenerating ? 'wait' : 'pointer',
+                fontSize: 'clamp(12px, 2.5vw, 16px)',
+                minWidth: '120px'
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#ea580c'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = isGenerating ? '#fb923c' : '#f97316'; }}
+              onMouseEnter={(e) => { 
+                if (!isGenerating) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#ea580c'; 
+              }}
+              onMouseLeave={(e) => { 
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = isGenerating ? '#fb923c' : '#f97316'; 
+              }}
             >
               {isGenerating ? 'Generating…' : 'Download PDF'}
             </button>
@@ -326,11 +828,13 @@ export default function CertificateGenerator() {
               style={{
                 backgroundColor: '#16a34a',
                 color: '#fff',
-                padding: '10px 16px',
+                padding: 'clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px)',
                 borderRadius: 8,
                 fontWeight: 600,
                 border: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                fontSize: 'clamp(12px, 2.5vw, 16px)',
+                minWidth: '120px'
               }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#15803d'; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#16a34a'; }}
@@ -342,4 +846,4 @@ export default function CertificateGenerator() {
       )}
     </div>
   );
-} 
+}
