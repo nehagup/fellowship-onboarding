@@ -481,7 +481,7 @@ const Certificate = ({ name, program, signer, date }: any) => {
             textAlign: 'center'
           }}>
             <div style={{ marginBottom: 'clamp(4px, 1vw, 10px)' }}>
-              for successfully participating <span style={{ fontWeight: 600, color: '#7a4b2a' }}>{program}</span>!
+              for successfully in <span style={{ fontWeight: 600, color: '#7a4b2a' }}>{program}</span>!
             </div>
             <div>
               Your dedication and hard work have made a significant impact, and we are truly grateful for your support.
@@ -750,7 +750,7 @@ export default function CertificateGenerator() {
               />
 
               <button type="submit"
-                className="cg-btn"
+                className="bg-[#1a0e1f] hover:bg-[#2b1535] text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-200 font-semibold py-3 px-4 rounded-lg transition shadow-md shadow-orange-900 hover:shadow-orange-500 border border-orange-800"
                 style={{
                   width: '100%', 
                   color: '#fff', 
