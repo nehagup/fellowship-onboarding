@@ -6,143 +6,143 @@ import jsPDF from 'jspdf';
 import { Alex_Brush } from 'next/font/google';
 
 const verifiedEmails = new Set([
-    'amaan.bhati@keploy.io',
-    'mahallepratik683@gmail.com',
-    'aarab.nishchal@gmail.com',
-    '2206424@kiit.ac.in',
-    'devabdulx@gmail.com',
-    'abhayrathore036@gmail.com',
-    'adarshsikreewal1211@gmail.com',
-    '22051308@kiit.ac.in',
-    'adityabahadur294@gmail.com',
-    'prakashaditya061@gmail.com',
-    '22052616@kiit.ac.in',
-    'amanraj1227@gmail.com',
-    '22051055@kiit.ac.in',
-    'ananyaritu51@gmail.com',
-    'andrew@consarnproject.com',
-    'tuanafk2006@gmail.com',
-    '22052093@kiit.ac.in',
-    'anjupathak9810@gmail.com',
-    '22053140@kiit.ac.in',
-    '22052706@kiit.ac.in',
-    'annashapaul65855@gmail.com',
-    'anthonyrozario62@gmail.com',
-    'anuragofficial260@gmail.com',
-    'anushaamar1111@gmail.com',
-    '2205712@kiit.ac.in',
-    '22053227@kiit.ac.in',
-    'arinkishore7@gmail.com',
-    '22051754@kiit.ac.in',
-    'singhaarka0@gmail.com',
-    'arpreet4114@gmail.com',
-    '22054363@kiit.ac.in',
-    '22052626@kiit.ac.in',
-    '22052101@kiit.ac.in',
-    'aryanv.india1@gmail.com',
-    '2205190@kiit.ac.in',
-    'ashishsingh009876@gmail.com',
-    'eatulrajput@gmail.com',
-    '22054295@kiit.ac.in',
-    'dasayush483@gmail.com',
-    'kumar.ayushx24@gmail.com',
-    'ayushmans012@gmail.com',
-    'debarjunpal134@gmail.com',
-    'deepsikha1104@gmail.com',
-    'devanshbajpai07@gmail.com',
-    'mdl.dhruba@gmail.com',
-    'utsuronoyume@gmail.com',
-    '22051158@kiit.ac.in',
-    '22052724@kiit.ac.in',
-    'gkrcoder@gmail.com',
-    'hansikachaudhary20@gmail.com',
-    'hranjan3246@gmail.com',
-    'harshitbamotra.01@gmail.com',
-    '22052982@kiit.ac.in',
-    'harshit.kr.singh.work@gmail.com',
-    '22052983@kiit.ac.in',
-    '2205732@kiit.ac.in',
-    '22052388@kiit.ac.in',
-    'roykaushik354@gmail.com',
-    '22052732@kiit.ac.in',
-    '22051081@kiit.ac.in',
-    'kanimeena678@gmail.com',
-    'krishsenpai7@gmail.com',
-    '22054339@kiit.ac.in',
-    '22053178@kiit.ac.in',
-    '22052471@kiit.ac.in',
-    'maithilibprojects@gmail.com',
-    '2206353@kiit.ac.in',
-    'manveer7saggu@gmail.com',
-    '2205751@kiit.ac.in',
-    'agrawalmohak988@gmail.com',
-    'mohamedimthiyas62696@gmail.com',
-    'monasrimohandoss@gmail.com',
-    'mratyunjaychouhan45@gmail.com',
-    'mridulagarwal20082004@gmail.com',
-    'nehabommireddy@gmail.com',
-    'omaasinha.99@gmail.com',
-    'p2005p5499p@gmail.com',
-    '22054406@kiit.ac.in',
-    '22052485@kiit.ac.in',
-    'pranjalbarnwaldev@gmail.com',
-    '22053615@kiit.ac.in',
-    'kotalpratik@gmail.com',
-    '22051178@kiit.ac.in',
-    'rajpriyanshu1204@gmail.com',
-    'lragesh28@gmail.com',
-    '2470251@kiit.ac.in',
-    '22052842@kiit.ac.in',
-    '22052576@kiit.ac.in',
-    'ramankumar7c@gmail.com',
-    '22052140@kiit.ac.in',
-    'deyricky36@gmail.com',
-    'rishikesh2747@gmail.com',
-    '22052668@kiit.ac.in',
-    '2228053@kiit.ac.in',
-    'mauryapriyadarshi2004@gmail.com',
-    '22051187@kiit.ac.in',
-    'dripclade@gmail.com',
-    'samriddhi.singh1222@gmail.com',
-    'sanjanabiswasiscute@gmail.com',
-    '2205846@kiit.ac.in',
-    'sahadribhattacharyya@gmail.com',
-    '2229061@kiit.ac.in',
-    'shafaqueakhtar43@gmail.com',
-    'shaswatjha12345@gmail.com',
-    '22052854@kiit.ac.in',
-    '22051621@kiit.ac.in',
-    '22053194@kiit.ac.in',
-    '2230290@kiit.ac.in',
-    '22052155@kiit.ac.in',
-    'shritisadhu@gmail.com',
-    '2230121@kiit.ac.in',
-    'shubhamsahoo401@gmail.com',
-    '22051027@kiit.ac.in',
-    '33sorbojitmondal@gmail.com',
-    'soumyodeep89s@gmail.com',
-    '22051289@kiit.ac.in',
-    '100sumanghosh@gmail.com',
-    'swapsnil12@gmail.com',
-    '22054184@kiit.ac.in',
-    'thiyathiya088@gmail.com',
-    '2470404@kiit.ac.in',
-    'uddipta278@gmail.com',
-    '2205951@kiit.ac.in',
-    'utkarshshah000@gmail.com',
-    'varun.mohanta323@gmail.com',
-    '22053301@kiit.ac.in',
-    'vipulsingh.1404@gmail.com',
-    'singhvishalk165@gmail.com',
-    'yashigarg016@gmail.com',
-    'ybhatter@scu.edu',
-    'prasadyuvraj8805@gmail.com',
-    'xq1@williams.edu',
+  'amaan.bhati@keploy.io',
+  'mahallepratik683@gmail.com',
+  'aarab.nishchal@gmail.com',
+  '2206424@kiit.ac.in',
+  'devabdulx@gmail.com',
+  'abhayrathore036@gmail.com',
+  'adarshsikreewal1211@gmail.com',
+  '22051308@kiit.ac.in',
+  'adityabahadur294@gmail.com',
+  'prakashaditya061@gmail.com',
+  '22052616@kiit.ac.in',
+  'amanraj1227@gmail.com',
+  '22051055@kiit.ac.in',
+  'ananyaritu51@gmail.com',
+  'andrew@consarnproject.com',
+  'tuanafk2006@gmail.com',
+  '22052093@kiit.ac.in',
+  'anjupathak9810@gmail.com',
+  '22053140@kiit.ac.in',
+  '22052706@kiit.ac.in',
+  'annashapaul65855@gmail.com',
+  'anthonyrozario62@gmail.com',
+  'anuragofficial260@gmail.com',
+  'anushaamar1111@gmail.com',
+  '2205712@kiit.ac.in',
+  '22053227@kiit.ac.in',
+  'arinkishore7@gmail.com',
+  '22051754@kiit.ac.in',
+  'singhaarka0@gmail.com',
+  'arpreet4114@gmail.com',
+  '22054363@kiit.ac.in',
+  '22052626@kiit.ac.in',
+  '22052101@kiit.ac.in',
+  'aryanv.india1@gmail.com',
+  '2205190@kiit.ac.in',
+  'ashishsingh009876@gmail.com',
+  'eatulrajput@gmail.com',
+  '22054295@kiit.ac.in',
+  'dasayush483@gmail.com',
+  'kumar.ayushx24@gmail.com',
+  'ayushmans012@gmail.com',
+  'debarjunpal134@gmail.com',
+  'deepsikha1104@gmail.com',
+  'devanshbajpai07@gmail.com',
+  'mdl.dhruba@gmail.com',
+  'utsuronoyume@gmail.com',
+  '22051158@kiit.ac.in',
+  '22052724@kiit.ac.in',
+  'gkrcoder@gmail.com',
+  'hansikachaudhary20@gmail.com',
+  'hranjan3246@gmail.com',
+  'harshitbamotra.01@gmail.com',
+  '22052982@kiit.ac.in',
+  'harshit.kr.singh.work@gmail.com',
+  '22052983@kiit.ac.in',
+  '2205732@kiit.ac.in',
+  '22052388@kiit.ac.in',
+  'roykaushik354@gmail.com',
+  '22052732@kiit.ac.in',
+  '22051081@kiit.ac.in',
+  'kanimeena678@gmail.com',
+  'krishsenpai7@gmail.com',
+  '22054339@kiit.ac.in',
+  '22053178@kiit.ac.in',
+  '22052471@kiit.ac.in',
+  'maithilibprojects@gmail.com',
+  '2206353@kiit.ac.in',
+  'manveer7saggu@gmail.com',
+  '2205751@kiit.ac.in',
+  'agrawalmohak988@gmail.com',
+  'mohamedimthiyas62696@gmail.com',
+  'monasrimohandoss@gmail.com',
+  'mratyunjaychouhan45@gmail.com',
+  'mridulagarwal20082004@gmail.com',
+  'nehabommireddy@gmail.com',
+  'omaasinha.99@gmail.com',
+  'p2005p5499p@gmail.com',
+  '22054406@kiit.ac.in',
+  '22052485@kiit.ac.in',
+  'pranjalbarnwaldev@gmail.com',
+  '22053615@kiit.ac.in',
+  'kotalpratik@gmail.com',
+  '22051178@kiit.ac.in',
+  'rajpriyanshu1204@gmail.com',
+  'lragesh28@gmail.com',
+  '2470251@kiit.ac.in',
+  '22052842@kiit.ac.in',
+  '22052576@kiit.ac.in',
+  'ramankumar7c@gmail.com',
+  '22052140@kiit.ac.in',
+  'deyricky36@gmail.com',
+  'rishikesh2747@gmail.com',
+  '22052668@kiit.ac.in',
+  '2228053@kiit.ac.in',
+  'mauryapriyadarshi2004@gmail.com',
+  '22051187@kiit.ac.in',
+  'dripclade@gmail.com',
+  'samriddhi.singh1222@gmail.com',
+  'sanjanabiswasiscute@gmail.com',
+  '2205846@kiit.ac.in',
+  'sahadribhattacharyya@gmail.com',
+  '2229061@kiit.ac.in',
+  'shafaqueakhtar43@gmail.com',
+  'shaswatjha12345@gmail.com',
+  '22052854@kiit.ac.in',
+  '22051621@kiit.ac.in',
+  '22053194@kiit.ac.in',
+  '2230290@kiit.ac.in',
+  '22052155@kiit.ac.in',
+  'shritisadhu@gmail.com',
+  '2230121@kiit.ac.in',
+  'shubhamsahoo401@gmail.com',
+  '22051027@kiit.ac.in',
+  '33sorbojitmondal@gmail.com',
+  'soumyodeep89s@gmail.com',
+  '22051289@kiit.ac.in',
+  '100sumanghosh@gmail.com',
+  'swapsnil12@gmail.com',
+  '22054184@kiit.ac.in',
+  'thiyathiya088@gmail.com',
+  '2470404@kiit.ac.in',
+  'uddipta278@gmail.com',
+  '2205951@kiit.ac.in',
+  'utkarshshah000@gmail.com',
+  'varun.mohanta323@gmail.com',
+  '22053301@kiit.ac.in',
+  'vipulsingh.1404@gmail.com',
+  'singhvishalk165@gmail.com',
+  'yashigarg016@gmail.com',
+  'ybhatter@scu.edu',
+  'prasadyuvraj8805@gmail.com',
+  'xq1@williams.edu',
 ]);
 
 const generateCertificateId = () => `CERT-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
-const formatDate = (d: Date) => `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
+const formatDate = (d: Date) => `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
 const alexBrush = Alex_Brush({ weight: '400', subsets: ['latin'] });
 
 const Certificate = ({ name, program, signer, date }: any) => {
@@ -359,9 +359,9 @@ const Certificate = ({ name, program, signer, date }: any) => {
       `}</style>
 
       {/* Background geometric patterns */}
-      <svg 
+      <svg
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}
-        viewBox="0 0 1000 700" 
+        viewBox="0 0 1000 700"
         preserveAspectRatio="none"
       >
         <defs>
@@ -381,15 +381,15 @@ const Certificate = ({ name, program, signer, date }: any) => {
       </svg>
 
       {/* Inner decorative border */}
-      <div className="inner-border" style={{ 
-        position: 'absolute', 
-        top: 'clamp(8px, 3vw, 40px)', 
-        left: 'clamp(8px, 3vw, 40px)', 
-        right: 'clamp(8px, 3vw, 40px)', 
-        bottom: 'clamp(8px, 3vw, 40px)', 
-        border: '2px solid #eab308', 
-        opacity: 0.9, 
-        zIndex: 2 
+      <div className="inner-border" style={{
+        position: 'absolute',
+        top: 'clamp(8px, 3vw, 40px)',
+        left: 'clamp(8px, 3vw, 40px)',
+        right: 'clamp(8px, 3vw, 40px)',
+        bottom: 'clamp(8px, 3vw, 40px)',
+        border: '2px solid #eab308',
+        opacity: 0.9,
+        zIndex: 2
       }} />
 
       {/* Content */}
@@ -398,12 +398,12 @@ const Certificate = ({ name, program, signer, date }: any) => {
         <img className="logo"
           src="/assets/images/keploy-logo.png"
           alt="Keploy Logo"
-          style={{ 
-            position: 'absolute', 
-            top: 'clamp(20px, 5vw, 65px)', 
-            left: 'clamp(20px, 5vw, 65px)', 
-            width: 'clamp(50px, 10vw, 120px)', 
-            height: 'auto', 
+          style={{
+            position: 'absolute',
+            top: 'clamp(20px, 5vw, 65px)',
+            left: 'clamp(20px, 5vw, 65px)',
+            width: 'clamp(50px, 10vw, 120px)',
+            height: 'auto',
             objectFit: 'contain',
             imageRendering: 'crisp-edges' as any,
             zIndex: 15
@@ -412,120 +412,120 @@ const Certificate = ({ name, program, signer, date }: any) => {
         />
 
         {/* Main Content */}
-        <div className="main-content" style={{ 
-          flex: 1, 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          padding: 'clamp(20px, 8vw, 100px) clamp(12px, 6vw, 80px) 0', 
-          textAlign: 'center' 
+        <div className="main-content" style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 'clamp(20px, 8vw, 100px) clamp(12px, 6vw, 80px) 0',
+          textAlign: 'center'
         }}>
-          <div className="cert-title" style={{ 
-            fontFamily: 'serif', 
-            fontSize: 'clamp(18px, 5vw, 60px)', 
-            fontWeight: 800, 
-            color: '#111827', 
-            marginBottom: 'clamp(4px, 2vw, 10px)', 
-            letterSpacing: 'clamp(2px, 1vw, 6px)' 
+          <div className="cert-title" style={{
+            fontFamily: 'serif',
+            fontSize: 'clamp(18px, 5vw, 60px)',
+            fontWeight: 800,
+            color: '#111827',
+            marginBottom: 'clamp(4px, 2vw, 10px)',
+            letterSpacing: 'clamp(2px, 1vw, 6px)'
           }}>CERTIFICATE</div>
-          
-          <div className="cert-subtitle" style={{ 
-            fontFamily: 'serif', 
-            fontSize: 'clamp(8px, 2vw, 18px)', 
-            color: '#6b7280', 
-            letterSpacing: 'clamp(2px, 1vw, 6px)', 
-            marginBottom: 'clamp(6px, 2vw, 12px)', 
-            textTransform: 'uppercase' 
+
+          <div className="cert-subtitle" style={{
+            fontFamily: 'serif',
+            fontSize: 'clamp(8px, 2vw, 18px)',
+            color: '#6b7280',
+            letterSpacing: 'clamp(2px, 1vw, 6px)',
+            marginBottom: 'clamp(6px, 2vw, 12px)',
+            textTransform: 'uppercase'
           }}>OF PARTICIPATION</div>
 
-          <div className="present-text" style={{ 
-            fontSize: 'clamp(9px, 2vw, 18px)', 
-            color: '#374151', 
-            marginBottom: 'clamp(6px, 2vw, 12px)' 
+          <div className="present-text" style={{
+            fontSize: 'clamp(9px, 2vw, 18px)',
+            color: '#374151',
+            marginBottom: 'clamp(6px, 2vw, 12px)'
           }}>We are proud to present this to</div>
 
           <div className="name-block" style={{ marginBottom: 'clamp(8px, 3vw, 16px)' }}>
-            <div className="name-accent-top" style={{ 
-              width: 'clamp(30px, 6vw, 64px)', 
-              height: 'clamp(2px, 0.5vw, 3px)', 
-              background: '#b67d4b', 
-              margin: '0 auto clamp(4px, 2vw, 12px)' 
+            <div className="name-accent-top" style={{
+              width: 'clamp(30px, 6vw, 64px)',
+              height: 'clamp(2px, 0.5vw, 3px)',
+              background: '#b67d4b',
+              margin: '0 auto clamp(4px, 2vw, 12px)'
             }} />
-            
-            <div className="participant-name" style={{ 
-              fontFamily: 'serif', 
-              fontSize: 'clamp(16px, 4vw, 48px)', 
-              fontWeight: 800, 
-              color: '#7a4b2a', 
-              marginBottom: 'clamp(6px, 2vw, 14px)', 
+
+            <div className="participant-name" style={{
+              fontFamily: 'serif',
+              fontSize: 'clamp(16px, 4vw, 48px)',
+              fontWeight: 800,
+              color: '#7a4b2a',
+              marginBottom: 'clamp(6px, 2vw, 14px)',
               lineHeight: 1.15,
               wordBreak: 'break-word',
               hyphens: 'auto'
             }}>{name}</div>
-            
-            <div className="name-underline" style={{ 
-              width: 'clamp(60%, 15vw, 70%)', 
-              height: 'clamp(1px, 0.3vw, 2px)', 
-              background: '#8b5e3c', 
-              margin: 'clamp(6px, 2vw, 18px) auto 0' 
+
+            <div className="name-underline" style={{
+              width: 'clamp(60%, 15vw, 70%)',
+              height: 'clamp(1px, 0.3vw, 2px)',
+              background: '#8b5e3c',
+              margin: 'clamp(6px, 2vw, 18px) auto 0'
             }} />
           </div>
 
-          <div className="body-paragraph" style={{ 
-            maxWidth: '90%', 
-            color: '#374151', 
-            fontSize: 'clamp(9px, 1.8vw, 16px)', 
-            lineHeight: 'clamp(1.4, 0.3vw, 1.6)', 
+          <div className="body-paragraph" style={{
+            maxWidth: '90%',
+            color: '#374151',
+            fontSize: 'clamp(9px, 1.8vw, 16px)',
+            lineHeight: 'clamp(1.4, 0.3vw, 1.6)',
             marginBottom: 'clamp(8px, 3vw, 18px)',
             textAlign: 'center'
           }}>
             <div style={{ marginBottom: 'clamp(4px, 1vw, 10px)' }}>
-              for successfully in <span style={{ fontWeight: 600, color: '#7a4b2a' }}>{program}</span>!
+              for participating in <span style={{ fontWeight: 600, color: '#7a4b2a' }}>{program}</span>!
             </div>
             <div>
               Your dedication and hard work have made a significant impact, and we are truly grateful for your support.
             </div>
           </div>
 
-          <div className="decorative-line" style={{ 
-            width: 'clamp(50px, 8vw, 80px)', 
-            height: 'clamp(2px, 0.5vw, 4px)', 
-            background: '#b67d4b', 
-            borderRadius: 9999 
+          <div className="decorative-line" style={{
+            width: 'clamp(50px, 8vw, 80px)',
+            height: 'clamp(2px, 0.5vw, 4px)',
+            background: '#b67d4b',
+            borderRadius: 9999
           }} />
         </div>
 
         {/* Footer with centered Signature */}
-        <div className="footer-block" style={{ 
-          position: 'relative', 
-          padding: '0 clamp(8px, 4vw, 48px) clamp(12px, 4vw, 64px)', 
-          height: 'clamp(60px, 12vw, 146px)' 
+        <div className="footer-block" style={{
+          position: 'relative',
+          padding: '0 clamp(8px, 4vw, 48px) clamp(12px, 4vw, 64px)',
+          height: 'clamp(60px, 12vw, 146px)'
         }}>
-          <div className="signer-block" style={{ 
-            position: 'absolute', 
-            left: '50%', 
-            transform: 'translateX(-50%)', 
-            bottom: 'clamp(10px, 4vw, 60px)', 
-            textAlign: 'center' 
+          <div className="signer-block" style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            bottom: 'clamp(10px, 4vw, 60px)',
+            textAlign: 'center'
           }}>
-            <div className={`${alexBrush.className} signature-name`} style={{ 
-              fontSize: 'clamp(16px, 3vw, 44px)', 
-              color: '#25303f', 
-              marginBottom: 'clamp(2px, 1vw, 12px)', 
-              lineHeight: 1 
+            <div className={`${alexBrush.className} signature-name`} style={{
+              fontSize: 'clamp(16px, 3vw, 44px)',
+              color: '#25303f',
+              marginBottom: 'clamp(2px, 1vw, 12px)',
+              lineHeight: 1
             }}>Neha Gupta</div>
-            
-            <div className="signer-name" style={{ 
-              fontWeight: 700, 
-              color: '#7a4b2a', 
-              fontSize: 'clamp(8px, 1.5vw, 12px)', 
-              marginBottom: 2 
+
+            <div className="signer-name" style={{
+              fontWeight: 700,
+              color: '#7a4b2a',
+              fontSize: 'clamp(8px, 1.5vw, 12px)',
+              marginBottom: 2
             }}>Neha Gupta</div>
-            
-            <div className="signer-title" style={{ 
-              fontSize: 'clamp(8px, 1.5vw, 12px)', 
-              color: '#6b7280' 
+
+            <div className="signer-title" style={{
+              fontSize: 'clamp(8px, 1.5vw, 12px)',
+              color: '#6b7280'
             }}>CEO, Keploy.io</div>
           </div>
         </div>
@@ -536,9 +536,9 @@ const Certificate = ({ name, program, signer, date }: any) => {
 
 export default function CertificateGenerator() {
   const certificateRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState({ 
-    name: '', 
-    email: '', 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
     signer: 'Neha Gupta'
   });
   const [certificateGenerated, setCertificateGenerated] = useState<boolean | null>(null);
@@ -578,15 +578,15 @@ export default function CertificateGenerator() {
         aspectRatio: (element as HTMLElement).style.aspectRatio,
         minHeight: (element as HTMLElement).style.minHeight
       };
-      
+
       (element as HTMLElement).style.width = '1000px';
       (element as HTMLElement).style.height = '700px';
       (element as HTMLElement).style.aspectRatio = 'auto';
       (element as HTMLElement).style.minHeight = '700px';
-      
+
       const width = 1000;
       const height = 700;
-      const canvas = await html2canvas(element, { 
+      const canvas = await html2canvas(element, {
         scale: 4,
         useCORS: true,
         backgroundColor: '#ffffff',
@@ -599,7 +599,7 @@ export default function CertificateGenerator() {
       const pdf = new jsPDF('landscape', 'px', [width, height]);
       pdf.addImage(imgData, 'PNG', 0, 0, width, height);
       pdf.save(`${formData.name.replace(/\s+/g, '_')}_keploy_api_fellowship_certificate.pdf`);
-      
+
       // Restore previous styles
       (element as HTMLElement).style.width = prevStyles.width;
       (element as HTMLElement).style.height = prevStyles.height;
@@ -623,16 +623,16 @@ export default function CertificateGenerator() {
       aspectRatio: (element as HTMLElement).style.aspectRatio,
       minHeight: (element as HTMLElement).style.minHeight
     };
-    
+
     (element as HTMLElement).style.width = '1000px';
     (element as HTMLElement).style.height = '700px';
     (element as HTMLElement).style.aspectRatio = 'auto';
     (element as HTMLElement).style.minHeight = '700px';
 
-    const canvas = await html2canvas(element, { 
-      scale: 4, 
-      useCORS: true, 
-      backgroundColor: '#ffffff', 
+    const canvas = await html2canvas(element, {
+      scale: 4,
+      useCORS: true,
+      backgroundColor: '#ffffff',
       scrollY: -window.scrollY,
       width: 1000,
       height: 700
@@ -641,7 +641,7 @@ export default function CertificateGenerator() {
     link.download = `${formData.name.replace(/\s+/g, '_')}_keploy_api_fellowship_certificate.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
-    
+
     // Restore previous styles
     (element as HTMLElement).style.width = prevStyles.width;
     (element as HTMLElement).style.height = prevStyles.height;
@@ -670,7 +670,7 @@ export default function CertificateGenerator() {
           }
         }
       `}</style>
-      
+
       {/* Background image visible only when certificate not generated */}
       {!certificateGenerated && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, backgroundImage: "url('https://res.cloudinary.com/dqwbkjfuh/image/upload/v1750324750/orange-painting_edknnl.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
@@ -679,19 +679,19 @@ export default function CertificateGenerator() {
       {/* Pre-generation Form */}
       {!certificateGenerated && (
         <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-          <h1 style={{ 
-            color: '#ffffff', 
-            fontSize: 'clamp(20px, 6vw, 32px)', 
-            fontWeight: 800, 
-            textShadow: '0 2px 6px rgba(0,0,0,0.3)', 
+          <h1 style={{
+            color: '#ffffff',
+            fontSize: 'clamp(20px, 6vw, 32px)',
+            fontWeight: 800,
+            textShadow: '0 2px 6px rgba(0,0,0,0.3)',
             marginBottom: 8,
             textAlign: 'center',
             lineHeight: 1.2
           }}>Keploy API Fellowship Certificate</h1>
-          
-          <p style={{ 
-            color: 'rgba(255,255,255,0.9)', 
-            marginBottom: 12, 
+
+          <p style={{
+            color: 'rgba(255,255,255,0.9)',
+            marginBottom: 12,
             textShadow: '0 1px 3px rgba(0,0,0,0.25)',
             fontSize: 'clamp(12px, 3vw, 16px)',
             textAlign: 'center'
@@ -719,12 +719,12 @@ export default function CertificateGenerator() {
                 required
                 className="cg-input"
                 style={{
-                  width: '100%', 
-                  padding: 'clamp(8px, 2vw, 12px)', 
+                  width: '100%',
+                  padding: 'clamp(8px, 2vw, 12px)',
                   borderRadius: 10,
-                  border: '1px solid rgba(255,255,255,0.4)', 
+                  border: '1px solid rgba(255,255,255,0.4)',
                   background: 'rgba(255,255,255,0.25)',
-                  color: '#fff', 
+                  color: '#fff',
                   outline: 'none',
                   fontSize: 'clamp(12px, 3vw, 16px)'
                 }}
@@ -738,12 +738,12 @@ export default function CertificateGenerator() {
                 required
                 className="cg-input"
                 style={{
-                  width: '100%', 
-                  padding: 'clamp(8px, 2vw, 12px)', 
+                  width: '100%',
+                  padding: 'clamp(8px, 2vw, 12px)',
                   borderRadius: 10,
-                  border: '1px solid rgba(255,255,255,0.4)', 
+                  border: '1px solid rgba(255,255,255,0.4)',
                   background: 'rgba(255,255,255,0.25)',
-                  color: '#fff', 
+                  color: '#fff',
                   outline: 'none',
                   fontSize: 'clamp(12px, 3vw, 16px)'
                 }}
@@ -752,12 +752,12 @@ export default function CertificateGenerator() {
               <button type="submit"
                 className="bg-[#1a0e1f] hover:bg-[#2b1535] text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-200 font-semibold py-3 px-4 rounded-lg transition shadow-md shadow-orange-900 hover:shadow-orange-500 border border-orange-800"
                 style={{
-                  width: '100%', 
-                  color: '#fff', 
+                  width: '100%',
+                  color: '#fff',
                   fontWeight: 700,
-                  padding: 'clamp(8px, 2vw, 12px)', 
-                  borderRadius: 10, 
-                  border: 'none', 
+                  padding: 'clamp(8px, 2vw, 12px)',
+                  borderRadius: 10,
+                  border: 'none',
                   cursor: 'pointer',
                   fontSize: 'clamp(12px, 3vw, 16px)'
                 }}
@@ -767,18 +767,19 @@ export default function CertificateGenerator() {
             </div>
 
             {certificateGenerated === false && (
-              <div style={{ 
-                marginTop: 12, 
-                padding: 'clamp(8px, 2vw, 10px)', 
-                borderRadius: 10, 
-                border: '1px solid rgba(254,226,226,0.8)', 
-                background: 'rgba(254,226,226,0.35)', 
+              <div style={{
+                marginTop: 12,
+                padding: 'clamp(8px, 2vw, 10px)',
+                borderRadius: 10,
+                border: '1px solid rgba(254,226,226,0.8)',
+                background: 'rgba(254,226,226,0.35)',
                 color: '#7f1d1d',
                 fontSize: 'clamp(11px, 2.5vw, 14px)'
               }}>
                 <strong style={{ display: 'block', marginBottom: 6 }}>Certificate generation unsuccessful:</strong>
                 <ul style={{ margin: 0, paddingLeft: 18 }}>
-                  <li>Ensure you are using a verified email address.</li>
+                  <li>This certificate is only issued to the participants who have submitted all the 5 assignments in the program.</li>
+                  <li>Ensure you are using the registered email address.</li>
                   <li>Contact the program administrator if you believe this is an error.</li>
                 </ul>
               </div>
@@ -791,8 +792,8 @@ export default function CertificateGenerator() {
       {certificateGenerated && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div ref={certificateRef} style={{ marginTop: 'clamp(12px, 3vw, 32px)', width: '100%' }}>
-            <Certificate 
-              name={formData.name} 
+            <Certificate
+              name={formData.name}
               program="Keploy API Fellowship Program"
               signer={formData.signer}
               date={formatDate(new Date())}
@@ -814,11 +815,11 @@ export default function CertificateGenerator() {
                 fontSize: 'clamp(12px, 2.5vw, 16px)',
                 minWidth: '120px'
               }}
-              onMouseEnter={(e) => { 
-                if (!isGenerating) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#ea580c'; 
+              onMouseEnter={(e) => {
+                if (!isGenerating) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#ea580c';
               }}
-              onMouseLeave={(e) => { 
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor = isGenerating ? '#fb923c' : '#f97316'; 
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = isGenerating ? '#fb923c' : '#f97316';
               }}
             >
               {isGenerating ? 'Generating…' : 'Download PDF'}
