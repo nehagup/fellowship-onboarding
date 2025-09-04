@@ -8,6 +8,8 @@ import { Alex_Brush } from 'next/font/google';
 const verifiedEmails = new Set([
   'amaan.bhati@keploy.io',
   'mishrashardendu22@gmail.com',
+  'aryansaxenaalig@gmail.com',
+  '2229035@kiit.ac.in',
   'mahallepratik683@gmail.com',
   'aarab.nishchal@gmail.com',
   '22051051@kiit.ac.in',
